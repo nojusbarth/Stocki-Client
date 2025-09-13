@@ -1,8 +1,8 @@
-package com.example.stocki_client.stocks;
+package com.example.stocki_client.model.stocks;
 
 public class Stock {
 
-    private String name;
+    private final String name;
 
     public Stock(String name) {
 

@@ -1,4 +1,4 @@
-package com.example.stocki_client.stocks;
+package com.example.stocki_client.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
+import com.example.stocki_client.ui.stockdetail.ShowStockActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +24,20 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHol
 
     private Context context;
 
-    public StockAdapter(List<String> stockList, Context context) {
-        this.stockList = stockList;
+    public StockAdapter(Context context) {
+        this.stockList = new ArrayList<>();
         this.filteredList = new ArrayList<>(stockList);
 
         this.context = context;
 
+        notifyDataSetChanged();
+    }
+
+
+    public void updateData(List<String> stockNames) {
+        stockList.clear();
+        stockList.addAll(stockNames);
+        filteredList = new ArrayList<>(stockList);
         notifyDataSetChanged();
     }
 

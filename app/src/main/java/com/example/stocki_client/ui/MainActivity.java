@@ -1,10 +1,11 @@
-package com.example.stocki_client;
+package com.example.stocki_client.ui;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +15,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.stocki_client.stocks.StockAdapter;
-import com.example.stocki_client.stocks.StockManager;
+import com.example.stocki_client.R;
+import com.example.stocki_client.model.stocks.StockManager;
+import com.example.stocki_client.remote.ApiClient;
+import com.example.stocki_client.remote.DataCallback;
+import com.example.stocki_client.ui.stockdetail.ShowStockActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,25 +45,48 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
 
+
     }
 
 
     private void initStocks() {
 
-        List<String> stockList = List.of("TESLA", "APPLE", "GOOGLE", "AMAZON");
-        stockManager = new StockManager(stockList);
+        //empty manager as long as no stocks are loaded
+        stockManager = new StockManager(new ArrayList<>());
+
+        ApiClient.getInstance().getTickerList(new DataCallback<List<String>>() {
+            @Override
+            public void onSuccess(List<String> tickers) {
+                runOnUiThread(() -> {
+                    stockManager = new StockManager(tickers);
+                    stockAdapter.updateData(tickers);
+                });
+            }
+
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() ->
+                        Toast.makeText(MainActivity.this, "Fehler beim Laden", Toast.LENGTH_SHORT).show()
+                );
+            }
+        });
+
+
     }
+
+
 
 
     private void initViews() {
 
         etxtSearch = findViewById(R.id.searchEditText);
         RecyclerView recStocks = findViewById(R.id.recstocks);
-
-        stockAdapter = new StockAdapter(stockManager.getStockNames(), this);
-
+        stockAdapter = new StockAdapter(this);
         recStocks.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
         recStocks.setAdapter(stockAdapter);
+
+
 
         //focus only when edittext used
         etxtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {

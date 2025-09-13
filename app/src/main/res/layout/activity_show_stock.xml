@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".stocks.ShowStockActivity">
+    tools:context=".ui.stockdetail.ShowStockActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBarShowStock"
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:text="PLACEHOLDER"
             android:textSize="25dp"
@@ -42,10 +42,25 @@
             android:layout_below="@+id/txtStockTitle"
             android:layout_marginHorizontal="20dp"
 
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
 
             android:id="@+id/stockDataChart"
             />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recPredictions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+
+            android:layout_below="@+id/stockDataChart"
+            />
+
+
+
 
 
     </RelativeLayout>

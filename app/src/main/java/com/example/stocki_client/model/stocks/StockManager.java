@@ -1,4 +1,4 @@
-package com.example.stocki_client.stocks;
+package com.example.stocki_client.model.stocks;
 
 import java.util.ArrayList;
 import java.util.List;
