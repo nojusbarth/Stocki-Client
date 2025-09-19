@@ -3,6 +3,8 @@ package com.example.stocki_client.ui.stockdetail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,8 +31,12 @@ import java.util.List;
 
 public class ShowStockActivity extends AppCompatActivity {
 
+    private static final int PERIOD_PREDICTION = 3;
+    private static final int PERIOD_HISTORICAL= 14;
 
     private String stockName;
+    private String interval = "1d";
+
     private ApiClient client;
     private ChartBuilder chartBuilder;
     private PredictionAdapter predictionAdapter;
@@ -58,6 +64,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
         createToolBar();
         initViews();
+        initButtons();
 
         //order is important, fetch data after everything is initialized
         getHistorical();
@@ -94,14 +101,45 @@ public class ShowStockActivity extends AppCompatActivity {
 
     }
 
+    private void initButtons() {
+
+        Button dailyButton = findViewById(R.id.btnTimeChangeDaily);
+        Button hourlyButton = findViewById(R.id.btnTimeChangeHourly);
+
+        dailyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!interval.equals("1d")) {
+                    interval = "1d";
+                    getHistorical();
+                    getPrediction();
+                }
+
+            }
+        });
+
+        hourlyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!interval.equals("1h")) {
+                    interval = "1h";
+                    getHistorical();
+                    getPrediction();
+                }
+            }
+        });
+
+    }
+
+
     private void updateChart() {
         LineChart lineChart = findViewById(R.id.stockDataChart);
         chartBuilder.buildChart(lineChart);
     }
 
-
     private void getHistorical() {
-        client.getHistorical(stockName, 14, new DataCallback<List<StockDataPoint>>() {
+        client.getHistorical(stockName, PERIOD_HISTORICAL, interval, new DataCallback<List<StockDataPoint>>() {
             @Override
             public void onSuccess(List<StockDataPoint> data) {
                 chartBuilder.setHistorical(data);
@@ -120,7 +158,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
 
     private void getPrediction() {
-        client.getPrediction(stockName, 3, new DataCallback<List<PredictionDataPoint>>() {
+        client.getPrediction(stockName, PERIOD_PREDICTION, interval, new DataCallback<List<PredictionDataPoint>>() {
             @Override
             public void onSuccess(List<PredictionDataPoint> data) {
                 runOnUiThread(() -> {

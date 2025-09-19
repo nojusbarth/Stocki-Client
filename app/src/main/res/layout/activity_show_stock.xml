@@ -47,6 +47,31 @@
             android:id="@+id/stockDataChart"
             />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTimeChangeHourly"
+            android:layout_below="@id/stockDataChart"
+            android:layout_marginTop="10dp"
+            style="@style/TimeChangeButtonStyle"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="40dp"
+
+            android:text="hourly"
+            app:backgroundTint="@null"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTimeChangeDaily"
+            android:layout_below="@id/stockDataChart"
+            android:layout_marginTop="10dp"
+            style="@style/TimeChangeButtonStyle"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="40dp"
+
+            android:text="daily"
+            app:backgroundTint="@null"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recPredictions"
@@ -56,7 +81,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="30dp"
 
-            android:layout_below="@+id/stockDataChart"
+            android:layout_below="@+id/btnTimeChangeHourly"
             />
 
 

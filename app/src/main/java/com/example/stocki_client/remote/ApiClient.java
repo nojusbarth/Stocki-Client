@@ -26,9 +26,9 @@ public class ApiClient {
 
     private OkHttpClient client;
     private final String baseURL = "http://10.0.2.2:5000";
-    private final String historicalRequest = "%s/historical/%s?days=%d";
+    private final String historicalRequest = "%s/historical/%s?period=%d&interval=%s";
     private final String tickerListRequest = "%s/stocknames";
-    private final String predictionRequest = "%s/predictions/%s?days=%d";
+    private final String predictionRequest = "%s/predictions/%s?period=%d&interval=%s";
 
     private ApiClient() {
         client = new OkHttpClient();
@@ -74,9 +74,9 @@ public class ApiClient {
 
     }
 
-    public void getHistorical(String ticker, int days, DataCallback callback) {
+    public void getHistorical(String ticker, int days, String interval, DataCallback callback) {
 
-        String requestHTTP = String.format(historicalRequest, baseURL, ticker, days);
+        String requestHTTP = String.format(historicalRequest, baseURL, ticker, days, interval);
 
         Request request = new Request.Builder()
                 .url(requestHTTP)
@@ -109,9 +109,9 @@ public class ApiClient {
     }
 
 
-    public void getPrediction(String ticker, int days, DataCallback callback) {
+    public void getPrediction(String ticker, int days, String interval, DataCallback callback) {
 
-        String requestHTTP = String.format(predictionRequest, baseURL, ticker, days);
+        String requestHTTP = String.format(predictionRequest, baseURL, ticker, days, interval);
         Request request = new Request.Builder()
                 .url(requestHTTP)
                 .build();
