@@ -81,7 +81,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
         RecyclerView recPreds = findViewById(R.id.recPredictions);
 
-        predictionAdapter = new PredictionAdapter();
+        predictionAdapter = new PredictionAdapter(this.stockName, this.interval, this);
         recPreds.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
         recPreds.setAdapter(predictionAdapter);
 
@@ -114,6 +114,8 @@ public class ShowStockActivity extends AppCompatActivity {
                     interval = "1d";
                     getHistorical();
                     getPrediction();
+
+                    predictionAdapter.changeInterval(interval);
                 }
 
             }
@@ -126,6 +128,8 @@ public class ShowStockActivity extends AppCompatActivity {
                     interval = "1h";
                     getHistorical();
                     getPrediction();
+
+                    predictionAdapter.changeInterval(interval);
                 }
             }
         });

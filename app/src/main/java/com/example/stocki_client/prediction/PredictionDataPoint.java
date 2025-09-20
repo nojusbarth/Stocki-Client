@@ -5,6 +5,7 @@ public class PredictionDataPoint {
     private String date;
     private float pctReturn;
     private float closePrediction;
+    private int riskScore;
 
 
     public String getDate() {
@@ -17,5 +18,9 @@ public class PredictionDataPoint {
 
     public float getClosePrediction() {
         return closePrediction;
+    }
+
+    public int getRiskScore() {
+        return riskScore;
     }
 }

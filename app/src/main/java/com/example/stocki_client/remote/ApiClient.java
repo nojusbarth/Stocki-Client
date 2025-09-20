@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 
 import com.example.stocki_client.model.stocks.StockDataPoint;
 import com.example.stocki_client.prediction.PredictionDataPoint;
+import com.example.stocki_client.ui.stockdetail.model.ModelInfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,6 +30,7 @@ public class ApiClient {
     private final String historicalRequest = "%s/historical/%s?period=%d&interval=%s";
     private final String tickerListRequest = "%s/stocknames";
     private final String predictionRequest = "%s/predictions/%s?period=%d&interval=%s";
+    private final String modelInfoRequest = "%s/modelinfo/%s?interval=%s";
 
     private ApiClient() {
         client = new OkHttpClient();
@@ -134,6 +136,35 @@ public class ApiClient {
                     List<PredictionDataPoint> predictionPoints = gson.fromJson(jsonString, listType);
 
                     callback.onSuccess(predictionPoints);
+                } else {
+                    callback.onError(new Exception("HTTP " + response.code()));
+                }
+            }
+        });
+
+    }
+
+    public void getModelInfo(String ticker, String interval, DataCallback callback) {
+        String requestHTTP = String.format(modelInfoRequest, baseURL, ticker, interval);
+        Request request = new Request.Builder()
+                .url(requestHTTP)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String jsonString = response.body().string();
+
+                    Gson gson = new Gson();
+                    ModelInfo modelInfo = gson.fromJson(jsonString, ModelInfo.class);
+
+                    callback.onSuccess(modelInfo);
                 } else {
                     callback.onError(new Exception("HTTP " + response.code()));
                 }
