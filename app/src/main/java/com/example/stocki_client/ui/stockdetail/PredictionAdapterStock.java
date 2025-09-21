@@ -1,6 +1,5 @@
 package com.example.stocki_client.ui.stockdetail;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,28 +17,25 @@ import com.example.stocki_client.R;
 import com.example.stocki_client.prediction.PredictionDataPoint;
 import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
-import com.example.stocki_client.ui.StockAdapter;
 import com.example.stocki_client.ui.stockdetail.model.ModelInfo;
 import com.example.stocki_client.ui.stockdetail.model.ModelInfoSheet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.StockViewHolder>{
+public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapterStock.StockViewHolder>{
 
     private List<PredictionDataPoint> predictions;
     private String ticker;
     private String interval;
     private AppCompatActivity activity;
 
-    public PredictionAdapter(String ticker, String interval, AppCompatActivity activity) {
+    public PredictionAdapterStock(String ticker, String interval, AppCompatActivity activity) {
         predictions = new ArrayList<>();
         this.ticker = ticker;
         this.interval = interval;
@@ -48,14 +44,14 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.St
 
     @NonNull
     @Override
-    public PredictionAdapter.StockViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PredictionAdapterStock.StockViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview_prediction, parent, false);
-        return new PredictionAdapter.StockViewHolder(view);
+                .inflate(R.layout.cardview_prediction_showstock, parent, false);
+        return new PredictionAdapterStock.StockViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PredictionAdapter.StockViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PredictionAdapterStock.StockViewHolder holder, int position) {
         PredictionDataPoint point = predictions.get(position);
 
         String rawDate = point.getDate();
@@ -91,12 +87,10 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.St
 
                         Map<String, Double> metrics = modelInfo.getMetrics();
                         StringBuilder sb = new StringBuilder();
-                        for (Map.Entry<String, Double> entry : metrics.entrySet()) {
-                            sb.append(entry.getKey())
-                                    .append(": ")
-                                    .append(String.format("%.2f", entry.getValue()))
-                                    .append("   ");
-                        }
+                        sb.append("MAE: " + String.format("%.2f", metrics.get("MAE")) + "$   ");
+                        sb.append("RMSE: " + String.format("%.2f", metrics.get("RMSE")) + "$   ");
+                        sb.append("R2: " + metrics.get("R2"));
+
                         String metricsString = sb.toString();
 
 
@@ -151,10 +145,10 @@ public class PredictionAdapter extends RecyclerView.Adapter<PredictionAdapter.St
         public StockViewHolder(View view) {
             super(view);
 
-            txtReturn = view.findViewById(R.id.txtPredictionReturn);
-            txtDate = view.findViewById(R.id.txtPredictionDate);
-            riskIndicator = view.findViewById(R.id.viewRiskIndicator);
-            parent = view.findViewById(R.id.cvPrediction);
+            txtReturn = view.findViewById(R.id.txtPredictionReturnShowStock);
+            txtDate = view.findViewById(R.id.txtPredictionDateShowStock);
+            riskIndicator = view.findViewById(R.id.viewRiskIndicatorShowStock);
+            parent = view.findViewById(R.id.cvPredictionShowStock);
         }
     }
 }

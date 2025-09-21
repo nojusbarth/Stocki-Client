@@ -9,7 +9,7 @@
     app:cardElevation="4dp"
     app:strokeColor="@android:color/darker_gray"
     app:strokeWidth="1dp"
-    android:id="@+id/cvPrediction">
+    android:id="@+id/cvPredictionShowStock">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
 
         <!-- Datum oben -->
         <TextView
-            android:id="@+id/txtPredictionDate"
+            android:id="@+id/txtPredictionDateShowStock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DATE"
@@ -36,7 +36,7 @@
             android:weightSum="2">
 
             <TextView
-                android:id="@+id/txtPredictionReturn"
+                android:id="@+id/txtPredictionReturnShowStock"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -53,7 +53,7 @@
                 android:gravity="center_horizontal">
 
                 <TextView
-                    android:id="@+id/txtPredictionRisk"
+                    android:id="@+id/txtPredictionRiskShowStock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Risk:"
@@ -62,7 +62,7 @@
                     android:layout_marginEnd="6dp"/>
 
                 <View
-                    android:id="@+id/viewRiskIndicator"
+                    android:id="@+id/viewRiskIndicatorShowStock"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginLeft="20dp"

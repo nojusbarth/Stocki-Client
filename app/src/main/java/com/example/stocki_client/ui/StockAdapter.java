@@ -66,6 +66,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHol
                 String clickedStock = filteredList.get(holder.getAdapterPosition());
 
                 intent.putExtra("stockName", clickedStock);
+                intent.putExtra("interval", "1d");
 
                 context.startActivity(intent);
             }

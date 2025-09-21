@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,6 +32,7 @@ public class ApiClient {
     private final String tickerListRequest = "%s/stocknames";
     private final String predictionRequest = "%s/predictions/%s?period=%d&interval=%s";
     private final String modelInfoRequest = "%s/modelinfo/%s?interval=%s";
+    private final String predictionsAllRequest = "%s/predictionsall/?interval=%s";
 
     private ApiClient() {
         client = new OkHttpClient();
@@ -170,7 +172,37 @@ public class ApiClient {
                 }
             }
         });
+    }
 
+    public void getAllPredictions(String interval, DataCallback callback) {
+        String requestHTTP = String.format(predictionsAllRequest, baseURL, interval);
+        Request request = new Request.Builder()
+                .url(requestHTTP)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String jsonString = response.body().string();
+
+                    Gson gson = new Gson();
+                    Type mapType = new TypeToken<Map<String, PredictionDataPoint>>(){}.getType();
+
+                    Map<String, PredictionDataPoint> predictionMap = gson.fromJson(jsonString, mapType);
+
+                    callback.onSuccess(predictionMap);
+
+                } else {
+                    callback.onError(new Exception("HTTP " + response.code()));
+                }
+            }
+        });
     }
 
 }

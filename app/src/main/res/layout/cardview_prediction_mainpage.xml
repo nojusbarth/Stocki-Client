@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvPredictionMainPage"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:strokeColor="@android:color/darker_gray"
+    app:strokeWidth="1dp"
+    tools:ignore="MissingConstraints">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:gravity="center">
+
+        <!-- Aktienname -->
+        <TextView
+            android:id="@+id/txtStockNameMainPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            tools:text="Apple"/>
+
+        <!-- Return -->
+        <TextView
+            android:id="@+id/txtPredictionReturnMainPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="12dp"
+            tools:text="Return: 5.2%"/>
+
+        <!-- Risiko-Kreis -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtPredictionRiskMainPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginEnd="6dp"
+                tools:text="Risk:"/>
+
+            <View
+                android:id="@+id/viewRiskIndicatorMainPage"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/circle_shape"
+                tools:ignore="ContentDescription"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

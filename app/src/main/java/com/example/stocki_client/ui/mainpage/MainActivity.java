@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui;
+package com.example.stocki_client.ui.mainpage;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,21 +14,24 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.stocki_client.R;
-import com.example.stocki_client.model.stocks.StockManager;
 import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
-import com.example.stocki_client.ui.stockdetail.ShowStockActivity;
+import com.example.stocki_client.ui.StockAdapter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private StockAdapter stockAdapter;
     private EditText etxtSearch;
-    private StockManager stockManager;
+    private TabLayout tabLayoutPredictions;
+    private ViewPager2 viewPagerPredictions;
+    private PredictionPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +46,37 @@ public class MainActivity extends AppCompatActivity {
 
         initStocks();
         initViews();
+        initPager();
 
 
+    }
 
+    private void initPager() {
+        tabLayoutPredictions = findViewById(R.id.tabLayoutPredictions);
+        viewPagerPredictions = findViewById(R.id.viewPagerPredictions);
+
+        pagerAdapter = new PredictionPagerAdapter(this);
+        viewPagerPredictions.setAdapter(pagerAdapter);
+
+        new TabLayoutMediator(tabLayoutPredictions, viewPagerPredictions,
+                (tab, position) -> {
+                    if (position == PredictionPagerAdapter.POSITION_DAILY) {
+                        tab.setText("Daily");
+                    } else {
+                        tab.setText("Hourly");
+                    }
+                }
+        ).attach();
     }
 
 
     private void initStocks() {
 
-        //empty manager as long as no stocks are loaded
-        stockManager = new StockManager(new ArrayList<>());
 
         ApiClient.getInstance().getTickerList(new DataCallback<List<String>>() {
             @Override
             public void onSuccess(List<String> tickers) {
                 runOnUiThread(() -> {
-                    stockManager = new StockManager(tickers);
                     stockAdapter.updateData(tickers);
                 });
             }

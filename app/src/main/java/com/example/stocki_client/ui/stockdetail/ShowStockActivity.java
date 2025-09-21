@@ -24,7 +24,6 @@ import com.example.stocki_client.model.stocks.StockDataPoint;
 import com.example.stocki_client.prediction.PredictionDataPoint;
 import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
-import com.example.stocki_client.ui.StockAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 
 import java.util.List;
@@ -35,11 +34,11 @@ public class ShowStockActivity extends AppCompatActivity {
     private static final int PERIOD_HISTORICAL= 14;
 
     private String stockName;
-    private String interval = "1d";
+    private String interval;
 
     private ApiClient client;
     private ChartBuilder chartBuilder;
-    private PredictionAdapter predictionAdapter;
+    private PredictionAdapterStock predictionAdapterStock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +59,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
         if(intent != null) {
             stockName = intent.getStringExtra("stockName");
+            interval = intent.getStringExtra("interval");
         }
 
         createToolBar();
@@ -81,9 +81,9 @@ public class ShowStockActivity extends AppCompatActivity {
 
         RecyclerView recPreds = findViewById(R.id.recPredictions);
 
-        predictionAdapter = new PredictionAdapter(this.stockName, this.interval, this);
+        predictionAdapterStock = new PredictionAdapterStock(this.stockName, this.interval, this);
         recPreds.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
-        recPreds.setAdapter(predictionAdapter);
+        recPreds.setAdapter(predictionAdapterStock);
 
     }
 
@@ -115,7 +115,7 @@ public class ShowStockActivity extends AppCompatActivity {
                     getHistorical();
                     getPrediction();
 
-                    predictionAdapter.changeInterval(interval);
+                    predictionAdapterStock.changeInterval(interval);
                 }
 
             }
@@ -129,7 +129,7 @@ public class ShowStockActivity extends AppCompatActivity {
                     getHistorical();
                     getPrediction();
 
-                    predictionAdapter.changeInterval(interval);
+                    predictionAdapterStock.changeInterval(interval);
                 }
             }
         });
@@ -168,7 +168,7 @@ public class ShowStockActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     chartBuilder.setPrediction(data);
                     updateChart();
-                    predictionAdapter.updateData(data);
+                    predictionAdapterStock.updateData(data);
                 });
             }
 
