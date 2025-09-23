@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui.stockdetail.model;
+package com.example.stocki_client.ui.stock.model;
 
 import java.util.List;
 import java.util.Map;

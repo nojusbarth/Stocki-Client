@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui.stockdetail;
+package com.example.stocki_client.ui.stock;
 
 
 import com.example.stocki_client.model.stocks.StockDataPoint;

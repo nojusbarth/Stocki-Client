@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui.stockdetail;
+package com.example.stocki_client.ui.stock;
 
 import android.graphics.Color;
 
@@ -32,6 +32,55 @@ public class ChartBuilder {
         this.prediction.clear();
         this.prediction = prediction;
     }
+
+    public void buildComparisonChart(LineChart shell) {
+        LineChart lineChart = shell;
+
+        List<Entry> predictionEntry = buildPrediction();
+        int predictionCount = predictionEntry.size();
+
+        List<Entry> allHistorical = buildHistorical();
+        List<Entry> lastHistorical = allHistorical.subList(allHistorical.size() - predictionCount, allHistorical.size());
+
+        List<Entry> historicalEntry = new ArrayList<>();
+        List<Entry> predictionAligned = new ArrayList<>();
+
+        for (int i = 0; i < predictionCount; i++) {
+            historicalEntry.add(new Entry(i, lastHistorical.get(i).getY())); // Y von Historical
+            predictionAligned.add(new Entry(i, predictionEntry.get(i).getY())); // Y von Prediction
+        }
+
+        LineDataSet setHistoricalData = new LineDataSet(historicalEntry, "Close (Vergleich)");
+        setHistoricalData.setColor(Color.BLACK);
+        setHistoricalData.setLineWidth(2f);
+        setHistoricalData.setDrawCircles(false);
+
+        LineDataSet setPredictionData = new LineDataSet(predictionAligned, "Vorhersage");
+        setPredictionData.setColor(Color.RED);
+        setPredictionData.enableDashedLine(10f, 5f, 0f);
+        setPredictionData.setLineWidth(2f);
+        setPredictionData.setDrawCircles(false);
+
+        LineData lineData = new LineData(setHistoricalData, setPredictionData);
+        lineChart.setData(lineData);
+
+        lineChart.getDescription().setText("Prediction vs. Historie");
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setGranularity(1f);
+        xAxis.setTextSize(10f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+        lineChart.getAxisRight().setEnabled(false);
+
+        lineChart.setDragEnabled(true);
+        lineChart.setScaleEnabled(true);
+
+        lineChart.invalidate();
+    }
+
+
 
     public void buildChart(LineChart shell) {
 
@@ -78,7 +127,6 @@ public class ChartBuilder {
             historicalEntry.add(new Entry(i, (float) historical.get(i).getClose()));
         }
 
-
         return historicalEntry;
     }
 
@@ -92,5 +140,4 @@ public class ChartBuilder {
     }
 
 
-    //TODO Datumsunsinn lösen: Predictions an Wochenendtagen machen keinen sinn, evtl Predictiondatum ganz scrappen?
 }

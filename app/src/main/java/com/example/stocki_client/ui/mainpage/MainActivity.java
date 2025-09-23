@@ -1,14 +1,20 @@
 package com.example.stocki_client.ui.mainpage;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -29,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     private StockAdapter stockAdapter;
     private EditText etxtSearch;
-    private TabLayout tabLayoutPredictions;
-    private ViewPager2 viewPagerPredictions;
-    private PredictionPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
         initStocks();
         initViews();
         initPager();
@@ -52,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initPager() {
-        tabLayoutPredictions = findViewById(R.id.tabLayoutPredictions);
-        viewPagerPredictions = findViewById(R.id.viewPagerPredictions);
+        TabLayout tabLayoutPredictions = findViewById(R.id.tabLayoutPredictions);
+        ViewPager2 viewPagerPredictions = findViewById(R.id.viewPagerPredictions);
 
-        pagerAdapter = new PredictionPagerAdapter(this);
+        PredictionPagerAdapter pagerAdapter = new PredictionPagerAdapter(this);
         viewPagerPredictions.setAdapter(pagerAdapter);
 
         new TabLayoutMediator(tabLayoutPredictions, viewPagerPredictions,
@@ -134,4 +138,25 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
 }

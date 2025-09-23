@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui.stockdetail;
+package com.example.stocki_client.ui.stock;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,19 +27,18 @@ import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
 import com.github.mikephil.charting.charts.LineChart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowStockActivity extends AppCompatActivity {
 
-    private static final int PERIOD_PREDICTION = 3;
-    private static final int PERIOD_HISTORICAL= 14;
-
-    private String stockName;
-    private String interval;
-
-    private ApiClient client;
+    private ShowStockViewModel viewModel;
     private ChartBuilder chartBuilder;
     private PredictionAdapterStock predictionAdapterStock;
+
+    private String interval;
+    private String stockName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,25 +50,34 @@ public class ShowStockActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        viewModel = new ViewModelProvider(this).get(ShowStockViewModel.class);
 
         chartBuilder = new ChartBuilder();
         Intent intent = getIntent();
-
-        client = ApiClient.getInstance();
 
         if(intent != null) {
             stockName = intent.getStringExtra("stockName");
             interval = intent.getStringExtra("interval");
         }
 
+
         createToolBar();
         initViews();
         initButtons();
 
-        //order is important, fetch data after everything is initialized
-        getHistorical();
-        getPrediction();
+        viewModel.loadData(stockName);
+
+        viewModel.getHistorical(interval).observe(this, data -> {
+            chartBuilder.setHistorical(new ArrayList<>(data));
+            updateChart();
+        });
+
+        viewModel.getPrediction(interval).observe(this,data -> {
+            chartBuilder.setPrediction(new ArrayList<>(data));
+            updateChart();
+            predictionAdapterStock.updateData(new ArrayList<>(data));
+        });
+
     }
 
 
@@ -81,7 +90,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
         RecyclerView recPreds = findViewById(R.id.recPredictions);
 
-        predictionAdapterStock = new PredictionAdapterStock(this.stockName, this.interval, this);
+        predictionAdapterStock = new PredictionAdapterStock(this.stockName, this.interval, this, viewModel);
         recPreds.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
         recPreds.setAdapter(predictionAdapterStock);
 
@@ -112,10 +121,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
                 if (!interval.equals("1d")) {
                     interval = "1d";
-                    getHistorical();
-                    getPrediction();
-
-                    predictionAdapterStock.changeInterval(interval);
+                    onIntervalChange();
                 }
 
             }
@@ -126,10 +132,7 @@ public class ShowStockActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!interval.equals("1h")) {
                     interval = "1h";
-                    getHistorical();
-                    getPrediction();
-
-                    predictionAdapterStock.changeInterval(interval);
+                    onIntervalChange();
                 }
             }
         });
@@ -142,45 +145,20 @@ public class ShowStockActivity extends AppCompatActivity {
         chartBuilder.buildChart(lineChart);
     }
 
-    private void getHistorical() {
-        client.getHistorical(stockName, PERIOD_HISTORICAL, interval, new DataCallback<List<StockDataPoint>>() {
-            @Override
-            public void onSuccess(List<StockDataPoint> data) {
-                chartBuilder.setHistorical(data);
-                updateChart();
-            }
-
-            @Override
-            public void onError(Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() ->
-                        Toast.makeText(ShowStockActivity.this, "Fehler beim Laden", Toast.LENGTH_SHORT).show()
-                );
-            }
-        });
+    private void onIntervalChange() {
+        if (viewModel.getPrediction(interval).getValue() != null) {
+            predictionAdapterStock.updateData(new ArrayList<>(viewModel.getPrediction(interval).getValue()));
+            chartBuilder.setPrediction(new ArrayList<>(viewModel.getPrediction(interval).getValue()));
+        }
+        if(viewModel.getHistorical(interval).getValue() != null) {
+            predictionAdapterStock.updateData(new ArrayList<>(viewModel.getPrediction(interval).getValue()));
+            chartBuilder.setHistorical(new ArrayList<>(viewModel.getHistorical(interval).getValue()));
+        }
+        predictionAdapterStock.changeInterval(interval);
+        updateChart();
     }
 
 
-    private void getPrediction() {
-        client.getPrediction(stockName, PERIOD_PREDICTION, interval, new DataCallback<List<PredictionDataPoint>>() {
-            @Override
-            public void onSuccess(List<PredictionDataPoint> data) {
-                runOnUiThread(() -> {
-                    chartBuilder.setPrediction(data);
-                    updateChart();
-                    predictionAdapterStock.updateData(data);
-                });
-            }
-
-            @Override
-            public void onError(Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() ->
-                        Toast.makeText(ShowStockActivity.this, "Fehler beim Laden", Toast.LENGTH_SHORT).show()
-                );
-            }
-        });
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

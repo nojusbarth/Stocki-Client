@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui.stockdetail;
+package com.example.stocki_client.ui.stock;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -17,8 +17,8 @@ import com.example.stocki_client.R;
 import com.example.stocki_client.prediction.PredictionDataPoint;
 import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
-import com.example.stocki_client.ui.stockdetail.model.ModelInfo;
-import com.example.stocki_client.ui.stockdetail.model.ModelInfoSheet;
+import com.example.stocki_client.ui.stock.model.ModelInfo;
+import com.example.stocki_client.ui.stock.model.ModelInfoSheet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,11 +35,15 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
     private String interval;
     private AppCompatActivity activity;
 
-    public PredictionAdapterStock(String ticker, String interval, AppCompatActivity activity) {
+    private ShowStockViewModel viewModel;
+
+
+    public PredictionAdapterStock(String ticker, String interval, AppCompatActivity activity, ShowStockViewModel vm) {
         predictions = new ArrayList<>();
         this.ticker = ticker;
         this.interval = interval;
         this.activity = activity;
+        viewModel= vm;
     }
 
     @NonNull
@@ -81,34 +85,21 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApiClient.getInstance().getModelInfo(ticker, interval, new DataCallback<ModelInfo>() {
-                    @Override
-                    public void onSuccess(ModelInfo modelInfo) {
-
+                viewModel.getModelInfo(interval).observe(activity, modelInfo -> {
+                    if (modelInfo != null) {
                         Map<String, Double> metrics = modelInfo.getMetrics();
-                        StringBuilder sb = new StringBuilder();
-                        sb.append("MAE: " + String.format("%.2f", metrics.get("MAE")) + "$   ");
-                        sb.append("RMSE: " + String.format("%.2f", metrics.get("RMSE")) + "$   ");
-                        sb.append("R2: " + metrics.get("R2"));
-
-                        String metricsString = sb.toString();
-
+                        String metricsString = "MAE: " + String.format("%.2f", metrics.get("MAE")) + "$" +
+                                               " RMSE: " + String.format("%.2f", metrics.get("RMSE")) + "$" +
+                                               " R2: " + String.format("%.2f", metrics.get("R2"));
 
                         ModelInfoSheet sheet = ModelInfoSheet.newInstance(
                                 modelInfo.getLatestUpdate(),
                                 String.valueOf(modelInfo.getNumSamples()),
                                 metricsString,
-                                String.valueOf(point.getRiskScore())
-                        );
+                                String.valueOf(point.getRiskScore()),
+                                ticker,
+                                interval);
                         sheet.show(activity.getSupportFragmentManager(), "ModelInfoBottomSheet");
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        e.printStackTrace();
-                        activity.runOnUiThread(() ->
-                                Toast.makeText(activity, "Fehler beim Laden", Toast.LENGTH_SHORT).show()
-                        );
                     }
                 });
             }
