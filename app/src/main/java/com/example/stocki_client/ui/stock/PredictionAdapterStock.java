@@ -1,15 +1,19 @@
 package com.example.stocki_client.ui.stock;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -65,7 +69,15 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
 
         String formatted = timeFormatter.formatCV(rawDate, interval);
         holder.txtDate.setText(formatted);
-        holder.txtReturn.setText("Return: " + String.format(Locale.getDefault(), "%.2f", point.getPctReturn()) + "%");
+        holder.txtReturn.setText(String.format(Locale.getDefault(), "%.2f", point.getPctReturn()) + "%");
+        Context ctx = holder.itemView.getContext();
+        if (point.getPctReturn() > 0.0) {
+            holder.txtReturn.setTextColor(ContextCompat.getColor(ctx, R.color.green));
+            holder.imgArrow.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.arrow_trending_up));
+        } else {
+            holder.txtReturn.setTextColor(ContextCompat.getColor(ctx, R.color.red));
+            holder.imgArrow.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.arrow_trending_down));
+        }
 
         float risk = point.getRiskScore() / 100.0f;
 
@@ -126,13 +138,15 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
         private TextView txtDate;
         private View riskIndicator;
         private CardView parent;
+        private ImageView imgArrow;
 
         public StockViewHolder(View view) {
             super(view);
 
-            txtReturn = view.findViewById(R.id.txtPredictionReturnShowStock);
+            txtReturn = view.findViewById(R.id.txtReturnValue);
             txtDate = view.findViewById(R.id.txtPredictionDateShowStock);
             riskIndicator = view.findViewById(R.id.viewRiskIndicatorShowStock);
+            imgArrow = view.findViewById(R.id.imgReturnArrow);
             parent = view.findViewById(R.id.cvPredictionShowStock);
         }
     }

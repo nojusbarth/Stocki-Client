@@ -49,5 +49,4 @@ public class ModelHistoryViewModel extends ViewModel {
        return accuracy;
     }
 
-
 }

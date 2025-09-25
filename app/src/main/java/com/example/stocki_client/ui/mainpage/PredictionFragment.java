@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,12 +19,16 @@ import com.example.stocki_client.prediction.PredictionSorter;
 import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class PredictionFragment extends Fragment {
 
     private static final String ARG_INTERVAL = "interval";
     private String interval;
+    private MainActivityViewModel viewModel;
+
 
     public static PredictionFragment newInstance(String interval) {
         PredictionFragment fragment = new PredictionFragment();
@@ -36,6 +41,9 @@ public class PredictionFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        viewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
+
         if (getArguments() != null) {
             interval = getArguments().getString(ARG_INTERVAL);
         }
@@ -63,26 +71,15 @@ public class PredictionFragment extends Fragment {
         recyclerWinners.setAdapter(winnersAdapter);
         recyclerLosers.setAdapter(losersAdapter);
 
+        viewModel.getPrediction(interval).observe(getViewLifecycleOwner(), data -> {
+            PredictionSorter predictionSorter = new PredictionSorter();
+            predictionSorter.setData(new HashMap<>(data));
 
-        ApiClient.getInstance().getAllPredictions(interval, new DataCallback<Map<String, PredictionDataPoint>>() {
-            @Override
-            public void onSuccess(Map<String, PredictionDataPoint> data) {
-                PredictionSorter predictionSorter = new PredictionSorter();
-                predictionSorter.setData(data);
-                getActivity().runOnUiThread(() -> {
-                    winnersAdapter.updateData(predictionSorter.getWinners());
-                    losersAdapter.updateData(predictionSorter.getLosers());
-                });
-            }
+            winnersAdapter.updateData(predictionSorter.getWinners());
+            losersAdapter.updateData(predictionSorter.getLosers());
 
-            @Override
-            public void onError(Exception e) {
-                e.printStackTrace();
-                requireActivity().runOnUiThread(() ->
-                        Toast.makeText(requireActivity(), "Fehler beim Laden", Toast.LENGTH_SHORT).show()
-                );
-            }
         });
+
 
         return view;
     }

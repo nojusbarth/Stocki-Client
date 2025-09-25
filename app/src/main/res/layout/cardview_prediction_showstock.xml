@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvPredictionShowStock"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
     app:strokeColor="@android:color/darker_gray"
-    app:strokeWidth="1dp"
-    android:id="@+id/cvPredictionShowStock">
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,29 +27,55 @@
             android:textColor="@android:color/darker_gray"
             android:layout_marginBottom="8dp"/>
 
-        <!-- Return und Risiko horizontal -->
+        <!-- Return + Risiko in einer Zeile, harmonisch verteilt -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:weightSum="2">
 
-            <TextView
-                android:id="@+id/txtPredictionReturnShowStock"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Return: NONE"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <!-- Risiko + Kreis -->
+            <!-- Return: Label + Wert + Pfeil -->
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_horizontal">
+                android:gravity="center_vertical|start">
+
+                <TextView
+                    android:id="@+id/txtReturnLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Return:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:id="@+id/txtReturnValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NONE"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="4dp"/>
+
+                <ImageView
+                    android:id="@+id/imgReturnArrow"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/arrow_trending_up" />
+            </LinearLayout>
+
+            <!-- Risiko: Label + Kreis -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginStart="8dp">
 
                 <TextView
                     android:id="@+id/txtPredictionRiskShowStock"
@@ -65,13 +90,10 @@
                     android:id="@+id/viewRiskIndicatorShowStock"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_marginLeft="20dp"
                     android:background="@drawable/circle_shape"/>
             </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>
-
 

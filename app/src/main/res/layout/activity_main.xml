@@ -6,17 +6,37 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".ui.mainpage.MainActivity">
 
-    <!-- Suchfeld -->
-    <EditText
-        android:id="@+id/searchEditText"
+
+    <com.example.stocki_client.ui.ClearableAutoCompleteTextView
+        android:id="@+id/stockSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Aktie suchen..."
+        android:drawableEnd="@android:drawable/ic_menu_close_clear_cancel"
+        android:drawableStart="@android:drawable/ic_menu_search"
         android:padding="12dp"
-        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:inputType="text"
+        android:completionThreshold="1"
+        android:imeOptions="actionDone"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <!-- Überschrift für Vorhersagen -->
+    <TextView
+        android:id="@+id/tvPredictionsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vorhergesagte Änderungen der Aktien"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/stockSearch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -26,9 +46,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        app:layout_constraintTop_toBottomOf="@id/searchEditText"
+        app:tabTextColor="@color/light_gray"
+        app:tabSelectedTextColor="@color/black"
+        app:tabIndicatorColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tvPredictionsHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -37,21 +62,15 @@
         android:id="@+id/viewPagerPredictions"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         app:layout_constraintTop_toBottomOf="@id/tabLayoutPredictions"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- RecyclerView für Suchergebnisse, überlagert alles -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recstocks"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/searchEditText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
