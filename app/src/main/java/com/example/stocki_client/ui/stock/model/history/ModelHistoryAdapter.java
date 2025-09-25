@@ -34,9 +34,9 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
         data = new ArrayList<>();
     }
 
-    public void updateData(Map<String, List<AccuracyDataPoint>> newData) {
+    public void updateData(Map<String, List<AccuracyDataPoint>> newData, String interval) {
         data.clear();
-        data = new ArrayList<>(DatedAccuracy.extractStepData(newData, step));
+        data = new ArrayList<>(DatedAccuracy.extractStepData(newData, step, interval));
         notifyDataSetChanged();
     }
 

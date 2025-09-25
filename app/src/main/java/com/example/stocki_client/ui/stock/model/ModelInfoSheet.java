@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.stocki_client.R;
+import com.example.stocki_client.TimeFormatter;
 import com.example.stocki_client.ui.stock.model.history.ModelHistoryActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -50,8 +51,16 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
         TextView txtRiskScore = view.findViewById(R.id.txtRiskScore);
         Button btnShowHistory = view.findViewById(R.id.btnShowModelHistory);
 
+        TimeFormatter timeFormatter = new TimeFormatter();
+
         if (getArguments() != null) {
-            txtLatest.setText("Latest Update: " + getArguments().getString(ARG_LATEST));
+
+            String interval = getArguments().getString(ARG_INTERVAL);
+
+            String latestUpdateRaw = getArguments().getString(ARG_LATEST);
+            String latestUpdate = timeFormatter.formatCV(latestUpdateRaw, interval);
+
+            txtLatest.setText("Latest Update: " + latestUpdate);
             txtTrain.setText("Number samples used: " + getArguments().getString(ARG_SAMPLES));
             txtMetrics.setText("Metrics: " + getArguments().getString(ARG_METRICS));
             txtRiskScore.setText("Risk score: " + getArguments().getString(ARG_RISKSCORE) + " out of 100");
@@ -62,7 +71,7 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
                     Intent intent = new Intent(getContext(), ModelHistoryActivity.class);
 
                     intent.putExtra("stockName", getArguments().getString(ARG_STOCKNAME));
-                    intent.putExtra("interval", getArguments().getString(ARG_INTERVAL));
+                    intent.putExtra("interval", interval);
 
                     getContext().startActivity(intent);
                 }

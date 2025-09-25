@@ -23,4 +23,5 @@ public class PredictionDataPoint {
     public int getRiskScore() {
         return riskScore;
     }
+
 }

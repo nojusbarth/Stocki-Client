@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,19 +20,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
-import com.example.stocki_client.model.stocks.StockDataPoint;
-import com.example.stocki_client.prediction.PredictionDataPoint;
-import com.example.stocki_client.remote.ApiClient;
-import com.example.stocki_client.remote.DataCallback;
+import com.example.stocki_client.ui.WrapContentRecyclerView;
 import com.github.mikephil.charting.charts.LineChart;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShowStockActivity extends AppCompatActivity {
 
     private ShowStockViewModel viewModel;
-    private ChartBuilder chartBuilder;
+    private PredictionChartBuilder chartBuilder;
     private PredictionAdapterStock predictionAdapterStock;
 
     private String interval;
@@ -51,8 +46,6 @@ public class ShowStockActivity extends AppCompatActivity {
             return insets;
         });
         viewModel = new ViewModelProvider(this).get(ShowStockViewModel.class);
-
-        chartBuilder = new ChartBuilder();
         Intent intent = getIntent();
 
         if(intent != null) {
@@ -60,6 +53,7 @@ public class ShowStockActivity extends AppCompatActivity {
             interval = intent.getStringExtra("interval");
         }
 
+        chartBuilder = new PredictionChartBuilder(interval);
 
         createToolBar();
         initViews();
@@ -88,11 +82,18 @@ public class ShowStockActivity extends AppCompatActivity {
 
         txtTitle.setText(stockName);
 
-        RecyclerView recPreds = findViewById(R.id.recPredictions);
+        WrapContentRecyclerView recPreds = findViewById(R.id.recPredictions);
 
         predictionAdapterStock = new PredictionAdapterStock(this.stockName, this.interval, this, viewModel);
-        recPreds.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
         recPreds.setAdapter(predictionAdapterStock);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        recPreds.setLayoutManager(layoutManager);
 
     }
 
@@ -155,6 +156,7 @@ public class ShowStockActivity extends AppCompatActivity {
             chartBuilder.setHistorical(new ArrayList<>(viewModel.getHistorical(interval).getValue()));
         }
         predictionAdapterStock.changeInterval(interval);
+        chartBuilder.setInterval(interval);
         updateChart();
     }
 

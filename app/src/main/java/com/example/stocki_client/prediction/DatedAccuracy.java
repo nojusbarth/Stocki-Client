@@ -1,5 +1,7 @@
 package com.example.stocki_client.prediction;
 
+import com.example.stocki_client.TimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -23,12 +25,16 @@ public class DatedAccuracy {
         return data;
     }
 
-    public static List<DatedAccuracy> extractStepData(Map<String, List<AccuracyDataPoint>> map, int step) {
+    public static List<DatedAccuracy> extractStepData(Map<String, List<AccuracyDataPoint>> map, int step, String interval) {
         List<DatedAccuracy> result = new ArrayList<>();
+        TimeFormatter timeFormatter = new TimeFormatter();
         if (map == null) return result;
 
         for (Map.Entry<String, List<AccuracyDataPoint>> entry : map.entrySet()) {
-            String date = entry.getKey();
+            String dateRaw = entry.getKey();
+
+            String date = timeFormatter.formatCV(dateRaw, interval);
+
             List<AccuracyDataPoint> points = entry.getValue();
 
             if (points != null && step >= 0 && step < points.size()) {

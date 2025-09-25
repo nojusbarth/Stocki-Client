@@ -17,9 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
 
+import com.example.stocki_client.TimeFormatter;
+import com.example.stocki_client.prediction.AccuracyDataPoint;
 import com.github.mikephil.charting.charts.LineChart;
 
+import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class ModelHistoryFragment extends Fragment {
@@ -44,8 +49,8 @@ public class ModelHistoryFragment extends Fragment {
         if (getArguments() != null) {
             step = getArguments().getInt(ARG_STEP);
             viewModel = new ViewModelProvider(requireActivity()).get(ModelHistoryViewModel.class);
-            chartBuilder = new AccuracyChartBuilder(interval, step);
             interval = viewModel.getInterval();
+            chartBuilder = new AccuracyChartBuilder(interval, step);
         }
     }
 
@@ -69,10 +74,11 @@ public class ModelHistoryFragment extends Fragment {
         recView.setAdapter(historyAdapter);
 
         viewModel.getAccuracy().observe(getViewLifecycleOwner(), data -> {
+
             chartBuilder.setData(new HashMap<>(data));
             LineChart shell = view.findViewById(R.id.stockDataChartHistory);
             chartBuilder.buildChart(shell);
-            historyAdapter.updateData(new HashMap<>(data));
+            historyAdapter.updateData(new HashMap<>(data), interval);
         });
 
 

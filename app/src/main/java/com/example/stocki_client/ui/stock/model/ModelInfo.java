@@ -15,6 +15,7 @@ public class ModelInfo {
     public ModelInfo() {}
 
     public String getLatestUpdate() { return latestUpdate; }
+
     public void setLatestUpdate(String latestUpdate) { this.latestUpdate = latestUpdate; }
 
     public String getTrainUntil() { return trainUntil; }

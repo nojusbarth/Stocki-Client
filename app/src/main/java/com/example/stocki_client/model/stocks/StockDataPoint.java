@@ -14,6 +14,5 @@ public class StockDataPoint {
     public String getDate() { return date; }
     public float getClose() { return close; }
 
-
 }
 

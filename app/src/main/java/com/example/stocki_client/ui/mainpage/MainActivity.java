@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         initPager();
 
-
     }
 
     private void initPager() {
@@ -61,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         PredictionPagerAdapter pagerAdapter = new PredictionPagerAdapter(this);
         viewPagerPredictions.setAdapter(pagerAdapter);
+
+        viewPagerPredictions.setUserInputEnabled(false);
 
         new TabLayoutMediator(tabLayoutPredictions, viewPagerPredictions,
                 (tab, position) -> {

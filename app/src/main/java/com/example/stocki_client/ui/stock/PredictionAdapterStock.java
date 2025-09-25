@@ -14,6 +14,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
+import com.example.stocki_client.TimeFormatter;
 import com.example.stocki_client.prediction.PredictionDataPoint;
 import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
@@ -34,6 +35,7 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
     private String ticker;
     private String interval;
     private AppCompatActivity activity;
+    private TimeFormatter timeFormatter;
 
     private ShowStockViewModel viewModel;
 
@@ -43,6 +45,7 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
         this.ticker = ticker;
         this.interval = interval;
         this.activity = activity;
+        this.timeFormatter = new TimeFormatter();
         viewModel= vm;
     }
 
@@ -59,17 +62,8 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
         PredictionDataPoint point = predictions.get(position);
 
         String rawDate = point.getDate();
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
-        Date date = null;
-        try {
-            date = inputFormat.parse(rawDate);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-        String formatted = outputFormat.format(date);
+        String formatted = timeFormatter.formatCV(rawDate, interval);
         holder.txtDate.setText(formatted);
         holder.txtReturn.setText("Return: " + String.format(Locale.getDefault(), "%.2f", point.getPctReturn()) + "%");
 

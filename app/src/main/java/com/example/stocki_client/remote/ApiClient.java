@@ -10,6 +10,9 @@ import com.example.stocki_client.ui.stock.model.ModelInfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -105,6 +108,7 @@ public class ApiClient {
                     }.getType();
                     List<StockDataPoint> stockPoints = gson.fromJson(jsonString, listType);
 
+
                     callback.onSuccess(stockPoints);
                 } else {
                     callback.onError(new Exception("HTTP " + response.code()));
@@ -139,13 +143,13 @@ public class ApiClient {
                     }.getType();
                     List<PredictionDataPoint> predictionPoints = gson.fromJson(jsonString, listType);
 
+
                     callback.onSuccess(predictionPoints);
                 } else {
                     callback.onError(new Exception("HTTP " + response.code()));
                 }
             }
         });
-
     }
 
     public void getModelInfo(String ticker, String interval, DataCallback callback) {
@@ -167,6 +171,7 @@ public class ApiClient {
 
                     Gson gson = new Gson();
                     ModelInfo modelInfo = gson.fromJson(jsonString, ModelInfo.class);
+
 
                     callback.onSuccess(modelInfo);
                 } else {
@@ -229,7 +234,8 @@ public class ApiClient {
                     Gson gson = new Gson();
                     Type mapType = new TypeToken<Map<String, List<AccuracyDataPoint>>>(){}.getType();
 
-                    Map<Integer, List<AccuracyDataPoint>> accuracyMap = gson.fromJson(jsonString, mapType);
+                    Map<String, List<AccuracyDataPoint>> accuracyMap = gson.fromJson(jsonString, mapType);
+
 
                     callback.onSuccess(accuracyMap);
 

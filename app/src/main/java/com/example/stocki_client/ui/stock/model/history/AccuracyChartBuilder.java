@@ -2,6 +2,7 @@ package com.example.stocki_client.ui.stock.model.history;
 
 import android.graphics.Color;
 
+import com.example.stocki_client.TimeFormatter;
 import com.example.stocki_client.prediction.AccuracyDataPoint;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -25,11 +26,13 @@ public class AccuracyChartBuilder {
     private Map<String, List<AccuracyDataPoint>> data;
     private String interval;
     private int step;
+    private TimeFormatter timeFormatter;
 
     public AccuracyChartBuilder(String interval, int step) {
         this.interval = interval;
         this.step = step-1;
         this.data = new HashMap<>();
+        timeFormatter = new TimeFormatter();
     }
 
     public void setData(Map<String, List<AccuracyDataPoint>> newData) {
@@ -75,13 +78,9 @@ public class AccuracyChartBuilder {
             actualEntries.add(new Entry(index, dp.getActualClose()));
             predictionEntries.add(new Entry(index, dp.getClosePrediction()));
 
-            try {
-                Date parsed = inputFormat.parse(key);
-                xLabels.add(outputFormat.format(parsed));
-            } catch (ParseException e) {
-                xLabels.add(key);
-            }
-
+            String dateRaw = key;
+            String date = timeFormatter.formatGraph(dateRaw, interval);
+            xLabels.add(date);
             index++;
         }
 

@@ -7,88 +7,89 @@
     android:layout_height="match_parent"
     tools:context=".ui.stock.ShowStockActivity">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBarShowStock"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/light_gray"
         app:title=""
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-
-    <RelativeLayout
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:id="@+id/mainScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolBarShowStock">
+        android:layout_below="@id/toolBarShowStock"
+        android:fillViewport="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:text="PLACEHOLDER"
-            android:textSize="25dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-
-            android:id="@+id/txtStockTitle"/>
-
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_below="@+id/txtStockTitle"
-            android:layout_marginHorizontal="20dp"
-
-            android:layout_marginTop="30dp"
-
-            android:id="@+id/stockDataChart"
-            />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTimeChangeHourly"
-            android:layout_below="@id/stockDataChart"
-            android:layout_marginTop="10dp"
-            style="@style/TimeChangeButtonStyle"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="40dp"
-
-            android:text="hourly"
-            app:backgroundTint="@null"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTimeChangeDaily"
-            android:layout_below="@id/stockDataChart"
-            android:layout_marginTop="10dp"
-            style="@style/TimeChangeButtonStyle"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginHorizontal="40dp"
-
-            android:text="daily"
-            app:backgroundTint="@null"/>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recPredictions"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            android:layout_below="@+id/btnTimeChangeHourly"
-            />
+            <!-- Title -->
+            <TextView
+                android:id="@+id/txtStockTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="PLACEHOLDER"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
 
+            <!-- Chart -->
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/stockDataChart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="30dp"/>
 
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTimeChangeHourly"
+                    style="@style/TimeChangeButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:text="hourly"
+                    android:layout_marginEnd="10dp"
+                    app:backgroundTint="@null"/>
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTimeChangeDaily"
+                    style="@style/TimeChangeButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:text="daily"
+                    android:layout_marginStart="10dp"
+                    app:backgroundTint="@null"/>
+            </LinearLayout>
 
-    </RelativeLayout>
+            <!-- RecyclerView -->
+            <com.example.stocki_client.ui.WrapContentRecyclerView
+                android:id="@+id/recPredictions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:padding="8dp"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"/>
 
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
+
