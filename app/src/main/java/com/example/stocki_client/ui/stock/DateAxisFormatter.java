@@ -1,7 +1,7 @@
 package com.example.stocki_client.ui.stock;
 
 
-import com.example.stocki_client.model.stocks.StockDataPoint;
+import com.example.stocki_client.stocks.StockDataPoint;
 import com.example.stocki_client.prediction.PredictionDataPoint;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.formatter.ValueFormatter;

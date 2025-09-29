@@ -33,7 +33,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
     private String interval;
     private String stockName;
-
+    private WrapContentRecyclerView recPreds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,7 @@ public class ShowStockActivity extends AppCompatActivity {
             chartBuilder.setPrediction(new ArrayList<>(data));
             updateChart();
             predictionAdapterStock.updateData(new ArrayList<>(data));
+            recPreds.scheduleLayoutAnimation();
         });
 
     }
@@ -82,7 +83,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
         txtTitle.setText(stockName);
 
-        WrapContentRecyclerView recPreds = findViewById(R.id.recPredictions);
+        recPreds = findViewById(R.id.recPredictions);
 
         predictionAdapterStock = new PredictionAdapterStock(this.stockName, this.interval, this, viewModel);
         recPreds.setAdapter(predictionAdapterStock);
@@ -157,6 +158,7 @@ public class ShowStockActivity extends AppCompatActivity {
         }
         predictionAdapterStock.changeInterval(interval);
         chartBuilder.setInterval(interval);
+        recPreds.scheduleLayoutAnimation();
         updateChart();
     }
 

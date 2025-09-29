@@ -3,16 +3,13 @@ package com.example.stocki_client.remote;
 
 import androidx.annotation.NonNull;
 
-import com.example.stocki_client.model.stocks.StockDataPoint;
+import com.example.stocki_client.stocks.StockDataPoint;
 import com.example.stocki_client.prediction.AccuracyDataPoint;
 import com.example.stocki_client.prediction.PredictionDataPoint;
-import com.example.stocki_client.ui.stock.model.ModelInfo;
+import com.example.stocki_client.models.ModelInfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;

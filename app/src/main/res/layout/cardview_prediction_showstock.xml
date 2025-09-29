@@ -65,7 +65,7 @@
                     android:id="@+id/imgReturnArrow"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/arrow_trending_up" />
+                    android:src="@drawable/arrow_trending_up_static" />
             </LinearLayout>
 
             <!-- Risiko: Label + Kreis -->

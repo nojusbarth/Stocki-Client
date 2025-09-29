@@ -70,9 +70,9 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
             String actual = String.format(Locale.getDefault(), "%.2f", dataPoint.getActualClose());
             float diff = dataPoint.getClosePrediction() - dataPoint.getActualClose();
 
-            holder.txtPredicted.setText("Predicted: " + predicted);
-            holder.txtActual.setText("Actual: " + actual);
-            holder.txtDifference.setText("Diff: " + String.format(Locale.getDefault(), "%.2f", Math.abs(diff)));
+            holder.txtPredicted.setText(String.format(Locale.getDefault(),"Predicted: %s$", predicted));
+            holder.txtActual.setText(String.format(Locale.getDefault(),"Actual: %s$", actual));
+            holder.txtDifference.setText(String.format(Locale.getDefault(), "Diff: %.2f$", Math.abs(diff)));
         } else {
             String predictedPct = String.format(Locale.getDefault(), "%.2f%%", dataPoint.getPctReturnPrediction());
             float actualPctVal = ((dataPoint.getActualClose() - (dataPoint.getClosePrediction() / (1 + dataPoint.getPctReturnPrediction() / 100f)))

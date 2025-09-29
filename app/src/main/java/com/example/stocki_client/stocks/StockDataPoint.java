@@ -1,6 +1,4 @@
-package com.example.stocki_client.model.stocks;
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.example.stocki_client.stocks;
 
 public class StockDataPoint {
 

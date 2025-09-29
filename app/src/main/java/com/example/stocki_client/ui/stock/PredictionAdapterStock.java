@@ -2,13 +2,11 @@ package com.example.stocki_client.ui.stock;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,15 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.stocki_client.R;
 import com.example.stocki_client.TimeFormatter;
 import com.example.stocki_client.prediction.PredictionDataPoint;
-import com.example.stocki_client.remote.ApiClient;
-import com.example.stocki_client.remote.DataCallback;
-import com.example.stocki_client.ui.stock.model.ModelInfo;
 import com.example.stocki_client.ui.stock.model.ModelInfoSheet;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -73,10 +65,10 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
         Context ctx = holder.itemView.getContext();
         if (point.getPctReturn() > 0.0) {
             holder.txtReturn.setTextColor(ContextCompat.getColor(ctx, R.color.green));
-            holder.imgArrow.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.arrow_trending_up));
+            holder.imgArrow.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.arrow_trending_up_static));
         } else {
             holder.txtReturn.setTextColor(ContextCompat.getColor(ctx, R.color.red));
-            holder.imgArrow.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.arrow_trending_down));
+            holder.imgArrow.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.arrow_trending_down_static));
         }
 
         float risk = point.getRiskScore() / 100.0f;
@@ -94,14 +86,14 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
                 viewModel.getModelInfo(interval).observe(activity, modelInfo -> {
                     if (modelInfo != null) {
                         Map<String, Double> metrics = modelInfo.getMetrics();
-                        String metricsString = "MAE: " + String.format("%.2f", metrics.get("MAE")) + "$" +
-                                               " RMSE: " + String.format("%.2f", metrics.get("RMSE")) + "$" +
-                                               " R2: " + String.format("%.2f", metrics.get("R2"));
+
 
                         ModelInfoSheet sheet = ModelInfoSheet.newInstance(
                                 modelInfo.getLatestUpdate(),
-                                String.valueOf(modelInfo.getNumSamples()),
-                                metricsString,
+                                String.format(Locale.getDefault(),"%.2f", metrics.get("MAE")),
+                                String.format(Locale.getDefault(),"%.2f", metrics.get("HitRate")),
+                                String.format(Locale.getDefault(),"%.2f", metrics.get("Sharpe")),
+                                String.format(Locale.getDefault(),"%.2f", metrics.get("MaxDrawdown")),
                                 String.valueOf(point.getRiskScore()),
                                 ticker,
                                 interval);

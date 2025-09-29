@@ -3,13 +3,17 @@ package com.example.stocki_client.ui.mainpage;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,7 +52,24 @@ public class PredictionAdapterMain extends RecyclerView.Adapter<PredictionAdapte
 
         holder.txtStockName.setText(point.getName());
 
-        holder.txtReturn.setText("Return: " + String.format(Locale.getDefault(), "%.2f", point.getPctReturn()) + "%");
+        holder.txtReturn.setText(String.format(Locale.getDefault(), "%.2f", point.getPctReturn()) + "%");
+
+        if (point.getPctReturn() > 0.0) {
+            holder.txtReturn.setTextColor(ContextCompat.getColor(context, R.color.green));
+
+            holder.imgArrow.setImageResource(R.drawable.arrow_trending_up_animated);
+
+        } else {
+            holder.txtReturn.setTextColor(ContextCompat.getColor(context, R.color.red));
+
+            holder.imgArrow.setImageResource(R.drawable.arrow_trending_down_animated);
+        }
+
+        Drawable drawable = holder.imgArrow.getDrawable();
+        if (drawable instanceof Animatable) {
+            ((Animatable) drawable).start();
+        }
+
 
         float risk = point.getRiskScore() / 100.0f;
 
@@ -92,11 +113,14 @@ public class PredictionAdapterMain extends RecyclerView.Adapter<PredictionAdapte
         private TextView txtReturn;
         private View riskIndicator;
         private TextView txtStockName;
+        private ImageView imgArrow;
         private CardView parent;
+
 
         public StockViewHolder(View view) {
             super(view);
 
+            imgArrow = view.findViewById(R.id.imgReturnArrowMainPage);
             txtReturn = view.findViewById(R.id.txtPredictionReturnMainPage);
             txtStockName = view.findViewById(R.id.txtStockNameMainPage);
             riskIndicator = view.findViewById(R.id.viewRiskIndicatorMainPage);

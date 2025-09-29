@@ -31,16 +31,33 @@
             android:layout_marginBottom="8dp"
             tools:text="Apple"/>
 
-        <!-- Return -->
-        <TextView
-            android:id="@+id/txtPredictionReturnMainPage"
+        <!-- Return + Icon horizontal, Return dominant -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="12dp"
-            tools:text="Return: 5.2%"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <!-- Return Prozentwert -->
+            <TextView
+                android:id="@+id/txtPredictionReturnMainPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:text="5.2%" />
+
+            <!-- Icon größer für bessere Sichtbarkeit -->
+            <ImageView
+                android:id="@+id/imgReturnArrowMainPage"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                tools:src="@drawable/arrow_trending_up_static"
+                tools:ignore="ContentDescription"/>
+        </LinearLayout>
 
         <!-- Risiko-Kreis -->
         <LinearLayout
@@ -69,3 +86,5 @@
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
+
+

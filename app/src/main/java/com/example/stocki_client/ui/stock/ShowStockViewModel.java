@@ -4,13 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.stocki_client.model.stocks.StockDataPoint;
+import com.example.stocki_client.stocks.StockDataPoint;
 import com.example.stocki_client.prediction.PredictionDataPoint;
 import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
-import com.example.stocki_client.ui.stock.model.ModelInfo;
+import com.example.stocki_client.models.ModelInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShowStockViewModel extends ViewModel {
