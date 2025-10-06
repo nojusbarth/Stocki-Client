@@ -1,3 +1,82 @@
 <resources>
-    <string name="app_name">Stocki_Client</string>
+    <string name="app_name">Stocki</string>
+    <string name="stock_search_hint">search stock…</string>
+    <string name="movers_title">Projected Changes</string>
+    <string name="button_hourly_text">hourly</string>
+    <string name="button_daily_text">daily</string>
+    <string name="model_latest_update">Latest update</string>
+    <string name="model_metrics">Metrics</string>
+    <string name="model_risk_score">Risk Score</string>
+    <string name="model_history">Show History</string>
+    <string name="desc_icon_MAE">Explanation MAE</string>
+    <string name="desc_icon_Hits">Explanation Hit Rate</string>
+    <string name="desc_icon_Sharpe">Explanation Sharpe</string>
+    <string name="desc_icon_Down">Explanation Max. Drawdown</string>
+    <string name="desc_icon_unit_switch">Switch between Dollars and percent</string>
+    <string name="desc_trend_icon">Icon showing trend</string>
+    <string name="label_prediction">Predicted:</string>
+    <string name="label_actual">Actual:</string>
+    <string name="label_difference">Difference:</string>
+    <string name="label_risk_score_was">Risk score was:</string>
+    <string name="label_risk_score_of">out of 100</string>
+    <string name="label_return">Return:</string>
+    <string name="label_risk">Risk:</string>
+    <string name="label_accuracy_step_left">Accuracy in</string>
+    <string name="label_accuracy_step_right">steps ahead</string>
+    <string name="label_top_winner">Top Winner</string>
+    <string name="label_top_loser">Top Loser</string>
+    <string name="label_model_info">Model Info:</string>
+    <string name="label_MAE">MAE:</string>
+    <string name="label_hit_rate">Hit Rate:</string>
+    <string name="label_sharpe">Sharpe:</string>
+    <string name="label_max_drawdown">Max. Drawdown:</string>
+    <string name="label_MAE_title">MAE explanation</string>
+    <string name="label_hit_rate_title">Hit Rate explanation</string>
+    <string name="label_sharpe_title">Sharpe explanation</string>
+    <string name="label_drawdown_title">Max. Drawdown explanation</string>
+
+    <string name="explanation_MAE_title">Mean Absolute Error (MAE)</string>
+    <string name="explanation_MAE_body">
+        Measures the average absolute difference between predicted and actual returns.
+        \nA lower MAE indicates more accurate predictions.
+    </string>
+    <string name="explanation_MAE_example">
+        Example:
+        \nAn MAE of 2.5 % means predictions deviate by ~2.5 percentage points on average.
+    </string>
+
+    <string name="explanation_hit_rate_title">Hit Rate</string>
+    <string name="explanation_hit_rate_body">
+        Shows how often the model correctly predicts the direction of movement (up or down).
+        \nHigher is better.
+    </string>
+    <string name="explanation_hit_rate_example">
+        Example:
+        \nA Hit Rate of 70 % means the model was right 7 out of 10 times.
+    </string>
+
+    <string name="explanation_sharpe_title">Sharpe Ratio</string>
+    <string name="explanation_sharpe_body">
+        Measures risk-adjusted performance — the ratio of excess return to volatility.
+        \nValues above 1.0 are considered good, above 2.0 excellent.
+    </string>
+    <string name="explanation_sharpe_example">
+        Example:
+        \nA Sharpe Ratio of 1.8 indicates strong returns relative to risk.
+    </string>
+
+    <string name="explanation_drawdown_title">Maximum Drawdown</string>
+    <string name="explanation_drawdown_body">
+        Represents the largest peak-to-trough decline during the period — a measure of downside risk.
+        \nLower (less negative) values are better.
+    </string>
+    <string name="explanation_drawdown_example">
+        Example:
+        \nA Max Drawdown of –12 % means the portfolio once fell 12 % from its highest point.
+    </string>
+
+    <string name="positive_answer">OK</string>
+    <string name="value_placeholder">---</string>
+    <string name="date_placeholder">DATE</string>
+
 </resources>

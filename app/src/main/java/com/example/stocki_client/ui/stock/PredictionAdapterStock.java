@@ -27,13 +27,13 @@ import java.util.Map;
 
 public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapterStock.StockViewHolder>{
 
-    private List<PredictionDataPoint> predictions;
-    private String ticker;
+    private final List<PredictionDataPoint> predictions;
+    private final String ticker;
     private String interval;
-    private AppCompatActivity activity;
-    private TimeFormatter timeFormatter;
+    private final AppCompatActivity activity;
+    private final TimeFormatter timeFormatter;
 
-    private ShowStockViewModel viewModel;
+    private final ShowStockViewModel viewModel;
 
 
     public PredictionAdapterStock(String ticker, String interval, AppCompatActivity activity, ShowStockViewModel vm) {
@@ -61,7 +61,7 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
 
         String formatted = timeFormatter.formatCV(rawDate, interval);
         holder.txtDate.setText(formatted);
-        holder.txtReturn.setText(String.format(Locale.getDefault(), "%.2f", point.getPctReturn()) + "%");
+        holder.txtReturn.setText(String.format(Locale.getDefault(), "%.2f%%", point.getPctReturn()));
         Context ctx = holder.itemView.getContext();
         if (point.getPctReturn() > 0.0) {
             holder.txtReturn.setTextColor(ContextCompat.getColor(ctx, R.color.green));
@@ -80,28 +80,23 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
         );
         holder.riskIndicator.getBackground().setTint(color);
 
-        holder.parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.getModelInfo(interval).observe(activity, modelInfo -> {
-                    if (modelInfo != null) {
-                        Map<String, Double> metrics = modelInfo.getMetrics();
+        holder.parent.setOnClickListener(v -> viewModel.getModelInfo(interval).observe(activity, modelInfo -> {
+            if (modelInfo != null) {
+                Map<String, Double> metrics = modelInfo.getMetrics();
 
 
-                        ModelInfoSheet sheet = ModelInfoSheet.newInstance(
-                                modelInfo.getLatestUpdate(),
-                                String.format(Locale.getDefault(),"%.2f", metrics.get("MAE")),
-                                String.format(Locale.getDefault(),"%.2f", metrics.get("HitRate")),
-                                String.format(Locale.getDefault(),"%.2f", metrics.get("Sharpe")),
-                                String.format(Locale.getDefault(),"%.2f", metrics.get("MaxDrawdown")),
-                                String.valueOf(point.getRiskScore()),
-                                ticker,
-                                interval);
-                        sheet.show(activity.getSupportFragmentManager(), "ModelInfoBottomSheet");
-                    }
-                });
+                ModelInfoSheet sheet = ModelInfoSheet.newInstance(
+                        modelInfo.getLatestUpdate(),
+                        String.format(Locale.getDefault(),"%.2f", metrics.get("MAE")),
+                        String.format(Locale.getDefault(),"%.2f", metrics.get("HitRate")),
+                        String.format(Locale.getDefault(),"%.2f", metrics.get("Sharpe")),
+                        String.format(Locale.getDefault(),"%.2f", metrics.get("MaxDrawdown")),
+                        String.valueOf(point.getRiskScore()),
+                        ticker,
+                        interval);
+                sheet.show(activity.getSupportFragmentManager(), "ModelInfoBottomSheet");
             }
-        });
+        }));
     }
 
     @Override
@@ -126,11 +121,11 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
 
     public class StockViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView txtReturn;
-        private TextView txtDate;
-        private View riskIndicator;
-        private CardView parent;
-        private ImageView imgArrow;
+        private final TextView txtReturn;
+        private final TextView txtDate;
+        private final View riskIndicator;
+        private final CardView parent;
+        private final ImageView imgArrow;
 
         public StockViewHolder(View view) {
             super(view);

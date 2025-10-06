@@ -18,8 +18,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class ModelHistoryActivity extends AppCompatActivity {
 
-    private ModelHistoryViewModel viewModel;
-
     private String stockName;
 
     @Override
@@ -41,7 +39,7 @@ public class ModelHistoryActivity extends AppCompatActivity {
             interval = intent.getStringExtra("interval");
         }
 
-        viewModel = new ViewModelProvider(this).get(ModelHistoryViewModel.class);
+        ModelHistoryViewModel viewModel = new ViewModelProvider(this).get(ModelHistoryViewModel.class);
 
         viewModel.initData(stockName, interval);
 

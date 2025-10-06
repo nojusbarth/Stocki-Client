@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvAccuracy"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -9,7 +9,8 @@
     app:cardElevation="4dp"
     app:strokeColor="@android:color/darker_gray"
     app:strokeWidth="1dp"
-    android:id="@+id/cvAccuracy">
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,16 +18,32 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Datum oben -->
-        <TextView
-            android:id="@+id/txtAccuracyDate"
-            android:layout_width="wrap_content"
+        <!-- Datum oben + klick-Icon rechts -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="DATE"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/txtAccuracyDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/date_placeholder"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                android:textColor="@android:color/darker_gray"/>
+
+            <ImageView
+                android:id="@+id/imgClickableIndicator"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/baseline_compare_arrows_24"
+                android:contentDescription="@string/desc_icon_unit_switch"
+                app:tint="@color/light_gray" />
+        </LinearLayout>
 
         <!-- Predicted und Actual nebeneinander -->
         <LinearLayout
@@ -36,56 +53,118 @@
             android:weightSum="2"
             android:layout_marginBottom="8dp">
 
-            <TextView
-                android:id="@+id/txtAccuracyPredicted"
+            <!-- Predicted -->
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Predicted: ---"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txtAccuracyActual"
+                <TextView
+                    android:id="@+id/txtPredictedLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_prediction"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtPredictedValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="4dp"/>
+            </LinearLayout>
+
+            <!-- Actual -->
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Actual: ---"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtActualLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_actual"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtActualValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="4dp"/>
+            </LinearLayout>
         </LinearLayout>
 
-
-
+        <!-- Difference und Risk Score nebeneinander, Labels + Values -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginBottom="8dp">
+            android:weightSum="2">
 
-            <TextView
-                android:id="@+id/txtAccuracyDifference"
+            <!-- Difference -->
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Difference: ---"
                 android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                android:textSize="15sp"
-                android:textColor="@android:color/holo_red_dark"
-                android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/txtDifferenceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_difference"
+                    android:textSize="15sp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/txtAccuracyRiskScore"
+                <TextView
+                    android:id="@+id/txtDifferenceValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="15sp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textStyle="bold"
+                    android:layout_marginStart="4dp"/>
+            </LinearLayout>
+
+            <!-- Risk Score -->
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Risk score was: ---"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtRiskScoreLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_risk_score_was"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtRiskScoreValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="4dp"/>
+            </LinearLayout>
         </LinearLayout>
-
-
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>
+
+
+

@@ -15,7 +15,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -23,10 +22,10 @@ import java.util.Map;
 
 public class AccuracyChartBuilder {
 
-    private Map<String, List<AccuracyDataPoint>> data;
-    private String interval;
-    private int step;
-    private TimeFormatter timeFormatter;
+    private final Map<String, List<AccuracyDataPoint>> data;
+    private final String interval;
+    private final int step;
+    private final TimeFormatter timeFormatter;
 
     public AccuracyChartBuilder(String interval, int step) {
         this.interval = interval;
@@ -49,17 +48,14 @@ public class AccuracyChartBuilder {
         final List<String> xLabels = new ArrayList<>();
 
         SimpleDateFormat inputFormat;
-        SimpleDateFormat outputFormat;
         if ("1h".equals(interval)) {
             inputFormat = new SimpleDateFormat("yyyy-MM-dd-HH", Locale.getDefault());
-            outputFormat = new SimpleDateFormat("dd.MM HH'h'", Locale.getDefault());
         } else {
             inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            outputFormat = new SimpleDateFormat("dd.MM", Locale.getDefault());
         }
 
         List<String> sortedKeys = new ArrayList<>(data.keySet());
-        Collections.sort(sortedKeys, (d1, d2) -> {
+        sortedKeys.sort((d1, d2) -> {
             try {
                 return inputFormat.parse(d1).compareTo(inputFormat.parse(d2));
             } catch (ParseException e) {
@@ -78,8 +74,7 @@ public class AccuracyChartBuilder {
             actualEntries.add(new Entry(index, dp.getActualClose()));
             predictionEntries.add(new Entry(index, dp.getClosePrediction()));
 
-            String dateRaw = key;
-            String date = timeFormatter.formatGraph(dateRaw, interval);
+            String date = timeFormatter.formatGraph(key, interval);
             xLabels.add(date);
             index++;
         }

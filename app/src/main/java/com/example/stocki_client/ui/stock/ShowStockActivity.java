@@ -17,7 +17,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
 import com.example.stocki_client.ui.WrapContentRecyclerView;
@@ -117,25 +116,19 @@ public class ShowStockActivity extends AppCompatActivity {
         Button dailyButton = findViewById(R.id.btnTimeChangeDaily);
         Button hourlyButton = findViewById(R.id.btnTimeChangeHourly);
 
-        dailyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        dailyButton.setOnClickListener(v -> {
 
-                if (!interval.equals("1d")) {
-                    interval = "1d";
-                    onIntervalChange();
-                }
-
+            if (!interval.equals("1d")) {
+                interval = "1d";
+                onIntervalChange();
             }
+
         });
 
-        hourlyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!interval.equals("1h")) {
-                    interval = "1h";
-                    onIntervalChange();
-                }
+        hourlyButton.setOnClickListener(v -> {
+            if(!interval.equals("1h")) {
+                interval = "1h";
+                onIntervalChange();
             }
         });
 

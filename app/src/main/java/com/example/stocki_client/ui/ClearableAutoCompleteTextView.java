@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AutoCompleteTextView;
 
 public class ClearableAutoCompleteTextView extends androidx.appcompat.widget.AppCompatAutoCompleteTextView {
 
@@ -74,8 +73,4 @@ public class ClearableAutoCompleteTextView extends androidx.appcompat.widget.App
         setCompoundDrawablesWithIntrinsicBounds(left, null, right, null);
     }
 
-    @Override
-    public boolean performClick() {
-        return super.performClick();
-    }
 }

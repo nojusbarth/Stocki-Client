@@ -16,7 +16,7 @@ public class ModelHistoryViewModel extends ViewModel {
 
     private final MutableLiveData<Map<String, List<AccuracyDataPoint>>> accuracy = new MutableLiveData<>();
 
-    private static final int PERIOD_PREDICTION_HISTORICAL = 5;
+    private static final int PERIOD_PREDICTION_HISTORICAL = 10;
 
     private String interval;
 

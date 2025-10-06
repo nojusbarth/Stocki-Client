@@ -29,7 +29,7 @@
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginBottom="8dp"
-            tools:text="Apple"/>
+            tools:text="@string/value_placeholder"/>
 
         <!-- Return + Icon horizontal, Return dominant -->
         <LinearLayout
@@ -47,7 +47,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                tools:text="5.2%" />
+                tools:text="@string/value_placeholder" />
 
             <!-- Icon größer für bessere Sichtbarkeit -->
             <ImageView
@@ -73,7 +73,7 @@
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray"
                 android:layout_marginEnd="6dp"
-                tools:text="Risk:"/>
+                tools:text="@string/label_risk"/>
 
             <View
                 android:id="@+id/viewRiskIndicatorMainPage"

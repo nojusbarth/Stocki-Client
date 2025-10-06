@@ -31,7 +31,7 @@ public class TimeFormatter {
         } else if ("1h".equals(interval)) {
             // Stundenwerte: in lokale Zeitzone konvertieren
             ZonedDateTime localTime = utcTime.withZoneSameInstant(ZoneId.systemDefault());
-            return localTime.format(DateTimeFormatter.ofPattern("dd-HH:mm"));
+            return localTime.format(DateTimeFormatter.ofPattern("HH:mm"));
         } else {
             // Fallback: einfach Original-ISO-String zurückgeben
             return isoDate;

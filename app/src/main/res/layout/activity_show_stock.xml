@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:text="PLACEHOLDER"
+                android:text="@string/value_placeholder"
                 android:textSize="25sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
@@ -73,7 +73,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="40dp"
-                    android:text="hourly"
+                    android:text="@string/button_hourly_text"
                     android:layout_marginEnd="10dp"
                     app:backgroundTint="@null"/>
 
@@ -83,7 +83,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="40dp"
-                    android:text="daily"
+                    android:text="@string/button_daily_text"
                     android:layout_marginStart="10dp"
                     app:backgroundTint="@null"/>
             </LinearLayout>

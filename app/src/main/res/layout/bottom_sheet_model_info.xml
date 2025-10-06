@@ -15,7 +15,7 @@
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Model Info"
+            android:text="@string/label_model_info"
             android:textStyle="bold"
             android:textSize="20sp"
             android:paddingBottom="8dp"/>
@@ -25,7 +25,7 @@
             android:id="@+id/txtLatestUpdateTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Latest update"
+            android:text="@string/model_latest_update"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="10dp"/>
@@ -34,7 +34,7 @@
             android:id="@+id/txtLatestUpdateValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="---"
+            android:text="@string/value_placeholder"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:textSize="14sp"/>
@@ -44,7 +44,7 @@
             android:id="@+id/txtMetricsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Metrics"
+            android:text="@string/model_metrics"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="10dp"/>
@@ -71,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="---"
+                    android:text="@string/value_placeholder"
                     android:textSize="14sp"/>
 
                 <FrameLayout
@@ -87,7 +87,7 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
-                        android:contentDescription="Info MAE"/>
+                        android:contentDescription="@string/desc_icon_MAE"/>
                 </FrameLayout>
             </LinearLayout>
 
@@ -104,7 +104,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="---"
+                    android:text="@string/value_placeholder"
                     android:textSize="14sp"/>
 
                 <FrameLayout
@@ -120,7 +120,7 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
-                        android:contentDescription="Info HitRate"/>
+                        android:contentDescription="@string/desc_icon_Hits"/>
                 </FrameLayout>
             </LinearLayout>
 
@@ -137,7 +137,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="---"
+                    android:text="@string/value_placeholder"
                     android:textSize="14sp"/>
 
                 <FrameLayout
@@ -153,7 +153,7 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
-                        android:contentDescription="Info Sharpe"/>
+                        android:contentDescription="@string/desc_icon_Sharpe"/>
                 </FrameLayout>
             </LinearLayout>
 
@@ -169,7 +169,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="---"
+                    android:text="@string/value_placeholder"
                     android:textSize="14sp"/>
 
                 <FrameLayout
@@ -185,7 +185,7 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
-                        android:contentDescription="Info MaxDrawdown"/>
+                        android:contentDescription="@string/desc_icon_Down"/>
                 </FrameLayout>
             </LinearLayout>
 
@@ -196,7 +196,7 @@
             android:id="@+id/txtRiskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Risk Score"
+            android:text="@string/model_risk_score"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="10dp"/>
@@ -205,7 +205,7 @@
             android:id="@+id/txtRiskValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="---"
+            android:text="@string/value_placeholder"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:textSize="14sp"/>
@@ -217,7 +217,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:layout_gravity="center_horizontal"
-            android:text="Show History"
+            android:text="@string/model_history"
             style="@style/TimeChangeButtonStyle"
             app:backgroundTint="@null"/>
 

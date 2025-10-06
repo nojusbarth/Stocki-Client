@@ -28,8 +28,8 @@ import java.util.Locale;
 public class PredictionAdapterMain extends RecyclerView.Adapter<PredictionAdapterMain.StockViewHolder>{
 
     private List<PredictionSortingDataPoint> predictions;
-    private String interval;
-    private Context context;
+    private final String interval;
+    private final Context context;
 
     public PredictionAdapterMain(String interval, Context context) {
         predictions = new ArrayList<>();
@@ -52,7 +52,7 @@ public class PredictionAdapterMain extends RecyclerView.Adapter<PredictionAdapte
 
         holder.txtStockName.setText(point.getName());
 
-        holder.txtReturn.setText(String.format(Locale.getDefault(), "%.2f", point.getPctReturn()) + "%");
+        holder.txtReturn.setText(String.format(Locale.getDefault(), "%.2f%%", point.getPctReturn()));
 
         if (point.getPctReturn() > 0.0) {
             holder.txtReturn.setTextColor(ContextCompat.getColor(context, R.color.green));
@@ -80,18 +80,15 @@ public class PredictionAdapterMain extends RecyclerView.Adapter<PredictionAdapte
         );
         holder.riskIndicator.getBackground().setTint(color);
 
-        holder.parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ShowStockActivity.class);
+        holder.parent.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ShowStockActivity.class);
 
-                String clickedStock = predictions.get(holder.getAdapterPosition()).getName();
+            String clickedStock = predictions.get(holder.getAdapterPosition()).getName();
 
-                intent.putExtra("stockName", clickedStock);
-                intent.putExtra("interval", interval);
+            intent.putExtra("stockName", clickedStock);
+            intent.putExtra("interval", interval);
 
-                context.startActivity(intent);
-            }
+            context.startActivity(intent);
         });
 
     }
@@ -110,11 +107,11 @@ public class PredictionAdapterMain extends RecyclerView.Adapter<PredictionAdapte
 
     public class StockViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView txtReturn;
-        private View riskIndicator;
-        private TextView txtStockName;
-        private ImageView imgArrow;
-        private CardView parent;
+        private final TextView txtReturn;
+        private final View riskIndicator;
+        private final TextView txtStockName;
+        private final ImageView imgArrow;
+        private final CardView parent;
 
 
         public StockViewHolder(View view) {

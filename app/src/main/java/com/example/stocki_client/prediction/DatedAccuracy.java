@@ -2,8 +2,10 @@ package com.example.stocki_client.prediction;
 
 import com.example.stocki_client.TimeFormatter;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,13 +32,14 @@ public class DatedAccuracy {
         TimeFormatter timeFormatter = new TimeFormatter();
         if (map == null) return result;
 
-        for (Map.Entry<String, List<AccuracyDataPoint>> entry : map.entrySet()) {
-            String dateRaw = entry.getKey();
+        List<Map.Entry<String, List<AccuracyDataPoint>>> sortedEntries = new ArrayList<>(map.entrySet());
+        sortedEntries.sort(Map.Entry.comparingByKey());
 
+        for (Map.Entry<String, List<AccuracyDataPoint>> entry : sortedEntries) {
+            String dateRaw = entry.getKey();
             String date = timeFormatter.formatCV(dateRaw, interval);
 
             List<AccuracyDataPoint> points = entry.getValue();
-
             if (points != null && step >= 0 && step < points.size()) {
                 AccuracyDataPoint dp = points.get(step);
                 if (dp != null) {
@@ -45,9 +48,8 @@ public class DatedAccuracy {
             }
         }
 
-        result.sort(Comparator.comparing(DatedAccuracy::getDate));
-
         return result;
     }
+
 
 }

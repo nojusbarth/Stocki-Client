@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
+    android:layout_height="match_parent">
 
     <!-- Winner Card -->
     <com.google.android.material.card.MaterialCardView
@@ -12,27 +10,28 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:padding="12dp">
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Titel mit eigenem Rand -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top Winner"
+                android:text="@string/label_top_winner"
                 android:textStyle="bold"
                 android:textSize="18sp"
+                android:layout_margin="12dp"
                 android:paddingBottom="4dp"/>
 
+            <!-- RecyclerView nutzt volle Breite -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerWinners"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:scrollbars="none"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -43,27 +42,28 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:padding="12dp">
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Titel mit eigenem Rand -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top Loser"
+                android:text="@string/label_top_loser"
                 android:textStyle="bold"
                 android:textSize="18sp"
+                android:layout_margin="12dp"
                 android:paddingBottom="4dp"/>
 
+            <!-- RecyclerView nutzt volle Breite -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerLosers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:scrollbars="none"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -17,15 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
 
-import com.example.stocki_client.TimeFormatter;
-import com.example.stocki_client.prediction.AccuracyDataPoint;
 import com.github.mikephil.charting.charts.LineChart;
 
-import java.time.ZonedDateTime;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 
 public class ModelHistoryFragment extends Fragment {
 
@@ -62,8 +56,8 @@ public class ModelHistoryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_predictions_history, container, false);
 
-        TextView txtTitle = view.findViewById(R.id.txtPredictionTitleHistory);
-        txtTitle.setText("Accuracy " + step + " forward");
+        TextView txtTitle = view.findViewById(R.id.txtAccuracyStepTitleValue);
+        txtTitle.setText(String.valueOf(step));
 
 
         RecyclerView recView = view.findViewById(R.id.recPredictionsHistory);

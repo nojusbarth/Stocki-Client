@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,14 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
-import com.example.stocki_client.prediction.PredictionDataPoint;
 import com.example.stocki_client.prediction.PredictionSorter;
-import com.example.stocki_client.remote.ApiClient;
-import com.example.stocki_client.remote.DataCallback;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
 
 public class PredictionFragment extends Fragment {
 

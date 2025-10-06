@@ -17,11 +17,11 @@ import java.util.List;
 
 public class PredictionChartBuilder {
 
-    private List<StockDataPoint> historical;
-    private List<PredictionDataPoint> prediction;
+    private final List<StockDataPoint> historical;
+    private final List<PredictionDataPoint> prediction;
     private String interval;
 
-    private TimeFormatter timeFormatter;
+    private final TimeFormatter timeFormatter;
 
     public PredictionChartBuilder(String interval) {
         historical = new ArrayList<>();

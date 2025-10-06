@@ -13,11 +13,7 @@ import com.example.stocki_client.R;
 import com.example.stocki_client.prediction.AccuracyDataPoint;
 import com.example.stocki_client.prediction.DatedAccuracy;
 
-
-
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -26,7 +22,7 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
 
 
     private List<DatedAccuracy> data;
-    private int step;
+    private final int step;
 
     public ModelHistoryAdapter(int step) {
         this.step = step-1;
@@ -51,12 +47,9 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
     @Override
     public void onBindViewHolder(@NonNull AccuracyViewHolder holder, int position) {
 
-        holder.parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.showAbsolute = !holder.showAbsolute;
-                notifyDataSetChanged();
-            }
+        holder.parent.setOnClickListener(v -> {
+            holder.showAbsolute = !holder.showAbsolute;
+            notifyDataSetChanged();
         });
 
         DatedAccuracy accuracy = data.get(position);
@@ -70,9 +63,9 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
             String actual = String.format(Locale.getDefault(), "%.2f", dataPoint.getActualClose());
             float diff = dataPoint.getClosePrediction() - dataPoint.getActualClose();
 
-            holder.txtPredicted.setText(String.format(Locale.getDefault(),"Predicted: %s$", predicted));
-            holder.txtActual.setText(String.format(Locale.getDefault(),"Actual: %s$", actual));
-            holder.txtDifference.setText(String.format(Locale.getDefault(), "Diff: %.2f$", Math.abs(diff)));
+            holder.txtPredicted.setText(String.format(Locale.getDefault(),"%s$", predicted));
+            holder.txtActual.setText(String.format(Locale.getDefault(),"%s$", actual));
+            holder.txtDifference.setText(String.format(Locale.getDefault(), "%.2f$", Math.abs(diff)));
         } else {
             String predictedPct = String.format(Locale.getDefault(), "%.2f%%", dataPoint.getPctReturnPrediction());
             float actualPctVal = ((dataPoint.getActualClose() - (dataPoint.getClosePrediction() / (1 + dataPoint.getPctReturnPrediction() / 100f)))
@@ -83,12 +76,12 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
             String actualPct = String.format(Locale.getDefault(), "%.2f%%", actualPctVal);
             String diffPct = String.format(Locale.getDefault(), "%.2f%%", Math.abs(diffPctVal));
 
-            holder.txtPredicted.setText("Predicted: " + predictedPct);
-            holder.txtActual.setText("Actual: " + actualPct);
-            holder.txtDifference.setText("Diff: " + diffPct);
+            holder.txtPredicted.setText(predictedPct);
+            holder.txtActual.setText(actualPct);
+            holder.txtDifference.setText(diffPct);
         }
 
-        holder.txtRiskScore.setText("Risk Score was: " + dataPoint.getRiskPrediction());
+        holder.txtRiskScore.setText(String.valueOf(dataPoint.getRiskPrediction()));
 
     }
 
@@ -101,12 +94,12 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
 
     public class AccuracyViewHolder extends RecyclerView.ViewHolder {
 
-        private CardView parent;
-        private TextView txtDate;
-        private TextView txtPredicted;
-        private TextView txtActual;
-        private TextView txtDifference;
-        private TextView txtRiskScore;
+        private final CardView parent;
+        private final TextView txtDate;
+        private final TextView txtPredicted;
+        private final TextView txtActual;
+        private final TextView txtDifference;
+        private final TextView txtRiskScore;
         private boolean showAbsolute = false;
 
         public AccuracyViewHolder(View view) {
@@ -114,10 +107,10 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
 
             parent = view.findViewById(R.id.cvAccuracy);
             txtDate = view.findViewById(R.id.txtAccuracyDate);
-            txtPredicted = view.findViewById(R.id.txtAccuracyPredicted);
-            txtActual = view.findViewById(R.id.txtAccuracyActual);
-            txtDifference = view.findViewById(R.id.txtAccuracyDifference);
-            txtRiskScore = view.findViewById(R.id.txtAccuracyRiskScore);
+            txtPredicted = view.findViewById(R.id.txtPredictedValue);
+            txtActual = view.findViewById(R.id.txtActualValue);
+            txtDifference = view.findViewById(R.id.txtDifferenceValue);
+            txtRiskScore = view.findViewById(R.id.txtRiskScoreValue);
         }
     }
 }

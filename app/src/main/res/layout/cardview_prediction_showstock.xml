@@ -21,7 +21,7 @@
             android:id="@+id/txtPredictionDateShowStock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DATE"
+            android:text="@string/date_placeholder"
             android:textSize="14sp"
             android:textStyle="italic"
             android:textColor="@android:color/darker_gray"
@@ -47,7 +47,7 @@
                     android:id="@+id/txtReturnLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Return:"
+                    android:text="@string/label_return"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginEnd="4dp"/>
@@ -56,7 +56,7 @@
                     android:id="@+id/txtReturnValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NONE"
+                    android:text="@string/value_placeholder"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginEnd="4dp"/>
@@ -65,7 +65,8 @@
                     android:id="@+id/imgReturnArrow"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/arrow_trending_up_static" />
+                    android:src="@drawable/arrow_trending_up_static"
+                    android:contentDescription="@string/desc_trend_icon"/>
             </LinearLayout>
 
             <!-- Risiko: Label + Kreis -->
@@ -81,7 +82,7 @@
                     android:id="@+id/txtPredictionRiskShowStock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Risk:"
+                    android:text="@string/label_risk"
                     android:textSize="16sp"
                     android:textColor="@android:color/darker_gray"
                     android:layout_marginEnd="6dp"/>

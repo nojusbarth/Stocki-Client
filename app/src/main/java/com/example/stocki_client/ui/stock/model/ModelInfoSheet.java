@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 
 import com.example.stocki_client.R;
 import com.example.stocki_client.TimeFormatter;
@@ -66,19 +68,16 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
             initMetrics(view);
             String latestUpdate = timeFormatter.formatCV(latestUpdateRaw, interval);
 
-            txtLatest.setText(String.format("Latest Update: %s", latestUpdate));
-            txtRiskScore.setText(String.format("Risk score: %s out of 100 ", getArguments().getString(ARG_RISK_SCORE)));
+            txtLatest.setText(latestUpdate);
+            txtRiskScore.setText(String.format("%s %s", getArguments().getString(ARG_RISK_SCORE), getString(R.string.label_risk_score_of)));
 
-            btnShowHistory.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), ModelHistoryActivity.class);
+            btnShowHistory.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), ModelHistoryActivity.class);
 
-                    intent.putExtra("stockName", getArguments().getString(ARG_STOCK_NAME));
-                    intent.putExtra("interval", interval);
+                intent.putExtra("stockName", getArguments().getString(ARG_STOCK_NAME));
+                intent.putExtra("interval", interval);
 
-                    getContext().startActivity(intent);
-                }
+                getContext().startActivity(intent);
             });
 
         }
@@ -92,43 +91,58 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
         TextView txtSharpe = view.findViewById(R.id.txtSharpe);
         TextView txtMaxDrawDown = view.findViewById(R.id.txtMaxDrawDown);
 
-        txtMAE.setText(String.format("MAE: %s%%", getArguments().getString(ARG_MAE)));
-        txtHitRate.setText(String.format("Hit Rate: %s%%", getArguments().getString(ARG_HIT_RATE)));
-        txtSharpe.setText(String.format("Sharpe Ratio: %s", getArguments().getString(ARG_SHARPE)));
-        txtMaxDrawDown.setText(String.format("Maximum Drawdown: %s%%", getArguments().getString(ARG_DRAW_DOWN)));
+        txtMAE.setText(String.format("%s %s%%",getString(R.string.label_MAE), getArguments().getString(ARG_MAE)));
+        txtHitRate.setText(String.format("%s %s%%", getString(R.string.label_hit_rate), getArguments().getString(ARG_HIT_RATE)));
+        txtSharpe.setText(String.format("%s %s",getString(R.string.label_sharpe), getArguments().getString(ARG_SHARPE)));
+        txtMaxDrawDown.setText(String.format("%s %s%%",getString(R.string.label_max_drawdown), getArguments().getString(ARG_DRAW_DOWN)));
 
         FrameLayout infoMaeContainer = view.findViewById(R.id.containerInfoMae);
-        infoMaeContainer.setOnClickListener(v -> {
-            showInfoPopup(v, "MAE = Mean Absolute Error\nMisst die durchschnittliche Abweichung.",
-                    "MAE explanation");
-        });
+        infoMaeContainer.setOnClickListener(v -> showInfoPopup(v,
+                getString(R.string.explanation_MAE_title),
+                getString(R.string.explanation_MAE_body),
+                getString(R.string.explanation_MAE_example)));
 
         FrameLayout infoHitContainer = view.findViewById(R.id.containerInfoHitRate);
-        infoHitContainer.setOnClickListener(v -> {
-            showInfoPopup(v, "Zuverlaessigkeit",
-                    "Hit Rate explanation");
-        });
+        infoHitContainer.setOnClickListener(v -> showInfoPopup(v,
+                getString(R.string.explanation_hit_rate_title),
+                getString(R.string.explanation_hit_rate_body),
+                getString(R.string.explanation_hit_rate_example)));
 
         FrameLayout infoSharpeContainer = view.findViewById(R.id.containerInfoSharpe);
-        infoSharpeContainer.setOnClickListener(v -> {
-            showInfoPopup(v, "genauikgeit",
-                    "Sharpe Ratio explanation");
-        });
+        infoSharpeContainer.setOnClickListener(v -> showInfoPopup(v,
+                getString(R.string.explanation_sharpe_title),
+                getString(R.string.explanation_sharpe_body),
+                getString(R.string.explanation_sharpe_example)));
 
         FrameLayout infoDrawContainer = view.findViewById(R.id.containerInfoMaxDrawdown);
-        infoDrawContainer.setOnClickListener(v -> {
-            showInfoPopup(v, "verlust",
-                    "Max Drawdown explanation");
-        });
+        infoDrawContainer.setOnClickListener(v -> showInfoPopup(v,
+                getString(R.string.explanation_drawdown_title),
+                getString(R.string.explanation_drawdown_body),
+                getString(R.string.explanation_drawdown_example)));
     }
 
 
-    private void showInfoPopup(View anchor, String message, String title) {
-        new AlertDialog.Builder(getContext(), R.style.MyAlertDialogTheme)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", null)
-                .show();
+    private void showInfoPopup(View anchor, String title, String desc, String example) {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View dialogView = inflater.inflate(R.layout.dialog_metric_detail, null);
+
+        TextView txtTitle = dialogView.findViewById(R.id.txtMetricTitle);
+        TextView txtDescription = dialogView.findViewById(R.id.txtMetricDescription);
+        TextView txtExample = dialogView.findViewById(R.id.txtMetricExample);
+
+        txtTitle.setText(title);
+        txtDescription.setText(desc);
+        txtExample.setText(example);
+
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                .setView(dialogView)
+                .setPositiveButton(getString(R.string.positive_answer), null)
+                .create();
+
+        dialog.show();
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
     }
 
 }
