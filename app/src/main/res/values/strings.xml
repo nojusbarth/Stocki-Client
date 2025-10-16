@@ -12,8 +12,10 @@
     <string name="desc_icon_Hits">Explanation Hit Rate</string>
     <string name="desc_icon_Sharpe">Explanation Sharpe</string>
     <string name="desc_icon_Down">Explanation Max. Drawdown</string>
+    <string name="desc_icon_Risk">Explanation Risk Score</string>
     <string name="desc_icon_unit_switch">Switch between Dollars and percent</string>
     <string name="desc_trend_icon">Icon showing trend</string>
+    <string name="desc_pred_card_hint">Show details about prediction</string>
     <string name="label_prediction">Predicted:</string>
     <string name="label_actual">Actual:</string>
     <string name="label_difference">Difference:</string>
@@ -23,6 +25,9 @@
     <string name="label_risk">Risk:</string>
     <string name="label_accuracy_step_left">Accuracy in</string>
     <string name="label_accuracy_step_right">steps ahead</string>
+    <string name="label_one_ahead">One ahead</string>
+    <string name="label_two_ahead">Two ahead</string>
+    <string name="label_three_ahead">Three ahead</string>
     <string name="label_top_winner">Top Winner</string>
     <string name="label_top_loser">Top Loser</string>
     <string name="label_model_info">Model Info:</string>
@@ -30,50 +35,61 @@
     <string name="label_hit_rate">Hit Rate:</string>
     <string name="label_sharpe">Sharpe:</string>
     <string name="label_max_drawdown">Max. Drawdown:</string>
-    <string name="label_MAE_title">MAE explanation</string>
-    <string name="label_hit_rate_title">Hit Rate explanation</string>
-    <string name="label_sharpe_title">Sharpe explanation</string>
-    <string name="label_drawdown_title">Max. Drawdown explanation</string>
 
     <string name="explanation_MAE_title">Mean Absolute Error (MAE)</string>
     <string name="explanation_MAE_body">
-        Measures the average absolute difference between predicted and actual returns.
+        Measures the average absolute difference between predicted and actual returns.\n
         \nA lower MAE indicates more accurate predictions.
     </string>
     <string name="explanation_MAE_example">
-        Example:
+        Example:\n
         \nAn MAE of 2.5 % means predictions deviate by ~2.5 percentage points on average.
     </string>
 
     <string name="explanation_hit_rate_title">Hit Rate</string>
     <string name="explanation_hit_rate_body">
-        Shows how often the model correctly predicts the direction of movement (up or down).
+        Shows how often the model correctly predicts the direction of movement (up or down).\n
         \nHigher is better.
     </string>
     <string name="explanation_hit_rate_example">
-        Example:
+        Example:\n
         \nA Hit Rate of 70 % means the model was right 7 out of 10 times.
     </string>
 
-    <string name="explanation_sharpe_title">Sharpe Ratio</string>
+    <string name="explanation_sharpe_title">Sharpe Ratio (annually)</string>
     <string name="explanation_sharpe_body">
-        Measures risk-adjusted performance — the ratio of excess return to volatility.
+        Measures risk-adjusted performance —\n
+        the ratio of excess return to volatility.\n
         \nValues above 1.0 are considered good, above 2.0 excellent.
     </string>
     <string name="explanation_sharpe_example">
-        Example:
+        Example:\n
         \nA Sharpe Ratio of 1.8 indicates strong returns relative to risk.
     </string>
 
     <string name="explanation_drawdown_title">Maximum Drawdown</string>
     <string name="explanation_drawdown_body">
-        Represents the largest peak-to-trough decline during the period — a measure of downside risk.
-        \nLower (less negative) values are better.
+        Shows the largest price drop for this stock during the evaluation period —\n
+        it measures how much the price fell from its highest point to the lowest afterwards.\n
+        \nSmaller (less negative) values mean lower risk.
     </string>
-    <string name="explanation_drawdown_example">
-        Example:
-        \nA Max Drawdown of –12 % means the portfolio once fell 12 % from its highest point.
+
+        <string name="explanation_drawdown_example">
+        Example:\n
+        \nA Max Drawdown of –12 % means the stock price once dropped 12 % from its recent peak before recovering.
     </string>
+
+    <string name="explanation_riskscore_title">Model Risk Score</string>
+    <string name="explanation_riskscore_body">
+    Combines multiple performance metrics into a single measure of forecast reliability.
+    \nThe score reflects how consistent, accurate, and stable the model’s predictions are.\n
+    \nLower values indicate higher reliability and lower prediction risk.
+    </string>
+    <string name="explanation_riskscore_example">
+    Example:\n
+    \nA Risk Score of 20 suggests a stable and trustworthy model,
+    while a score of 80 indicates high uncertainty and potential volatility in predictions.
+</string>
 
     <string name="positive_answer">OK</string>
     <string name="value_placeholder">---</string>

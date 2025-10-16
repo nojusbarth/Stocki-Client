@@ -64,27 +64,43 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="4dp">
+                android:layout_marginBottom="6dp">
 
-                <TextView
-                    android:id="@+id/txtMAE"
+                <!-- Label + Value in gemeinsamem Container -->
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/value_placeholder"
-                    android:textSize="14sp"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblMAE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_MAE"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtMAE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/value_placeholder"
+                        android:textSize="15sp"
+                        android:layout_marginStart="6dp" />
+                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/containerInfoMae"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
                         android:contentDescription="@string/desc_icon_MAE"/>
@@ -97,27 +113,42 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="4dp">
+                android:layout_marginBottom="6dp">
 
-                <TextView
-                    android:id="@+id/txtHitRate"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/value_placeholder"
-                    android:textSize="14sp"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblHitRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_hit_rate"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/txtHitRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/value_placeholder"
+                        android:textSize="15sp"
+                        android:layout_marginStart="6dp"/>
+                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/containerInfoHitRate"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
                         android:contentDescription="@string/desc_icon_Hits"/>
@@ -130,27 +161,42 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="4dp">
+                android:layout_marginBottom="6dp">
 
-                <TextView
-                    android:id="@+id/txtSharpe"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/value_placeholder"
-                    android:textSize="14sp"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblSharpe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_sharpe"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/txtSharpe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/value_placeholder"
+                        android:textSize="15sp"
+                        android:layout_marginStart="6dp"/>
+                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/containerInfoSharpe"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
                         android:contentDescription="@string/desc_icon_Sharpe"/>
@@ -164,25 +210,40 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/txtMaxDrawDown"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/value_placeholder"
-                    android:textSize="14sp"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblMaxDrawdown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_max_drawdown"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/txtMaxDrawDown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/value_placeholder"
+                        android:textSize="15sp"
+                        android:layout_marginStart="6dp"/>
+                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/containerInfoMaxDrawdown"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
                         android:contentDescription="@string/desc_icon_Down"/>
@@ -190,6 +251,8 @@
             </LinearLayout>
 
         </LinearLayout>
+
+
 
         <!-- Risk Score -->
         <TextView
@@ -201,16 +264,59 @@
             android:textSize="16sp"
             android:layout_marginTop="10dp"/>
 
-        <TextView
-            android:id="@+id/txtRiskValue"
+        <!-- Risk Metric -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/value_placeholder"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:textSize="14sp"/>
+            android:layout_marginBottom="6dp">
 
-        <!-- Optional Button -->
+            <!-- Label + Value Container -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtRiskValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/txtRiskLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_risk_score_of"
+                    android:textSize="15sp"
+                    android:layout_marginStart="6dp"/>
+            </LinearLayout>
+
+            <!-- Info Icon -->
+            <FrameLayout
+                android:id="@+id/containerInfoRisk"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_menu_info_details"
+                    android:contentDescription="@string/desc_icon_Risk"/>
+            </FrameLayout>
+        </LinearLayout>
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnShowModelHistory"
             android:layout_width="120dp"

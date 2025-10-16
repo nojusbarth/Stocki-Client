@@ -83,8 +83,6 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
         holder.parent.setOnClickListener(v -> viewModel.getModelInfo(interval).observe(activity, modelInfo -> {
             if (modelInfo != null) {
                 Map<String, Double> metrics = modelInfo.getMetrics();
-
-
                 ModelInfoSheet sheet = ModelInfoSheet.newInstance(
                         modelInfo.getLatestUpdate(),
                         String.format(Locale.getDefault(),"%.2f", metrics.get("MAE")),
@@ -93,7 +91,8 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
                         String.format(Locale.getDefault(),"%.2f", metrics.get("MaxDrawdown")),
                         String.valueOf(point.getRiskScore()),
                         ticker,
-                        interval);
+                        interval,
+                        position);
                 sheet.show(activity.getSupportFragmentManager(), "ModelInfoBottomSheet");
             }
         }));

@@ -63,7 +63,7 @@ public class ModelHistoryFragment extends Fragment {
         RecyclerView recView = view.findViewById(R.id.recPredictionsHistory);
         recView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
 
-        ModelHistoryAdapter historyAdapter = new ModelHistoryAdapter(this.step);
+        ModelHistoryAdapter historyAdapter = new ModelHistoryAdapter(getContext(), this.step);
 
         recView.setAdapter(historyAdapter);
 

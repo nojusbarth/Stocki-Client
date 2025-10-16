@@ -10,4 +10,10 @@
     <color name="light_gray">#C9C5C7</color>
     <color name="green">#27F542</color>
     <color name="red">#F02E2E</color>
+
+    <color name="category_worst">#b30000</color>
+    <color name="category_bad">#e65c00</color>
+    <color name="category_ok">#ffcc00</color>
+    <color name="category_good">#66cc33</color>
+    <color name="category_super">#009933</color>
 </resources>

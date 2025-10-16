@@ -8,93 +8,114 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
     app:strokeColor="@android:color/darker_gray"
-    app:strokeWidth="1dp">
+    app:strokeWidth="1dp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground">
 
-    <LinearLayout
+    <!-- FrameLayout, um das Info-Icon oben rechts zu platzieren -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:layout_height="wrap_content">
 
-        <!-- Datum oben -->
-        <TextView
-            android:id="@+id/txtPredictionDateShowStock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/date_placeholder"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp"/>
-
-        <!-- Return + Risiko in einer Zeile, harmonisch verteilt -->
+        <!-- Inhalt -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:weightSum="2">
+            android:orientation="vertical"
+            android:padding="12dp">
 
-            <!-- Return: Label + Wert + Pfeil -->
+            <!-- Datum oben -->
+            <TextView
+                android:id="@+id/txtPredictionDateShowStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_placeholder"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Return + Risiko -->
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical|start">
+                android:gravity="center_vertical"
+                android:weightSum="2">
 
-                <TextView
-                    android:id="@+id/txtReturnLabel"
-                    android:layout_width="wrap_content"
+                <!-- Return -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_return"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginEnd="4dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical|start">
 
-                <TextView
-                    android:id="@+id/txtReturnValue"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/txtReturnLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_return"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="4dp"/>
+
+                    <TextView
+                        android:id="@+id/txtReturnValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/value_placeholder"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="4dp"/>
+
+                    <ImageView
+                        android:id="@+id/imgReturnArrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/arrow_trending_up_static"
+                        android:contentDescription="@string/desc_trend_icon"/>
+                </LinearLayout>
+
+                <!-- Risiko -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/value_placeholder"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginEnd="4dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp">
 
-                <ImageView
-                    android:id="@+id/imgReturnArrow"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/arrow_trending_up_static"
-                    android:contentDescription="@string/desc_trend_icon"/>
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/txtPredictionRiskShowStock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_risk"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/darker_gray"
+                        android:layout_marginEnd="6dp"/>
 
-            <!-- Risiko: Label + Kreis -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginStart="8dp">
-
-                <TextView
-                    android:id="@+id/txtPredictionRiskShowStock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_risk"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_marginEnd="6dp"/>
-
-                <View
-                    android:id="@+id/viewRiskIndicatorShowStock"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@drawable/circle_shape"/>
+                    <View
+                        android:id="@+id/viewRiskIndicatorShowStock"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/circle_shape"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
+        <!-- Dezentes Info-Icon oben rechts -->
+        <ImageView
+            android:id="@+id/imgInfoCardHint"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="8dp"
+            android:src="@android:drawable/ic_menu_info_details"
+            android:alpha="0.6"
+            android:contentDescription="@string/desc_pred_card_hint"
+            app:tint="@color/black" />
+
+    </FrameLayout>
 </com.google.android.material.card.MaterialCardView>
 

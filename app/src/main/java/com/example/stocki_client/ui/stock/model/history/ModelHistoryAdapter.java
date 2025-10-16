@@ -1,5 +1,7 @@
 package com.example.stocki_client.ui.stock.model.history;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
@@ -23,9 +27,11 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
 
     private List<DatedAccuracy> data;
     private final int step;
+    private Context context;
 
-    public ModelHistoryAdapter(int step) {
+    public ModelHistoryAdapter(Context context, int step) {
         this.step = step-1;
+        this.context = context;
 
         data = new ArrayList<>();
     }
@@ -77,12 +83,31 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
             String diffPct = String.format(Locale.getDefault(), "%.2f%%", Math.abs(diffPctVal));
 
             holder.txtPredicted.setText(predictedPct);
+            if (dataPoint.getPctReturnPrediction() > 0.0) {
+                holder.txtPredicted.setTextColor(ContextCompat.getColor(context, R.color.green));
+            } else {
+                holder.txtPredicted.setTextColor(ContextCompat.getColor(context, R.color.red));
+            }
+
             holder.txtActual.setText(actualPct);
+            if (actualPctVal > 0.0) {
+                holder.txtActual.setTextColor(ContextCompat.getColor(context, R.color.green));
+            } else {
+                holder.txtActual.setTextColor(ContextCompat.getColor(context, R.color.red));
+            }
+
+
             holder.txtDifference.setText(diffPct);
         }
 
         holder.txtRiskScore.setText(String.valueOf(dataPoint.getRiskPrediction()));
-
+        float risk = dataPoint.getRiskPrediction() / 100f;
+        int color = ColorUtils.blendARGB(
+                Color.GREEN,
+                Color.RED,
+                risk
+        );
+        holder.txtRiskScore.setTextColor(color);
     }
 
     @Override

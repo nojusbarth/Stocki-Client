@@ -2,6 +2,7 @@ package com.example.stocki_client.ui.stock.model;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.core.text.HtmlCompat;
+import androidx.core.graphics.ColorUtils;
 
 import com.example.stocki_client.R;
 import com.example.stocki_client.TimeFormatter;
@@ -30,9 +31,10 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
     private static final String ARG_RISK_SCORE = "riskscore";
     private static final String ARG_STOCK_NAME = "stockname";
     private static final String ARG_INTERVAL = "interval";
+    private static final String ARG_STEP = "step";
 
     public static ModelInfoSheet newInstance(String latestUpdate, String MAE, String hitRate,
-            String sharpe, String drawDown, String riskScore, String stockName, String interval) {
+                                             String sharpe, String drawDown, String riskScore, String stockName, String interval, int step) {
         ModelInfoSheet fragment = new ModelInfoSheet();
         Bundle args = new Bundle();
         args.putString(ARG_LATEST, latestUpdate);
@@ -44,6 +46,7 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
         args.putString(ARG_RISK_SCORE, riskScore);
         args.putString(ARG_STOCK_NAME, stockName);
         args.putString(ARG_INTERVAL, interval);
+        args.putInt(ARG_STEP, step);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,27 +58,31 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.bottom_sheet_model_info, container, false);
 
         TextView txtLatest = view.findViewById(R.id.txtLatestUpdateValue);
-        TextView txtRiskScore = view.findViewById(R.id.txtRiskValue);
         Button btnShowHistory = view.findViewById(R.id.btnShowModelHistory);
 
         TimeFormatter timeFormatter = new TimeFormatter();
 
         if (getArguments() != null) {
 
+            int step = getArguments().getInt(ARG_STEP);
             String interval = getArguments().getString(ARG_INTERVAL);
 
             String latestUpdateRaw = getArguments().getString(ARG_LATEST);
-            initMetrics(view);
             String latestUpdate = timeFormatter.formatCV(latestUpdateRaw, interval);
-
             txtLatest.setText(latestUpdate);
-            txtRiskScore.setText(String.format("%s %s", getArguments().getString(ARG_RISK_SCORE), getString(R.string.label_risk_score_of)));
+
+
+            initMetrics(view, interval);
+
+            initRiskScore(view);
+
 
             btnShowHistory.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), ModelHistoryActivity.class);
 
                 intent.putExtra("stockName", getArguments().getString(ARG_STOCK_NAME));
                 intent.putExtra("interval", interval);
+                intent.putExtra("step", step);
 
                 getContext().startActivity(intent);
             });
@@ -85,16 +92,28 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
         return view;
     }
 
-    private void initMetrics(View view) {
+    private void initMetrics(View view, String interval) {
+
         TextView txtMAE = view.findViewById(R.id.txtMAE);
         TextView txtHitRate = view.findViewById(R.id.txtHitRate);
         TextView txtSharpe = view.findViewById(R.id.txtSharpe);
         TextView txtMaxDrawDown = view.findViewById(R.id.txtMaxDrawDown);
 
-        txtMAE.setText(String.format("%s %s%%",getString(R.string.label_MAE), getArguments().getString(ARG_MAE)));
-        txtHitRate.setText(String.format("%s %s%%", getString(R.string.label_hit_rate), getArguments().getString(ARG_HIT_RATE)));
-        txtSharpe.setText(String.format("%s %s",getString(R.string.label_sharpe), getArguments().getString(ARG_SHARPE)));
-        txtMaxDrawDown.setText(String.format("%s %s%%",getString(R.string.label_max_drawdown), getArguments().getString(ARG_DRAW_DOWN)));
+        String mae = getArguments().getString(ARG_MAE);
+        String hit = getArguments().getString(ARG_HIT_RATE);
+        String sharpe = getArguments().getString(ARG_SHARPE);
+        String drawdown = getArguments().getString(ARG_DRAW_DOWN);
+
+        txtMAE.setText(String.format("%s%%",mae));
+        txtHitRate.setText(String.format("%s%%", hit));
+        txtSharpe.setText(String.format("%s", sharpe));
+        txtMaxDrawDown.setText(String.format("%s%%",drawdown));
+
+        txtMAE.setTextColor(MetricColorMapper.getFittingColor(mae,"MAE", interval, getContext()));
+        txtHitRate.setTextColor(MetricColorMapper.getFittingColor(hit,"HIT", interval, getContext()));
+        txtSharpe.setTextColor(MetricColorMapper.getFittingColor(sharpe,"SHARPE", interval, getContext()));
+        txtMaxDrawDown.setTextColor(MetricColorMapper.getFittingColor(drawdown,"MAXDRAW", interval, getContext()));
+
 
         FrameLayout infoMaeContainer = view.findViewById(R.id.containerInfoMae);
         infoMaeContainer.setOnClickListener(v -> showInfoPopup(v,
@@ -144,5 +163,37 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
         Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
         positiveButton.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
     }
+
+
+    private void initRiskScore(View view) {
+        TextView txtRiskScore = view.findViewById(R.id.txtRiskValue);
+
+        String riskScore = getArguments().getString(ARG_RISK_SCORE);
+        txtRiskScore.setText(String.format("%s", riskScore));
+
+        float risk = 0f;
+        try {
+            float riskValue = Float.parseFloat(riskScore);
+            risk = riskValue / 100f;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            risk = 0f; // Fallback
+        }
+
+        int color = ColorUtils.blendARGB(
+                Color.GREEN,
+                Color.RED,
+                risk
+        );
+
+        txtRiskScore.setTextColor(color);
+
+        FrameLayout infoDrawContainer = view.findViewById(R.id.containerInfoRisk);
+        infoDrawContainer.setOnClickListener(v -> showInfoPopup(v,
+                getString(R.string.explanation_riskscore_title),
+                getString(R.string.explanation_riskscore_body),
+                getString(R.string.explanation_riskscore_example)));
+    }
+
 
 }

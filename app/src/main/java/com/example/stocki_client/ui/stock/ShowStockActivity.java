@@ -106,7 +106,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true); //home button
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
     }

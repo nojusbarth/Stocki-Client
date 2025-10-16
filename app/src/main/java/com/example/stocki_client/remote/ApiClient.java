@@ -31,8 +31,8 @@ public class ApiClient {
     private static ApiClient instance;
 
     private final OkHttpClient client;
-    private static final String baseURL = "http://62.169.27.233:5000";
-    //private static final String baseURL = "http://10.0.2.2:5000";
+    //private static final String baseURL = "http://62.169.27.233:5000";
+    private static final String baseURL = "http://10.0.2.2:5000";
     private static final String historicalRequest = "%s/historical/%s?period=%d&interval=%s";
     private static final String tickerListRequest = "%s/stocknames";
     private static final String predictionRequest = "%s/predictions/%s?period=%d&interval=%s";
@@ -92,7 +92,7 @@ public class ApiClient {
         String requestHTTP = String.format(historicalRequest, baseURL, ticker, days, interval);
         Request request = new Request.Builder()
                 .url(requestHTTP)
-                .header("Connection", "close") // Fix 2
+                .header("Connection", "close")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -104,7 +104,7 @@ public class ApiClient {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                try (ResponseBody body = response.body()) { // Fix 1
+                try (ResponseBody body = response.body()) {
                     if (body != null && response.isSuccessful()) {
                         String jsonString = body.string();
                         Type listType = new TypeToken<List<StockDataPoint>>() {}.getType();

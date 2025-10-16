@@ -34,9 +34,11 @@ public class ModelHistoryActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         String interval = "";
+        int step = -1;
         if(intent != null) {
             stockName = intent.getStringExtra("stockName");
             interval = intent.getStringExtra("interval");
+            step = intent.getIntExtra("step",-1);
         }
 
         ModelHistoryViewModel viewModel = new ViewModelProvider(this).get(ModelHistoryViewModel.class);
@@ -44,11 +46,11 @@ public class ModelHistoryActivity extends AppCompatActivity {
         viewModel.initData(stockName, interval);
 
         createToolbar();
-        initPager();
+        initPager(step);
     }
 
 
-    private void initPager() {
+    private void initPager(int step) {
         TabLayout tabLayoutPredictions = findViewById(R.id.tabLayoutPredictionsHistory);
         ViewPager2 viewPagerPredictions = findViewById(R.id.viewPagerPredictionsHistory);
 
@@ -58,14 +60,16 @@ public class ModelHistoryActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayoutPredictions, viewPagerPredictions,
                 (tab, position) -> {
                     if (position == HistoryPagerAdapter.POSITION_STEP_1) {
-                        tab.setText("One forward");
+                        tab.setText(getResources().getString(R.string.label_one_ahead));
                     } else if (position == HistoryPagerAdapter.POSITION_STEP_2){
-                        tab.setText("Two forward");
+                        tab.setText(getResources().getString(R.string.label_two_ahead));
                     } else {
-                        tab.setText("Three forward");
+                        tab.setText(getResources().getString(R.string.label_three_ahead));
                     }
                 }
         ).attach();
+
+        viewPagerPredictions.setCurrentItem(step, false);
     }
 
 
