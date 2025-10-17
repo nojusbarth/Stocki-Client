@@ -19,7 +19,7 @@ public class PredictionSorter {
         for (Map.Entry<String, PredictionDataPoint> entry : newData.entrySet()) {
 
             float pct = entry.getValue().getPctReturn();
-            int risk = entry.getValue().getRiskScore();
+            int risk = entry.getValue().getConfidence();
 
             currentData.add(new PredictionSortingDataPoint(entry.getKey(), pct, risk ));
         }

@@ -2,7 +2,7 @@ package com.example.stocki_client.prediction;
 
 public class AccuracyDataPoint {
     private float closePrediction;
-    private int riskPrediction;
+    private int confidence;
     private float actualClose;
     private float pctReturnPrediction;
 
@@ -17,8 +17,8 @@ public class AccuracyDataPoint {
         return closePrediction;
     }
 
-    public int getRiskPrediction() {
-        return riskPrediction;
+    public int getConfidence() {
+        return confidence;
     }
 
     public float getPctReturnPrediction() {

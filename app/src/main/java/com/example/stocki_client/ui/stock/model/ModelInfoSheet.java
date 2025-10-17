@@ -28,13 +28,13 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
     private static final String ARG_HIT_RATE = "hitrate";
     private static final String ARG_SHARPE = "sharpe";
     private static final String ARG_DRAW_DOWN = "drawdown";
-    private static final String ARG_RISK_SCORE = "riskscore";
+    private static final String ARG_CONFIDENCE = "confidence";
     private static final String ARG_STOCK_NAME = "stockname";
     private static final String ARG_INTERVAL = "interval";
     private static final String ARG_STEP = "step";
 
     public static ModelInfoSheet newInstance(String latestUpdate, String MAE, String hitRate,
-                                             String sharpe, String drawDown, String riskScore, String stockName, String interval, int step) {
+                                             String sharpe, String drawDown, String confidence, String stockName, String interval, int step) {
         ModelInfoSheet fragment = new ModelInfoSheet();
         Bundle args = new Bundle();
         args.putString(ARG_LATEST, latestUpdate);
@@ -43,7 +43,7 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
         args.putString(ARG_SHARPE, sharpe);
         args.putString(ARG_DRAW_DOWN, drawDown);
 
-        args.putString(ARG_RISK_SCORE, riskScore);
+        args.putString(ARG_CONFIDENCE, confidence);
         args.putString(ARG_STOCK_NAME, stockName);
         args.putString(ARG_INTERVAL, interval);
         args.putInt(ARG_STEP, step);
@@ -74,7 +74,7 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
 
             initMetrics(view, interval);
 
-            initRiskScore(view);
+            initConfidenceScore(view);
 
 
             btnShowHistory.setOnClickListener(v -> {
@@ -165,34 +165,33 @@ public class ModelInfoSheet extends BottomSheetDialogFragment {
     }
 
 
-    private void initRiskScore(View view) {
-        TextView txtRiskScore = view.findViewById(R.id.txtRiskValue);
+    private void initConfidenceScore(View view) {
+        TextView txtConfidenceScore = view.findViewById(R.id.txtConfValue);
 
-        String riskScore = getArguments().getString(ARG_RISK_SCORE);
-        txtRiskScore.setText(String.format("%s", riskScore));
+        String confidence = getArguments().getString(ARG_CONFIDENCE);
 
-        float risk = 0f;
+        float confidenceVal = 0f;
         try {
-            float riskValue = Float.parseFloat(riskScore);
-            risk = riskValue / 100f;
+            float confidenceValue = Float.parseFloat(confidence);
+            confidenceVal = confidenceValue / 100f;
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            risk = 0f; // Fallback
+            confidenceVal = 1f;
         }
 
         int color = ColorUtils.blendARGB(
-                Color.GREEN,
                 Color.RED,
-                risk
+                Color.GREEN,
+                confidenceVal
         );
-
-        txtRiskScore.setTextColor(color);
+        txtConfidenceScore.setText(String.format("%s", confidence));
+        txtConfidenceScore.setTextColor(color);
 
         FrameLayout infoDrawContainer = view.findViewById(R.id.containerInfoRisk);
         infoDrawContainer.setOnClickListener(v -> showInfoPopup(v,
-                getString(R.string.explanation_riskscore_title),
-                getString(R.string.explanation_riskscore_body),
-                getString(R.string.explanation_riskscore_example)));
+                getString(R.string.explanation_confidence_title),
+                getString(R.string.explanation_confidence_body),
+                getString(R.string.explanation_confidence_example)));
     }
 
 

@@ -31,8 +31,8 @@ public class ApiClient {
     private static ApiClient instance;
 
     private final OkHttpClient client;
-    //private static final String baseURL = "http://62.169.27.233:5000";
-    private static final String baseURL = "http://10.0.2.2:5000";
+    private static final String baseURL = "http://62.169.27.233:5000";
+    //private static final String baseURL = "http://10.0.2.2:5000";
     private static final String historicalRequest = "%s/historical/%s?period=%d&interval=%s";
     private static final String tickerListRequest = "%s/stocknames";
     private static final String predictionRequest = "%s/predictions/%s?period=%d&interval=%s";

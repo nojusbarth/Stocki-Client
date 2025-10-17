@@ -71,14 +71,14 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
             holder.imgArrow.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.arrow_trending_down_static));
         }
 
-        float risk = point.getRiskScore() / 100.0f;
+        float confidence = point.getConfidence() / 100.0f;
 
         int color = ColorUtils.blendARGB(
-                Color.GREEN,
                 Color.RED,
-                risk
+                Color.GREEN,
+                confidence
         );
-        holder.riskIndicator.getBackground().setTint(color);
+        holder.confidenceIndicator.getBackground().setTint(color);
 
         holder.parent.setOnClickListener(v -> viewModel.getModelInfo(interval).observe(activity, modelInfo -> {
             if (modelInfo != null) {
@@ -89,7 +89,7 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
                         String.format(Locale.getDefault(),"%.2f", metrics.get("HitRate")),
                         String.format(Locale.getDefault(),"%.2f", metrics.get("Sharpe")),
                         String.format(Locale.getDefault(),"%.2f", metrics.get("MaxDrawdown")),
-                        String.valueOf(point.getRiskScore()),
+                        String.valueOf(point.getConfidence()),
                         ticker,
                         interval,
                         position);
@@ -122,7 +122,7 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
 
         private final TextView txtReturn;
         private final TextView txtDate;
-        private final View riskIndicator;
+        private final View confidenceIndicator;
         private final CardView parent;
         private final ImageView imgArrow;
 
@@ -131,7 +131,7 @@ public class PredictionAdapterStock extends RecyclerView.Adapter<PredictionAdapt
 
             txtReturn = view.findViewById(R.id.txtReturnValue);
             txtDate = view.findViewById(R.id.txtPredictionDateShowStock);
-            riskIndicator = view.findViewById(R.id.viewRiskIndicatorShowStock);
+            confidenceIndicator = view.findViewById(R.id.viewConfIndicatorShowStock);
             imgArrow = view.findViewById(R.id.imgReturnArrow);
             parent = view.findViewById(R.id.cvPredictionShowStock);
         }

@@ -71,14 +71,14 @@ public class PredictionAdapterMain extends RecyclerView.Adapter<PredictionAdapte
         }
 
 
-        float risk = point.getRiskScore() / 100.0f;
+        float confidence = point.getConfidence() / 100.0f;
 
         int color = ColorUtils.blendARGB(
-                Color.GREEN,
                 Color.RED,
-                risk
+                Color.GREEN,
+                confidence
         );
-        holder.riskIndicator.getBackground().setTint(color);
+        holder.confidenceIndicator.getBackground().setTint(color);
 
         holder.parent.setOnClickListener(v -> {
             Intent intent = new Intent(context, ShowStockActivity.class);
@@ -108,7 +108,7 @@ public class PredictionAdapterMain extends RecyclerView.Adapter<PredictionAdapte
     public class StockViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView txtReturn;
-        private final View riskIndicator;
+        private final View confidenceIndicator;
         private final TextView txtStockName;
         private final ImageView imgArrow;
         private final CardView parent;
@@ -120,7 +120,7 @@ public class PredictionAdapterMain extends RecyclerView.Adapter<PredictionAdapte
             imgArrow = view.findViewById(R.id.imgReturnArrowMainPage);
             txtReturn = view.findViewById(R.id.txtPredictionReturnMainPage);
             txtStockName = view.findViewById(R.id.txtStockNameMainPage);
-            riskIndicator = view.findViewById(R.id.viewRiskIndicatorMainPage);
+            confidenceIndicator = view.findViewById(R.id.viewConfIndicatorMainPage);
             parent = view.findViewById(R.id.cvPredictionMainPage);
         }
     }

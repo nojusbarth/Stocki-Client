@@ -6,36 +6,73 @@
     <string name="button_daily_text">daily</string>
     <string name="model_latest_update">Latest update</string>
     <string name="model_metrics">Metrics</string>
-    <string name="model_risk_score">Risk Score</string>
+    <string name="model_confidence_score">Confidence Score</string>
     <string name="model_history">Show History</string>
     <string name="desc_icon_MAE">Explanation MAE</string>
     <string name="desc_icon_Hits">Explanation Hit Rate</string>
     <string name="desc_icon_Sharpe">Explanation Sharpe</string>
     <string name="desc_icon_Down">Explanation Max. Drawdown</string>
-    <string name="desc_icon_Risk">Explanation Risk Score</string>
+    <string name="desc_icon_Confidence">Explanation Confidence Score</string>
     <string name="desc_icon_unit_switch">Switch between Dollars and percent</string>
     <string name="desc_trend_icon">Icon showing trend</string>
     <string name="desc_pred_card_hint">Show details about prediction</string>
     <string name="label_prediction">Predicted:</string>
     <string name="label_actual">Actual:</string>
     <string name="label_difference">Difference:</string>
-    <string name="label_risk_score_was">Risk score was:</string>
-    <string name="label_risk_score_of">out of 100</string>
+    <string name="label_confidence_score_was">Confidence was:</string>
+    <string name="label_confidence_score_of">out of 100</string>
     <string name="label_return">Return:</string>
-    <string name="label_risk">Risk:</string>
+    <string name="label_confidence">Confidence:</string>
     <string name="label_accuracy_step_left">Accuracy in</string>
     <string name="label_accuracy_step_right">steps ahead</string>
     <string name="label_one_ahead">One ahead</string>
     <string name="label_two_ahead">Two ahead</string>
     <string name="label_three_ahead">Three ahead</string>
-    <string name="label_top_winner">Top Winner</string>
-    <string name="label_top_loser">Top Loser</string>
+    <string name="label_top_winner">Leading Stocks</string>
+    <string name="label_top_loser">Lagging Stocks</string>
     <string name="label_model_info">Model Info:</string>
     <string name="label_MAE">MAE:</string>
     <string name="label_hit_rate">Hit Rate:</string>
     <string name="label_sharpe">Sharpe:</string>
     <string name="label_max_drawdown">Max. Drawdown:</string>
-
+    <string name="label_about">About</string>
+    <string name="label_about_stocki">About Stocki</string>
+    <string name="label_licenses_party">Licenses &amp; Third-Party</string>
+    <string name="label_opensource">Open Source licenses</string>
+    <string name="about_text">
+        Stocki is an application that provides financial data and stock market predictions.\n
+        \nPlease note that Stocki does not offer financial advice and is not a licensed financial advisor.\n
+        \nAny decisions made based on the information or predictions provided by this app are made at your own risk.\n
+        \nWe strongly recommend reviewing the underlying models and assumptions before relying on any predictions.\n
+        \nNote that scores reflect historical model confidence. They do not guarantee future results.\n
+        \nDeveloped and copyrighted by Nojus Barth © 2025.
+    </string>
+    <string name="prediction_disclaimer">These predictions are for informational purposes only. Not financial advice.</string>
+    <string name="label_libraries">Used libraries</string>
+    <string name="values_libraries">
+        MPAndroidChart (v3.1.0)\n
+        Copyright 2020 Philipp Jahoda\n
+        Licensed under the Apache License, Version 2.0\n
+        http://www.apache.org/licenses/LICENSE-2.0\n\n
+        Material Components for Android (v1.9.0)\n
+        Copyright Google LLC\n
+        Licensed under the Apache License, Version 2.0\n
+        http://www.apache.org/licenses/LICENSE-2.0\n\n
+        OkHttp (v4.11.0)\n
+        Copyright Square, Inc.\n
+        Licensed under the Apache License, Version 2.0\n
+        http://www.apache.org/licenses/LICENSE-2.0\n\n
+        Gson (v2.10.1)\n
+        Copyright Google Inc.\n
+        Licensed under the Apache License, Version 2.0\n
+        http://www.apache.org/licenses/LICENSE-2.0\n\n
+        Desugar JDK Libraries (v2.0.3)\n
+        Copyright The Android Open Source Project\n
+        Licensed under the GNU General Public License v2\n
+        with the Classpath Exception\n
+        https://github.com/google/desugar_jdk_libs/blob/master/LICENSE
+    </string>
+    <string name="credits_developed_with">Developed with Android Studio by Google. </string>
     <string name="explanation_MAE_title">Mean Absolute Error (MAE)</string>
     <string name="explanation_MAE_body">
         Measures the average absolute difference between predicted and actual returns.\n
@@ -74,22 +111,23 @@
         \nSmaller (less negative) values mean lower risk.
     </string>
 
-        <string name="explanation_drawdown_example">
+    <string name="explanation_drawdown_example">
         Example:\n
         \nA Max Drawdown of –12 % means the stock price once dropped 12 % from its recent peak before recovering.
     </string>
 
-    <string name="explanation_riskscore_title">Model Risk Score</string>
-    <string name="explanation_riskscore_body">
-    Combines multiple performance metrics into a single measure of forecast reliability.
-    \nThe score reflects how consistent, accurate, and stable the model’s predictions are.\n
-    \nLower values indicate higher reliability and lower prediction risk.
+    <string name="explanation_confidence_title">Model Confidence Score</string>
+    <string name="explanation_confidence_body">
+        Combines multiple performance metrics into a single measure of historical model performance.\n
+        The score reflects how consistent and accurate the model’s predictions were during training.\n
+        \nIt is not a guarantee of future predictions.
     </string>
-    <string name="explanation_riskscore_example">
-    Example:\n
-    \nA Risk Score of 20 suggests a stable and trustworthy model,
-    while a score of 80 indicates high uncertainty and potential volatility in predictions.
-</string>
+    <string name="explanation_confidence_example">
+        Example:\n
+        \nA Confidence Score of 80 indicates that the model performed well on historical data,
+        while a score of 20 indicates lower historical performance.\n
+        These values do not guarantee future results.
+    </string>
 
     <string name="positive_answer">OK</string>
     <string name="value_placeholder">---</string>

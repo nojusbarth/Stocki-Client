@@ -256,10 +256,10 @@
 
         <!-- Risk Score -->
         <TextView
-            android:id="@+id/txtRiskTitle"
+            android:id="@+id/txtConfTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/model_risk_score"
+            android:text="@string/model_confidence_score"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="10dp"/>
@@ -282,17 +282,17 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/txtRiskValue"
+                    android:id="@+id/txtConfValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/value_placeholder"
                     android:textSize="15sp"/>
 
                 <TextView
-                    android:id="@+id/txtRiskLabel"
+                    android:id="@+id/txtConfLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_risk_score_of"
+                    android:text="@string/label_confidence_score_of"
                     android:textSize="15sp"
                     android:layout_marginStart="6dp"/>
             </LinearLayout>
@@ -312,7 +312,7 @@
                     android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@android:drawable/ic_menu_info_details"
-                    android:contentDescription="@string/desc_icon_Risk"/>
+                    android:contentDescription="@string/desc_icon_Confidence"/>
             </FrameLayout>
         </LinearLayout>
 

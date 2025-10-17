@@ -4,13 +4,13 @@ public class PredictionSortingDataPoint {
 
     private final String stockName;
     private final float pctReturn;
-    private final int riskScore;
+    private final int confidence;
 
 
     public PredictionSortingDataPoint(String name, float pct, int risk) {
         stockName = name;
         pctReturn = pct;
-        riskScore = risk;
+        confidence = risk;
     }
 
     public String getName() {
@@ -22,8 +22,8 @@ public class PredictionSortingDataPoint {
     }
 
 
-    public int getRiskScore() {
-        return riskScore;
+    public int getConfidence() {
+        return confidence;
     }
 
 }

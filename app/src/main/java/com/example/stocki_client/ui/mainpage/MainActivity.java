@@ -3,7 +3,9 @@ package com.example.stocki_client.ui.mainpage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.stocki_client.R;
 import com.example.stocki_client.ui.ClearableAutoCompleteTextView;
+import com.example.stocki_client.ui.settings.AboutActivity;
 import com.example.stocki_client.ui.stock.ShowStockActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         initStocks();
         initPager();
-
+        initAbout();
     }
 
     private void initPager() {
@@ -86,6 +89,18 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("interval", "1d");
 
             this.startActivity(intent);
+        });
+    }
+
+    private void initAbout() {
+        Button aboutButton = findViewById(R.id.buttonAbout);
+
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
         });
     }
 

@@ -87,16 +87,16 @@
                     android:layout_marginStart="8dp">
 
                     <TextView
-                        android:id="@+id/txtPredictionRiskShowStock"
+                        android:id="@+id/txtPredictionConfShowStock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_risk"
+                        android:text="@string/label_confidence"
                         android:textSize="16sp"
                         android:textColor="@android:color/darker_gray"
                         android:layout_marginEnd="6dp"/>
 
                     <View
-                        android:id="@+id/viewRiskIndicatorShowStock"
+                        android:id="@+id/viewConfIndicatorShowStock"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:background="@drawable/circle_shape"/>

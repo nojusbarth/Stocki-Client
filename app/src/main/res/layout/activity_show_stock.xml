@@ -87,17 +87,30 @@
                     android:layout_marginStart="10dp"
                     app:backgroundTint="@null"/>
             </LinearLayout>
+            <!-- Disclaimer Text unter Predictions -->
+            <TextView
+                android:id="@+id/tvDisclaimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prediction_disclaimer"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"/>
 
             <!-- RecyclerView mit Padding -->
             <com.example.stocki_client.ui.WrapContentRecyclerView
                 android:id="@+id/recPredictions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:padding="8dp"
                 android:nestedScrollingEnabled="false"
                 android:layoutAnimation="@anim/layout_animation_fall_down"
                 android:overScrollMode="never"/>
+
+
 
         </LinearLayout>
     </ScrollView>

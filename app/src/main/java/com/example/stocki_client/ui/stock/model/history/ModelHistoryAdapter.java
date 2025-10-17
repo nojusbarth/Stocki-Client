@@ -100,14 +100,14 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
             holder.txtDifference.setText(diffPct);
         }
 
-        holder.txtRiskScore.setText(String.valueOf(dataPoint.getRiskPrediction()));
-        float risk = dataPoint.getRiskPrediction() / 100f;
+        holder.txtConfidence.setText(String.valueOf(dataPoint.getConfidence()));
+        float confidence = dataPoint.getConfidence() / 100f;
         int color = ColorUtils.blendARGB(
-                Color.GREEN,
                 Color.RED,
-                risk
+                Color.GREEN,
+                confidence
         );
-        holder.txtRiskScore.setTextColor(color);
+        holder.txtConfidence.setTextColor(color);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
         private final TextView txtPredicted;
         private final TextView txtActual;
         private final TextView txtDifference;
-        private final TextView txtRiskScore;
+        private final TextView txtConfidence;
         private boolean showAbsolute = false;
 
         public AccuracyViewHolder(View view) {
@@ -135,7 +135,7 @@ public class ModelHistoryAdapter extends RecyclerView.Adapter<ModelHistoryAdapte
             txtPredicted = view.findViewById(R.id.txtPredictedValue);
             txtActual = view.findViewById(R.id.txtActualValue);
             txtDifference = view.findViewById(R.id.txtDifferenceValue);
-            txtRiskScore = view.findViewById(R.id.txtRiskScoreValue);
+            txtConfidence = view.findViewById(R.id.txtConfScoreValue);
         }
     }
 }
