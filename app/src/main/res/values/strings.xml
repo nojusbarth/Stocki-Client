@@ -35,98 +35,129 @@
     <string name="label_hit_rate">Hit Rate:</string>
     <string name="label_sharpe">Sharpe:</string>
     <string name="label_max_drawdown">Max. Drawdown:</string>
-    <string name="label_about">About</string>
     <string name="label_about_stocki">About Stocki</string>
     <string name="label_licenses_party">Licenses &amp; Third-Party</string>
     <string name="label_opensource">Open Source licenses</string>
     <string name="about_text">
-        Stocki is an application that provides financial data and stock market predictions.\n
-        \nPlease note that Stocki does not offer financial advice and is not a licensed financial advisor.\n
-        \nAny decisions made based on the information or predictions provided by this app are made at your own risk.\n
-        \nWe strongly recommend reviewing the underlying models and assumptions before relying on any predictions.\n
-        \nNote that scores reflect historical model confidence. They do not guarantee future results.\n
-        \nDeveloped and copyrighted by Nojus Barth © 2025.
+        <![CDATA[
+        Stocki is an application that provides financial data and stock market predictions.<br><br>
+        Please note that <b>Stocki does not offer financial advice and is not a licensed financial advisor</b>.<br><br>
+        <b>Any decisions made based on the information or predictions provided by this app are made at your own risk</b>.<br><br>
+        We strongly recommend reviewing the underlying models and assumptions before relying on any predictions.<br><br>
+        Note that <b>scores reflect historical model confidence and do not guarantee future results</b>.<br><br>
+        Stocki is intended to complement your trading strategy and <b>should not be used as a standalone strategy</b>.<br><br>
+        Developed and copyrighted by Nojus Barth © 2025.
+        ]]>
     </string>
     <string name="prediction_disclaimer">These predictions are for informational purposes only. Not financial advice.</string>
     <string name="label_libraries">Used libraries</string>
     <string name="values_libraries">
-        MPAndroidChart (v3.1.0)\n
-        Copyright 2020 Philipp Jahoda\n
-        Licensed under the Apache License, Version 2.0\n
-        http://www.apache.org/licenses/LICENSE-2.0\n\n
-        Material Components for Android (v1.9.0)\n
-        Copyright Google LLC\n
-        Licensed under the Apache License, Version 2.0\n
-        http://www.apache.org/licenses/LICENSE-2.0\n\n
-        OkHttp (v4.11.0)\n
-        Copyright Square, Inc.\n
-        Licensed under the Apache License, Version 2.0\n
-        http://www.apache.org/licenses/LICENSE-2.0\n\n
-        Gson (v2.10.1)\n
-        Copyright Google Inc.\n
-        Licensed under the Apache License, Version 2.0\n
-        http://www.apache.org/licenses/LICENSE-2.0\n\n
-        Desugar JDK Libraries (v2.0.3)\n
-        Copyright The Android Open Source Project\n
-        Licensed under the GNU General Public License v2\n
-        with the Classpath Exception\n
-        https://github.com/google/desugar_jdk_libs/blob/master/LICENSE
+        <![CDATA[
+        MPAndroidChart (v3.1.0)<br>
+        Copyright 2020 Philipp Jahoda<br>
+        Licensed under the Apache License, Version 2.0<br>
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a><br><br>
+
+        Material Components for Android (v1.9.0)<br>
+        Copyright Google LLC<br>
+        Licensed under the Apache License, Version 2.0<br>
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a><br><br>
+
+        OkHttp (v4.11.0)<br>
+        Copyright Square, Inc.<br>
+        Licensed under the Apache License, Version 2.0<br>
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a><br><br>
+
+        Gson (v2.10.1)<br>
+        Copyright Google Inc.<br>
+        Licensed under the Apache License, Version 2.0<br>
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a><br><br>
+
+        Desugar JDK Libraries (v2.0.3)<br>
+        Copyright The Android Open Source Project<br>
+        Licensed under the GNU General Public License v2<br>
+        with the Classpath Exception<br>
+        <a href="https://github.com/google/desugar_jdk_libs/blob/master/LICENSE">https://github.com/google/desugar_jdk_libs/blob/master/LICENSE</a>
+        ]]>
     </string>
     <string name="credits_developed_with">Developed with Android Studio by Google. </string>
+
+
     <string name="explanation_MAE_title">Mean Absolute Error (MAE)</string>
     <string name="explanation_MAE_body">
-        Measures the average absolute difference between predicted and actual returns.\n
-        \nA lower MAE indicates more accurate predictions.
+        <![CDATA[
+        Measures the <b>average absolute difference</b> between predicted and actual returns.<br><br>
+        A lower MAE indicates more accurate predictions.
+        ]]>
     </string>
-    <string name="explanation_MAE_example">
-        Example:\n
-        \nAn MAE of 2.5 % means predictions deviate by ~2.5 percentage points on average.
+
+    <string name="explanation_MAE_example"><![CDATA[
+        <b>Example:</b><br><br>
+        An MAE of 2.5 % means predictions deviate by ~2.5 percentage points on average.
+        ]]>
     </string>
 
     <string name="explanation_hit_rate_title">Hit Rate</string>
     <string name="explanation_hit_rate_body">
-        Shows how often the model correctly predicts the direction of movement (up or down).\n
-        \nHigher is better.
+        <![CDATA[
+        Shows how often the model correctly predicts the <b>direction of movement</b> (up or down).<br><br>
+        <b>Higher is better</b>.
+        ]]>
     </string>
+
     <string name="explanation_hit_rate_example">
-        Example:\n
-        \nA Hit Rate of 70 % means the model was right 7 out of 10 times.
+        <![CDATA[
+        <b>Example:</b><br><br>
+        A Hit Rate of 70 % means the model was right 7 out of 10 times.
+        ]]>
     </string>
 
     <string name="explanation_sharpe_title">Sharpe Ratio (annually)</string>
     <string name="explanation_sharpe_body">
-        Measures risk-adjusted performance —\n
-        the ratio of excess return to volatility.\n
-        \nValues above 1.0 are considered good, above 2.0 excellent.
+        <![CDATA[
+        Measures <b>risk-adjusted performance</b> —<br>
+        the ratio of <b>excess return to volatility</b>.<br><br>
+        Values above 1.0 are considered good, above 2.0 excellent.
+        ]]>
     </string>
+
     <string name="explanation_sharpe_example">
-        Example:\n
-        \nA Sharpe Ratio of 1.8 indicates strong returns relative to risk.
+        <![CDATA[
+        <b>Example:</b><br><br>
+        A Sharpe Ratio of 1.8 indicates strong returns relative to risk.
+        ]]>
     </string>
 
     <string name="explanation_drawdown_title">Maximum Drawdown</string>
     <string name="explanation_drawdown_body">
-        Shows the largest price drop for this stock during the evaluation period —\n
-        it measures how much the price fell from its highest point to the lowest afterwards.\n
-        \nSmaller (less negative) values mean lower risk.
+        <![CDATA[
+        Shows the <b>largest price drop</b> for this stock during the evaluation period —<br>
+        it measures how much the price fell from its highest point to the lowest afterwards.<br><br>
+        <b>Smaller</b> (less negative) values mean <b>lower risk</b>.
+        ]]>
     </string>
-
     <string name="explanation_drawdown_example">
-        Example:\n
-        \nA Max Drawdown of –12 % means the stock price once dropped 12 % from its recent peak before recovering.
+        <![CDATA[
+        <b>Example:</b><br><br>
+        A Max Drawdown of –12 % means the stock price once dropped 12 % from its recent peak before recovering.
+        ]]>
     </string>
 
     <string name="explanation_confidence_title">Model Confidence Score</string>
     <string name="explanation_confidence_body">
-        Combines multiple performance metrics into a single measure of historical model performance.\n
-        The score reflects how consistent and accurate the model’s predictions were during training.\n
-        \nIt is not a guarantee of future predictions.
+        <![CDATA[
+        Combines multiple performance metrics into a single measure of <b>historical model performance</b>.<br>
+        The score reflects how <b>consistent</b> and <b>accurate</b> the model’s predictions were <b>during training</b>.<br><br>
+        It is <b>not a guarantee</b> of future predictions.
+        ]]>
     </string>
     <string name="explanation_confidence_example">
-        Example:\n
-        \nA Confidence Score of 80 indicates that the model performed well on historical data,
-        while a score of 20 indicates lower historical performance.\n
-        These values do not guarantee future results.
+        <![CDATA[
+        <b>Example:</b><br><br>
+        A Confidence Score of 80 indicates that the model performed well on historical data,<br>
+        while a score of 20 indicates lower historical performance.<br>
+        These values <b>do not guarantee future results</b>.
+        ]]>
     </string>
 
     <string name="positive_answer">OK</string>

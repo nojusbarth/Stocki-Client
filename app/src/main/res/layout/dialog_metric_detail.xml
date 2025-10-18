@@ -10,12 +10,13 @@
     <!-- Titel -->
     <TextView
         android:id="@+id/txtMetricTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/value_placeholder"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
+        android:gravity="center"
         android:layout_marginBottom="20dp"
         android:padding="8dp"/>
 
@@ -37,7 +38,10 @@
             android:textSize="16sp"
             android:lineSpacingExtra="6dp"
             android:padding="16dp"
-            android:justificationMode="inter_word" />
+            android:justificationMode="none"
+            android:gravity="start"
+            android:breakStrategy="simple" />
+
     </com.google.android.material.card.MaterialCardView>
 
     <!-- Beispiel -->
@@ -56,9 +60,11 @@
             android:text="@string/value_placeholder"
             android:textSize="16sp"
             android:lineSpacingExtra="6dp"
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:justificationMode="none"
+            android:gravity="start"
+            android:breakStrategy="simple" />
 
     </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
-

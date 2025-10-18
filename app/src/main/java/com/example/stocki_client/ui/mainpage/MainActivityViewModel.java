@@ -17,16 +17,17 @@ public class MainActivityViewModel extends ViewModel {
 
 
     public void loadData() {
-        loadPredictions("1d", predictionsDay);
-        loadPredictions("1h",predictionsHour);
+        loadPredictions(predictionsHour, predictionsDay);
     }
 
 
-    private void loadPredictions(String interval, MutableLiveData<Map<String, PredictionDataPoint>> targetLiveData) {
-        ApiClient.getInstance().getAllPredictions(interval, new DataCallback<Map<String, PredictionDataPoint>>() {
+    private void loadPredictions(MutableLiveData<Map<String, PredictionDataPoint>> targetLiveDataHour,
+                                 MutableLiveData<Map<String, PredictionDataPoint>> targetLiveDataDay) {
+        ApiClient.getInstance().getAllPredictions(new DataCallback<Map<String,Map<String, PredictionDataPoint>>>() {
                     @Override
-                    public void onSuccess(Map<String, PredictionDataPoint> data) {
-                        targetLiveData.postValue(data);
+                    public void onSuccess(Map<String,Map<String, PredictionDataPoint>> data) {
+                        targetLiveDataHour.postValue(data.get("1h"));
+                        targetLiveDataDay.postValue(data.get("1d"));
                     }
 
                     @Override

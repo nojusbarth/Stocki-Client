@@ -2,8 +2,13 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.settings.AboutActivity">
+
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -11,8 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/light_gray"
-        android:elevation="4dp"
-        app:titleTextColor="@android:color/black"/>
+        android:title=""
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
 
     <!-- Scrollbarer Content -->
     <androidx.core.widget.NestedScrollView
@@ -75,10 +81,13 @@
                 android:id="@+id/tvLibrariesText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autoLink="none"
+                android:linksClickable="true"
                 android:text="@string/values_libraries"
                 android:textSize="16sp"
                 android:lineSpacingExtra="4dp"
                 android:layout_marginBottom="16dp"/>
+
 
 
             <TextView

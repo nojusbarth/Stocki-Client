@@ -11,6 +11,7 @@ import com.example.stocki_client.remote.DataCallback;
 import com.example.stocki_client.models.ModelInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public class ShowStockViewModel extends ViewModel {
 
@@ -22,24 +23,21 @@ public class ShowStockViewModel extends ViewModel {
     private final MutableLiveData<ModelInfo> modelInfoDays = new MutableLiveData<>();
 
     private static final int PERIOD_HISTORICAL = 14;
-    private static final int PERIOD_PREDICTION = 3;
-
 
 
     public void loadData(String stockName) {
-        loadHistorical(stockName,"1h", historicalHours);
-        loadHistorical(stockName,"1d", historicalDays);
-        loadPrediction(stockName,"1h", predictionHours);
-        loadPrediction(stockName,"1d", predictionDays);
-        loadModelInfo(stockName, "1h", modelInfoHours);
-        loadModelInfo(stockName, "1d", modelInfoDays);
+        loadHistorical(stockName,historicalHours, historicalDays);
+        loadPrediction(stockName,predictionHours, predictionDays);
+        loadModelInfo(stockName, modelInfoHours, modelInfoDays);
     }
 
-    private void loadHistorical(String stockName, String interval, MutableLiveData<List<StockDataPoint>> targetLiveData) {
-        ApiClient.getInstance().getHistorical(stockName, PERIOD_HISTORICAL, interval, new DataCallback<List<StockDataPoint>>() {
+    private void loadHistorical(String stockName, MutableLiveData<List<StockDataPoint>> targetLiveDataHour,
+                                MutableLiveData<List<StockDataPoint>> targetLiveDataDay) {
+        ApiClient.getInstance().getHistorical(stockName, PERIOD_HISTORICAL, new DataCallback<Map<String,List<StockDataPoint>>>() {
             @Override
-            public void onSuccess(List<StockDataPoint> data) {
-                targetLiveData.postValue(data);
+            public void onSuccess(Map<String,List<StockDataPoint>> data) {
+                targetLiveDataHour.postValue(data.get("1h"));
+                targetLiveDataDay.postValue(data.get("1d"));
             }
 
             @Override
@@ -49,11 +47,13 @@ public class ShowStockViewModel extends ViewModel {
         });
     }
 
-    private void loadPrediction(String stockName, String interval, MutableLiveData<List<PredictionDataPoint>> targetLiveData) {
-        ApiClient.getInstance().getPrediction(stockName, PERIOD_PREDICTION, interval, new DataCallback<List<PredictionDataPoint>>() {
+    private void loadPrediction(String stockName, MutableLiveData<List<PredictionDataPoint>> targetLiveDataHour,
+                                MutableLiveData<List<PredictionDataPoint>> targetLiveDataDay) {
+        ApiClient.getInstance().getPrediction(stockName, new DataCallback<Map<String,List<PredictionDataPoint>>>() {
             @Override
-            public void onSuccess(List<PredictionDataPoint> data) {
-                targetLiveData.postValue(data);
+            public void onSuccess(Map<String,List<PredictionDataPoint>> data) {
+                targetLiveDataHour.postValue(data.get("1h"));
+                targetLiveDataDay.postValue(data.get("1d"));
             }
 
             @Override
@@ -64,11 +64,13 @@ public class ShowStockViewModel extends ViewModel {
     }
 
 
-    private void loadModelInfo(String stockName, String interval, MutableLiveData<ModelInfo> targetLiveData) {
-        ApiClient.getInstance().getModelInfo(stockName, interval, new DataCallback<ModelInfo>() {
+    private void loadModelInfo(String stockName, MutableLiveData<ModelInfo> targetLiveDataHour,
+                               MutableLiveData<ModelInfo> targetLiveDataDay) {
+        ApiClient.getInstance().getModelInfo(stockName, new DataCallback<Map<String,ModelInfo>>() {
             @Override
-            public void onSuccess(ModelInfo data) {
-                targetLiveData.postValue(data);
+            public void onSuccess(Map<String,ModelInfo> data) {
+                targetLiveDataHour.postValue(data.get("1h"));
+                targetLiveDataDay.postValue(data.get("1d"));
             }
 
             @Override

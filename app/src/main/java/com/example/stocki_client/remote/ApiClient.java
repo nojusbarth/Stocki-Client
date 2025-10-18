@@ -15,9 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -35,7 +33,7 @@ public class ApiClient {
     //private static final String baseURL = "http://10.0.2.2:5000";
     private static final String historicalRequest = "%s/historical/%s?period=%d&interval=%s";
     private static final String tickerListRequest = "%s/stocknames";
-    private static final String predictionRequest = "%s/predictions/%s?period=%d&interval=%s";
+    private static final String predictionRequest = "%s/predictions/%s?interval=%s";
     private static final String modelInfoRequest = "%s/modelinfo/%s?interval=%s";
     private static final String predictionsAllRequest = "%s/predictionsall/?interval=%s";
     private static final String accuracyRequest = "%s/accuracy/%s?period=%d&interval=%s";
@@ -86,10 +84,10 @@ public class ApiClient {
 
     }
 
-    public void getHistorical(String ticker, int days, String interval,
-                              DataCallback<List<StockDataPoint>> callback) {
+    public void getHistorical(String ticker, int days,
+                              DataCallback<Map<String, List<StockDataPoint>>> callback) {
 
-        String requestHTTP = String.format(historicalRequest, baseURL, ticker, days, interval);
+        String requestHTTP = String.format(historicalRequest, baseURL, ticker, days, "all");
         Request request = new Request.Builder()
                 .url(requestHTTP)
                 .header("Connection", "close")
@@ -107,9 +105,10 @@ public class ApiClient {
                 try (ResponseBody body = response.body()) {
                     if (body != null && response.isSuccessful()) {
                         String jsonString = body.string();
-                        Type listType = new TypeToken<List<StockDataPoint>>() {}.getType();
-                        List<StockDataPoint> stockPoints = new Gson().fromJson(jsonString, listType);
-                        callback.onSuccess(stockPoints);
+                        Type mapType = new TypeToken<Map<String, List<StockDataPoint>>>() {}.getType();
+                        Map<String, List<StockDataPoint>> resultMap = new Gson().fromJson(jsonString, mapType);
+
+                        callback.onSuccess(resultMap);
                     } else {
                         callback.onError(new Exception("HTTP " + response.code()));
                     }
@@ -118,10 +117,10 @@ public class ApiClient {
         });
     }
 
-    public void getPrediction(String ticker, int days, String interval,
-                              DataCallback<List<PredictionDataPoint>> callback) {
+    public void getPrediction(String ticker,
+                              DataCallback<Map<String, List<PredictionDataPoint>>> callback) {
 
-        String requestHTTP = String.format(predictionRequest, baseURL, ticker, days, interval);
+        String requestHTTP = String.format(predictionRequest, baseURL, ticker, "all");
         Request request = new Request.Builder()
                 .url(requestHTTP)
                 .header("Connection", "close")
@@ -139,9 +138,10 @@ public class ApiClient {
                 try (ResponseBody body = response.body()) {
                     if (body != null && response.isSuccessful()) {
                         String jsonString = body.string();
-                        Type listType = new TypeToken<List<PredictionDataPoint>>() {}.getType();
-                        List<PredictionDataPoint> predictionPoints = new Gson().fromJson(jsonString, listType);
-                        callback.onSuccess(predictionPoints);
+                        Type mapType = new TypeToken<Map<String, List<PredictionDataPoint>>>() {}.getType();
+                        Map<String, List<PredictionDataPoint>> resultMap = new Gson().fromJson(jsonString, mapType);
+
+                        callback.onSuccess(resultMap);
                     } else {
                         callback.onError(new Exception("HTTP " + response.code()));
                     }
@@ -150,10 +150,12 @@ public class ApiClient {
         });
     }
 
-    public void getModelInfo(String ticker, String interval,
-                             DataCallback<ModelInfo> callback) {
 
-        String requestHTTP = String.format(modelInfoRequest, baseURL, ticker, interval);
+
+    public void getModelInfo(String ticker,
+                             DataCallback<Map<String,ModelInfo>> callback) {
+
+        String requestHTTP = String.format(modelInfoRequest, baseURL, ticker, "all");
         Request request = new Request.Builder()
                 .url(requestHTTP)
                 .header("Connection", "close")
@@ -171,8 +173,10 @@ public class ApiClient {
                 try (ResponseBody body = response.body()) {
                     if (body != null && response.isSuccessful()) {
                         String jsonString = body.string();
-                        ModelInfo modelInfo = new Gson().fromJson(jsonString, ModelInfo.class);
-                        callback.onSuccess(modelInfo);
+                        Type mapType = new TypeToken<Map<String, ModelInfo>>() {}.getType();
+                        Map<String, ModelInfo> resultMap = new Gson().fromJson(jsonString, mapType);
+
+                        callback.onSuccess(resultMap);
                     } else {
                         callback.onError(new Exception("HTTP " + response.code()));
                     }
@@ -181,10 +185,9 @@ public class ApiClient {
         });
     }
 
-    public void getAllPredictions(String interval,
-                                  DataCallback<Map<String, PredictionDataPoint>> callback) {
+    public void getAllPredictions(DataCallback<Map<String,Map<String, PredictionDataPoint>>> callback) {
 
-        String requestHTTP = String.format(predictionsAllRequest, baseURL, interval);
+        String requestHTTP = String.format(predictionsAllRequest, baseURL, "all");
         Request request = new Request.Builder()
                 .url(requestHTTP)
                 .header("Connection", "close")
@@ -202,9 +205,10 @@ public class ApiClient {
                 try (ResponseBody body = response.body()) {
                     if (body != null && response.isSuccessful()) {
                         String jsonString = body.string();
-                        Type mapType = new TypeToken<Map<String, PredictionDataPoint>>() {}.getType();
-                        Map<String, PredictionDataPoint> predictionMap = new Gson().fromJson(jsonString, mapType);
-                        callback.onSuccess(predictionMap);
+                        Type mapType = new TypeToken<Map<String,Map<String, PredictionDataPoint>>>() {}.getType();
+                        Map<String,Map<String, PredictionDataPoint>> resultMap = new Gson().fromJson(jsonString, mapType);
+
+                        callback.onSuccess(resultMap);
                     } else {
                         callback.onError(new Exception("HTTP " + response.code()));
                     }
