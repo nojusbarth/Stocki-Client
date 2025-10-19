@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui.mainpage;
+package com.example.stocki_client.ui.mainpage.predictions;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

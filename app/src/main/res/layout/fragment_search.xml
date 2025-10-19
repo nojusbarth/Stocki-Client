@@ -1,0 +1,27 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ui.mainpage.predictions.MainActivity">
+
+    <com.example.stocki_client.ui.ClearableAutoCompleteTextView
+        android:id="@+id/stockSearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:hint="@string/stock_search_hint"
+        android:drawableEnd="@android:drawable/ic_menu_close_clear_cancel"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:padding="12dp"
+        android:inputType="text"
+        android:completionThreshold="1"
+        android:imeOptions="actionDone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

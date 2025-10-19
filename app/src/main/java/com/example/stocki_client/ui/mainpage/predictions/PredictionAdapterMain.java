@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui.mainpage;
+package com.example.stocki_client.ui.mainpage.predictions;
 
 import android.content.Context;
 import android.content.Intent;

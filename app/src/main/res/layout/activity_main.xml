@@ -1,86 +1,32 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".ui.mainpage.MainActivity">
-
-    <com.example.stocki_client.ui.ClearableAutoCompleteTextView
-        android:id="@+id/stockSearch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/stock_search_hint"
-        android:drawableEnd="@android:drawable/ic_menu_close_clear_cancel"
-        android:drawableStart="@android:drawable/ic_menu_search"
-        android:padding="12dp"
-        android:inputType="text"
-        android:completionThreshold="1"
-        android:imeOptions="actionDone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/tvPredictionsHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/movers_title"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="35dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/stockSearch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutPredictions"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        app:tabMode="fixed"
-        app:tabGravity="fill"
-        app:tabTextColor="@color/light_gray"
-        app:tabSelectedTextColor="@color/black"
-        app:tabIndicatorColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/tvPredictionsHeader"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    android:layout_height="match_parent">
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPagerPredictions"
-        android:layout_width="0dp"
+        android:id="@+id/viewPagerMain"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tabLayoutPredictions"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonAbout"/>
+        android:layout_weight="1" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonAbout"
-        style="@style/TimeChangeButtonStyle"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:text="@string/label_about_stocki"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/viewPagerPredictions"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@null"/>
+    <!-- Die Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_nav_main"
+        app:labelVisibilityMode="unlabeled"
+        android:background="@color/white"
+        app:itemBackground="@drawable/nav_item_background"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
 
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
+</LinearLayout>

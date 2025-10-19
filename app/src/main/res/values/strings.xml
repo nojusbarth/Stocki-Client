@@ -2,8 +2,8 @@
     <string name="app_name">Stocki</string>
     <string name="stock_search_hint">search stock…</string>
     <string name="movers_title">Projected Changes</string>
-    <string name="button_hourly_text">hourly</string>
-    <string name="button_daily_text">daily</string>
+    <string name="button_hourly_text">hour</string>
+    <string name="button_daily_text">day</string>
     <string name="model_latest_update">Latest update</string>
     <string name="model_metrics">Metrics</string>
     <string name="model_confidence_score">Confidence Score</string>

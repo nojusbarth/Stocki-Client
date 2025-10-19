@@ -1,0 +1,42 @@
+package com.example.stocki_client.ui.mainpage.portfolio;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.stocki_client.R;
+import com.example.stocki_client.ui.mainpage.predictions.MainActivityViewModel;
+import com.example.stocki_client.ui.mainpage.predictions.MainFragment;
+
+public class PortfolioFragment extends Fragment {
+    private MainActivityViewModel viewModel;
+
+    public static MainFragment newInstance() {
+        return new MainFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        viewModel = new ViewModelProvider(requireActivity()).get(MainActivityViewModel.class);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_portfolio, container, false);
+
+
+        return view;
+    }
+}

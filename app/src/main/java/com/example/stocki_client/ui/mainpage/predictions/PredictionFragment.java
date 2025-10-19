@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui.mainpage;
+package com.example.stocki_client.ui.mainpage.predictions;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
 import com.example.stocki_client.prediction.PredictionSorter;
+
 import java.util.HashMap;
 
 
