@@ -3,8 +3,8 @@ package com.example.stocki_client.ui.stock;
 import android.graphics.Color;
 
 import com.example.stocki_client.TimeFormatter;
-import com.example.stocki_client.stocks.StockDataPoint;
-import com.example.stocki_client.prediction.PredictionDataPoint;
+import com.example.stocki_client.data.stocks.StockDataPoint;
+import com.example.stocki_client.data.prediction.PredictionDataPoint;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;

@@ -1,4 +1,4 @@
-package com.example.stocki_client.stocks;
+package com.example.stocki_client.data.stocks;
 
 public class StockDataPoint {
 

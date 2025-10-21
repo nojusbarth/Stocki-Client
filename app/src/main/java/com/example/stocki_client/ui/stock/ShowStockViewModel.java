@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.stocki_client.stocks.StockDataPoint;
-import com.example.stocki_client.prediction.PredictionDataPoint;
+import com.example.stocki_client.data.stocks.StockDataPoint;
+import com.example.stocki_client.data.prediction.PredictionDataPoint;
 import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
-import com.example.stocki_client.models.ModelInfo;
+import com.example.stocki_client.data.models.ModelInfo;
 
 import java.util.List;
 import java.util.Map;

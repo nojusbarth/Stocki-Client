@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
-import com.example.stocki_client.prediction.PredictionSorter;
+import com.example.stocki_client.data.prediction.PredictionSorter;
 
 import java.util.HashMap;
 

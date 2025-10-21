@@ -1,4 +1,4 @@
-package com.example.stocki_client.prediction;
+package com.example.stocki_client.data.prediction;
 
 public class PredictionDataPoint {
 

@@ -1,0 +1,101 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@color/white">
+
+        <!-- Titel -->
+        <TextView
+            android:id="@+id/tvPortfolioTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Portfolio Info"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingBottom="16dp" />
+
+        <!-- Erstellungsdatum mit Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="24dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/baseline_access_time_24"
+                android:contentDescription="Erstellt am"
+                android:layout_marginEnd="8dp"
+                app:tint="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/txtPortfolioCreatedAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_placeholder"
+                android:textSize="16sp"
+                android:textColor="@color/light_gray"/>
+        </LinearLayout>
+
+        <!-- Notiz mit Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="24dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/baseline_notes_24"
+                android:contentDescription="Notiz"
+                android:layout_marginEnd="8dp"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/txtPortfolioNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="No note specified"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <!-- Hinweis mit Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_info_details"
+                android:contentDescription="Hinweis"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:id="@+id/txtPortfolioHint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Hinweis: Stocki aktualisiert die Portfolio-Werte stündlich."
+                android:textSize="16sp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+
+

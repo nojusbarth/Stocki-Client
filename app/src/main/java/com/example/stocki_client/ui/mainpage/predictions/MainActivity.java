@@ -1,6 +1,7 @@
 package com.example.stocki_client.ui.mainpage.predictions;
 
 
+
 import android.os.Bundle;
 
 
@@ -14,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.stocki_client.R;
 
+import com.example.stocki_client.data.user.UserIdManager;
 import com.example.stocki_client.ui.mainpage.portfolio.PortfolioFragment;
 import com.example.stocki_client.ui.mainpage.search.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,10 +37,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        viewModel.loadData();
+        viewModel.loadData(UserIdManager.getInstance(this).getUserId());
 
         initPager();
-
     }
 
 

@@ -14,8 +14,8 @@ import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
-import com.example.stocki_client.prediction.AccuracyDataPoint;
-import com.example.stocki_client.prediction.DatedAccuracy;
+import com.example.stocki_client.data.prediction.AccuracyDataPoint;
+import com.example.stocki_client.data.prediction.DatedAccuracy;
 
 import java.util.ArrayList;
 import java.util.List;

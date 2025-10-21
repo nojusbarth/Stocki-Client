@@ -1,0 +1,108 @@
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvPortfolioPreview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    app:strokeColor="@android:color/darker_gray"
+    app:strokeWidth="1dp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <!-- FrameLayout, um das Delete-Icon oben rechts zu platzieren -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Inhalt -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Portfolio Name -->
+            <TextView
+                android:id="@+id/txtPortfolioName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/value_placeholder"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Returns + Trend -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="3">
+
+                <!-- Prozentualer Return + Pfeil -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/txtPortfolioRelRet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/value_placeholder"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="6dp"
+                        android:gravity="center"/>
+
+                    <ImageView
+                        android:id="@+id/imgTrendPortfolio"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/arrow_trending_up_static"
+                        android:contentDescription="Trend"
+                        android:layout_marginEnd="4dp"/>
+                </LinearLayout>
+
+                <!-- Absolute Return -->
+                <TextView
+                    android:id="@+id/txtPortfolioAbsRet"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+
+                <!-- Absolute Value -->
+                <TextView
+                    android:id="@+id/txtPortfolioAbsValue"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Löschen-Icon oben rechts -->
+        <ImageView
+            android:id="@+id/imgDeletePortfolio"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="12dp"
+            android:src="@drawable/baseline_delete_outline_24"
+            android:contentDescription="Portfolio löschen"
+            android:alpha="0.9"
+            app:tint="@color/red"/>
+    </FrameLayout>
+</com.google.android.material.card.MaterialCardView>
+

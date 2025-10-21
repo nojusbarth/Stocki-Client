@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
 import com.example.stocki_client.TimeFormatter;
-import com.example.stocki_client.prediction.PredictionDataPoint;
+import com.example.stocki_client.data.prediction.PredictionDataPoint;
 import com.example.stocki_client.ui.stock.model.ModelInfoSheet;
 
 import java.util.ArrayList;

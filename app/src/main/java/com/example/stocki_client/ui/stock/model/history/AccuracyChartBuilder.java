@@ -3,7 +3,7 @@ package com.example.stocki_client.ui.stock.model.history;
 import android.graphics.Color;
 
 import com.example.stocki_client.TimeFormatter;
-import com.example.stocki_client.prediction.AccuracyDataPoint;
+import com.example.stocki_client.data.prediction.AccuracyDataPoint;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -14,7 +14,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;

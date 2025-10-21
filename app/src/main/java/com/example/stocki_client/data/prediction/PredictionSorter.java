@@ -1,4 +1,4 @@
-package com.example.stocki_client.prediction;
+package com.example.stocki_client.data.prediction;
 
 //SORTS PREDICTIONS INTO TWO SETS: return < 0: ASC LOSERS, return >= 0: DESC WINNERS
 

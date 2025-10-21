@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.mainpage.portfolio.ShowPortfolioActivity">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarShowPortfolio"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/light_gray"
+        app:title=""
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!-- Portfolio Header -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvPortfolioHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/toolBarShowPortfolio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+
+            <!-- Kopfzeile: Name + Notizsymbol -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/txtPortfolioHeaderName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgPortfolioNoteHeader"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/baseline_notes_24"
+                    android:contentDescription="Portfolio Notiz anzeigen"
+                    app:tint="@color/light_gray" />
+            </LinearLayout>
+
+            <!-- Portfolio-Wert -->
+            <TextView
+                android:id="@+id/txtPortfolioValueHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/value_placeholder"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Rendite-Zeile: Relativ & Absolut -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/txtPortfolioPctReturnHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/green"
+                    android:layout_marginEnd="6dp" />
+
+                <ImageView
+                    android:id="@+id/imgPortfolioTrendHeader"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/arrow_trending_up_static"
+                    android:contentDescription="Trend"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/txtPortfolioAbsReturnHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="18sp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Cash-Feld mit Add-Button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:id="@+id/txtPortfolioCashHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddCash"
+                    style="@style/TimeChangeButtonStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="+ Cash"
+                    android:textSize="14sp"
+                    android:layout_marginStart="8dp"
+                    app:backgroundTint="@null"
+                    android:textColor="@color/green" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Stocks Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvPortfolioStocks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/cvPortfolioHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- RecyclerView für Stocks -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvStocks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:scrollbars="vertical" />
+
+            <!-- Button zum Hinzufügen von Stocks -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddStockPortfolio"
+                style="@style/TimeChangeButtonStyle"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:text="+ Aktie hinzufügen"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp"
+                app:backgroundTint="@null"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

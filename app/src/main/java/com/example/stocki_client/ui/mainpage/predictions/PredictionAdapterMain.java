@@ -18,7 +18,7 @@ import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
-import com.example.stocki_client.prediction.PredictionSortingDataPoint;
+import com.example.stocki_client.data.prediction.PredictionSortingDataPoint;
 import com.example.stocki_client.ui.stock.ShowStockActivity;
 
 import java.util.ArrayList;
