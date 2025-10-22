@@ -48,6 +48,8 @@ public class ApiClient {
     private static final String portfolioRequest = "%s/portfolio/data/%s";
     private static final String catalogRequest = "%s/stockcatalog";
     private static final String portfolioStockUpdate = "%s/portfolio/modifystock";
+    private static final String favoritesRequest = "%s/favorites/data/%s";
+    private static final String favoritesUpdate = "%s/favorites/update";
 
 
     private ApiClient() {
@@ -464,5 +466,76 @@ public class ApiClient {
         });
     }
 
+    public void getFavorites(String userId, DataCallback<List<String>> callback) {
+        String requestHTTP = String.format(favoritesRequest, baseURL, userId);
+        Request request = new Request.Builder()
+                .url(requestHTTP)
+                .header("Connection", "close")
+                .build();
 
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+                callback.onError(e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody body = response.body()) {
+                    if (body != null && response.isSuccessful()) {
+                        String jsonString = body.string();
+                        Type mapType = new TypeToken<List<String>>() {}.getType();
+                        List<String> favorites = new Gson().fromJson(jsonString, mapType);
+                        callback.onSuccess(favorites);
+                    } else {
+                        callback.onError(new Exception("HTTP " + response.code()));
+                    }
+                }
+            }
+        });
+    }
+
+
+    public void updateFavorites(String userId, String ticker) {
+
+        String requestHTTP = String.format(favoritesUpdate,baseURL);
+        JSONObject portfolioInfo = new JSONObject();
+
+        try {
+            portfolioInfo.put("user_id", userId);
+            portfolioInfo.put("ticker", ticker);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        RequestBody body = RequestBody.create(
+                portfolioInfo.toString(),
+                MediaType.get("application/json; charset=utf-8")
+        );
+
+        Request request = new Request.Builder()
+                .url(requestHTTP)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String respBody = response.body() != null ? response.body().string() : "";
+                    System.out.println("Server antwortet: " + respBody);
+                } else {
+                    System.out.println("Fehler: " + response.code());
+                }
+            }
+        });
+    }
 }

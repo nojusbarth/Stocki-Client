@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -19,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.stocki_client.R;
+import com.example.stocki_client.data.user.favorites.FavoritesRepository;
 import com.example.stocki_client.ui.WrapContentRecyclerView;
 import com.github.mikephil.charting.charts.LineChart;
 
@@ -57,6 +62,7 @@ public class ShowStockActivity extends AppCompatActivity {
         createToolBar();
         initViews();
         initButtons();
+        initFavorite();
 
         viewModel.loadData(stockName);
 
@@ -132,6 +138,28 @@ public class ShowStockActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initFavorite() {
+        ImageButton btnFavorite = findViewById(R.id.btnFavoriteToggle);
+
+        btnFavorite.setSelected(FavoritesRepository.getInstance().isFavorite(stockName));
+
+        btnFavorite.setOnClickListener(v -> {
+            boolean selected = !btnFavorite.isSelected();
+            btnFavorite.setSelected(selected);
+
+            Animation anim = AnimationUtils.loadAnimation(v.getContext(), R.anim.scale_up);
+            v.startAnimation(anim);
+
+            if (selected) {
+                Toast.makeText(v.getContext(), stockName + " wurde hinzugefügt", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(v.getContext(), stockName + " wurde entfernt", Toast.LENGTH_SHORT).show();
+            }
+
+            FavoritesRepository.getInstance().toggleFavorite(stockName, this);
+        });
     }
 
 

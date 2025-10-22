@@ -6,13 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.stocki_client.R;
+import com.example.stocki_client.data.user.favorites.FavoritesRepository;
 import com.example.stocki_client.ui.ClearableAutoCompleteTextView;
 import com.example.stocki_client.ui.mainpage.predictions.MainActivityViewModel;
 import com.example.stocki_client.ui.mainpage.predictions.MainFragment;
@@ -23,6 +27,8 @@ import java.util.List;
 
 public class SearchFragment extends Fragment {
     private MainActivityViewModel viewModel;
+
+    private FavoriteAdapter adapter;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -44,7 +50,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         initSearch(view);
-
+        initFavorites(view);
         return view;
     }
 
@@ -73,5 +79,35 @@ public class SearchFragment extends Fragment {
 
             startActivity(intent);
         });
+    }
+
+
+    private void initFavorites(View view) {
+
+        RecyclerView rvFav = view.findViewById(R.id.favRecyclerView);
+
+        rvFav.setLayoutManager(
+                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        TextView favHint = view.findViewById(R.id.favHint);
+
+        adapter = new FavoriteAdapter(getContext());
+
+        FavoritesRepository.getInstance()
+                .getFavorites()
+                .observe(getViewLifecycleOwner(), favoriteDisplayDataList -> {
+                    if (favoriteDisplayDataList == null) return;
+
+                    adapter.updateFavorites(favoriteDisplayDataList);
+
+                    if (favoriteDisplayDataList.isEmpty()) {
+                        favHint.setVisibility(View.VISIBLE);
+                    } else {
+                        favHint.setVisibility(View.GONE);
+                    }
+                });
+
+        rvFav.setAdapter(adapter);
+
     }
 }

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        viewModel.loadData(UserIdManager.getInstance(this).getUserId());
+        viewModel.loadData(UserIdManager.getInstance(this).getUserId(), this);
 
         initPager();
     }
