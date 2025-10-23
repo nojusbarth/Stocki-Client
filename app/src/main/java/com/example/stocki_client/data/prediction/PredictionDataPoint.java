@@ -2,14 +2,17 @@ package com.example.stocki_client.data.prediction;
 
 public class PredictionDataPoint {
 
-    private String date;
+    private String dateEnd;
     private float pctReturn;
     private float closePrediction;
+    private float intervalBottom;
+    private float intervalTop;
     private int confidence;
+    private String predType;
 
 
     public String getDate() {
-        return date;
+        return dateEnd;
     }
 
     public float getPctReturn() {

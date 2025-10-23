@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -34,6 +35,7 @@ import com.example.stocki_client.data.user.portfolio.PortfolioData;
 import com.example.stocki_client.data.user.portfolio.StockPosition;
 import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.ui.ClearableAutoCompleteTextView;
+import com.example.stocki_client.ui.mainpage.portfolio.dialogs.AddCashDialog;
 import com.example.stocki_client.ui.mainpage.predictions.MainActivityViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -170,14 +172,20 @@ public class ShowPortfolioActivity extends AppCompatActivity {
             }
         });
 
+
         Button btnAddCash = findViewById(R.id.btnAddCash);
 
-        btnAddCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddCashDialog();
-            }
-        });
+        btnAddCash.setOnClickListener(v -> new AddCashDialog(ShowPortfolioActivity.this, amount -> {
+            ApiClient.getInstance().addCash(
+                    UserIdManager.getInstance(ShowPortfolioActivity.this).getUserId(),
+                    portfolioData.getName(),
+                    amount
+            );
+
+            portfolioData.setCash(portfolioData.getCash() + amount);
+
+            txtCash.setText(String.format(Locale.getDefault(),"Cash: %.2f$", portfolioData.getCash()));
+        }).show());
     }
 
     private void initStocks() {
@@ -197,79 +205,6 @@ public class ShowPortfolioActivity extends AppCompatActivity {
         recView.setAdapter(stockAdapter);
     }
 
-    private void showAddCashDialog() {
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_cash, null);
-        TextInputLayout layoutCash = dialogView.findViewById(R.id.layoutCash);
-        TextInputEditText etCash = dialogView.findViewById(R.id.etCash);
-
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Cash hinzufügen")
-                .setView(dialogView)
-                .setNegativeButton("Abbrechen", (d, which) -> d.dismiss())
-                .setPositiveButton("Hinzufügen", null)
-                .create();
-
-        dialog.setOnShowListener(dialogInterface -> {
-            Button btnPositive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            btnPositive.setOnClickListener(view -> {
-                String cashInput = etCash.getText() != null ? etCash.getText().toString().trim() : "";
-                boolean valid = true;
-
-                if (cashInput.isEmpty()) {
-                    layoutCash.setError("Bitte einen Betrag eingeben");
-                    valid = false;
-                } else {
-                    try {
-                        int cashValue = Integer.parseInt(cashInput);
-
-                        if (cashValue <= 0) {
-                            layoutCash.setError("Betrag muss größer als 0 sein");
-                            valid = false;
-                        } else if (cashInput.length() > 7) {
-                            layoutCash.setError("Maximal 7-stellig erlaubt");
-                            valid = false;
-                        } else {
-                            layoutCash.setError(null);
-
-                            onAddCash(cashValue);
-
-                            dialog.dismiss();
-                        }
-
-                    } catch (NumberFormatException e) {
-                        layoutCash.setError("Ungültige Zahl");
-                        valid = false;
-                    }
-                }
-            });
-        });
-
-        dialog.show();
-
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setLayout(
-                    (int)(getResources().getDisplayMetrics().widthPixels * 0.85),
-                    WindowManager.LayoutParams.WRAP_CONTENT
-            );
-        }
-    }
-
-
-    private void onAddCash(double value) {
-
-        ApiClient.getInstance().addCash(
-                UserIdManager.getInstance(this).getUserId(),
-                portfolioData.getName(),
-                value
-        );
-
-        portfolioData.setCash(portfolioData.getCash() + value);
-
-        TextView txtCash = findViewById(R.id.txtPortfolioCashHeader);
-        txtCash.setText(String.format(Locale.getDefault(),"Cash: %.2f$", portfolioData.getCash()));
-
-    }
 
 
 

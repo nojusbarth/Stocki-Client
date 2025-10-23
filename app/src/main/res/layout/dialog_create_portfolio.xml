@@ -9,7 +9,7 @@
         android:id="@+id/layoutPortfolioName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Portfolio Name">
+        android:hint="@string/hint_portfolio_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPortfolioName"
@@ -23,14 +23,14 @@
         android:id="@+id/layoutPortfolioNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Notiz (optional)"
+        android:hint="@string/hint_portfolio_note"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPortfolioNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="50"
+            android:maxLength="100"
             android:inputType="textMultiLine"
             android:minLines="2"/>
     </com.google.android.material.textfield.TextInputLayout>

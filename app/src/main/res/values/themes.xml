@@ -15,12 +15,13 @@
     </style>
 
 
-    <!-- Variante ohne ActionBar -->
     <style name="Theme.Stocki_Client.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@android:color/white</item>
-
+        <item name="colorPrimary">@color/light_gray</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
+
+
+
 
 </resources>

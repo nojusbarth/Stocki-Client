@@ -11,6 +11,11 @@ import android.os.Parcelable;
 
 public class PortfolioData implements Parcelable {
 
+    public static final String ABS_VALUE = "absValue";
+    public static final String ABS_RETURN = "absReturn";
+    public static final String PCT_RETURN = "pctReturn";
+
+
     private String name;
     private String note;
     private String createdAt;
@@ -89,9 +94,9 @@ public class PortfolioData implements Parcelable {
 
         Map<String, Double> metricMap = new HashMap<>();
 
-        metricMap.put("absValue", totalValueStocks);
-        metricMap.put("absReturn", totalValueStocks- totalBuyin);
-        metricMap.put("pctReturn", (totalBuyin > 0) ? (metricMap.get("absReturn") / totalBuyin) * 100.0 : 0.0);
+        metricMap.put(ABS_VALUE, totalValueStocks);
+        metricMap.put(ABS_RETURN, totalValueStocks- totalBuyin);
+        metricMap.put(PCT_RETURN, (totalBuyin > 0) ? (metricMap.get(ABS_RETURN) / totalBuyin) * 100.0 : 0.0);
 
         return metricMap;
     }

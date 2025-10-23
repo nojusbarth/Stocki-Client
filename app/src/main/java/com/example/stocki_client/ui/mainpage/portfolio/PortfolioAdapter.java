@@ -1,7 +1,6 @@
 package com.example.stocki_client.ui.mainpage.portfolio;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -19,7 +18,8 @@ import com.example.stocki_client.R;
 import com.example.stocki_client.data.user.UserIdManager;
 import com.example.stocki_client.data.user.portfolio.PortfolioData;
 import com.example.stocki_client.remote.ApiClient;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.example.stocki_client.ui.mainpage.portfolio.Listener.OnPortfolioClickListener;
+import com.example.stocki_client.ui.mainpage.portfolio.dialogs.DeletePortfolioDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +56,9 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
 
         holder.txtName.setText(portfolios.get(position).getName());
         holder.txtAbsValue.setText(String.format(Locale.getDefault(), "%.2f$",
-                portfolioMetrics.get("absValue")));
+                portfolioMetrics.get(PortfolioData.ABS_VALUE)));
 
-        double pctChange = portfolioMetrics.get("pctReturn");
+        double pctChange = portfolioMetrics.get(PortfolioData.PCT_RETURN);
 
         holder.txtPctReturn.setText(String.format(Locale.getDefault(), "%.2f%%", pctChange));
 
@@ -79,7 +79,7 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
         }
 
 
-        double absChange = portfolioMetrics.get("absReturn");
+        double absChange = portfolioMetrics.get(PortfolioData.ABS_RETURN);
         holder.txtAbsReturn.setText(String.format(Locale.getDefault(), "%.2f$", absChange));
 
         if (absChange >= 0.0) {
@@ -92,25 +92,18 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
         holder.imgDelete.setOnClickListener(v -> {
             Context context = holder.itemView.getContext();
 
-            new MaterialAlertDialogBuilder(context)
-                    .setTitle("Portfolio löschen?")
-                    .setMessage("Das Löschen ist unumkehrbar. Bist du sicher?")
-                    .setNegativeButton("Abbrechen", (dialog, which) -> dialog.dismiss())
-                    .setPositiveButton("Löschen", (dialog, which) -> {
-                        if (position != RecyclerView.NO_POSITION) {
-                            PortfolioData portfolio = portfolios.get(position);
+            new DeletePortfolioDialog(context, position1 -> {
+                PortfolioData portfolio = portfolios.get(position1);
 
-                            ApiClient.getInstance().deletePortfolio(
-                                    UserIdManager.getInstance(context).getUserId(),
-                                    portfolio.getName()
-                            );
+                ApiClient.getInstance().deletePortfolio(
+                        UserIdManager.getInstance(context).getUserId(),
+                        portfolio.getName()
+                );
 
-                            portfolios.remove(position);
-                            notifyItemRemoved(position);
-                        }
-                        dialog.dismiss();
-                    })
-                    .show();
+                portfolios.remove(position1);
+                notifyItemRemoved(position1);
+            }, position).show();
+
         });
 
 

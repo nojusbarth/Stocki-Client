@@ -1,4 +1,4 @@
-package com.example.stocki_client.ui.mainpage.portfolio;
+package com.example.stocki_client.ui.mainpage.portfolio.Listener;
 
 import com.example.stocki_client.data.user.portfolio.PortfolioData;
 

@@ -16,6 +16,7 @@
     <string name="desc_icon_unit_switch">Switch between Dollars and percent</string>
     <string name="desc_trend_icon">Icon showing trend</string>
     <string name="desc_pred_card_hint">Show details about prediction</string>
+    <string name="desc_portfolio_add">Add new test portfolio</string>
     <string name="label_prediction">Predicted:</string>
     <string name="label_actual">Actual:</string>
     <string name="label_difference">Difference:</string>
@@ -160,6 +161,27 @@
         ]]>
     </string>
 
+
+    <string name="label_portfolios_overview">Test Portfolios</string>
+    <string name="label_create_portfolio">Create new Portfolio</string>
+    <string name="label_delete_portfolio">Delete Portfolio</string>
+    <string name="label_add_cash">Add cash</string>
+    <string name="hint_portfolio_name">Portfolio name</string>
+    <string name="hint_portfolio_note">Note (optional)</string>
+    <string name="hint_add_cash">Enter sum ($)</string>
+    <string name="info_delete">Deletion can\'t be reverted, are you sure?</string>
+
+    <string name="error_empty_name">Name can\'t be empty</string>
+    <string name="error_name_used">Name already in use</string>
+    <string name="error_no_sum">Please enter a sum</string>
+    <string name="error_invalid_number">Invalid number</string>
+    <string name="error_negative_number">Amount must be greater than 0</string>
+    <string name="error_big_number">Max. 7 figure amount allowed</string>
+
+    <string name="create_answer">Create</string>
+    <string name="add_answer">Add</string>
+    <string name="delete_answer">Delete</string>
+    <string name="cancel_answer">Cancel</string>
     <string name="positive_answer">OK</string>
     <string name="value_placeholder">---</string>
     <string name="date_placeholder">DATE</string>
