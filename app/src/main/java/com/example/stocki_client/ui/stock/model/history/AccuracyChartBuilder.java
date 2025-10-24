@@ -43,7 +43,10 @@ public class AccuracyChartBuilder {
         if (shell == null || data.isEmpty()) return;
 
         List<Entry> actualEntries = new ArrayList<>();
-        List<Entry> predictionEntries = new ArrayList<>();
+        List<Entry> predictionEntriesTop = new ArrayList<>();
+        List<Entry> predictionEntriesBottom = new ArrayList<>();
+        List<Entry> predictionEntriesSingle = new ArrayList<>();
+
         final List<String> xLabels = new ArrayList<>();
 
         SimpleDateFormat inputFormat;
@@ -71,10 +74,19 @@ public class AccuracyChartBuilder {
             if (dp == null) continue;
 
             actualEntries.add(new Entry(index, dp.getActualClose()));
-            predictionEntries.add(new Entry(index, dp.getClosePrediction()));
 
-            String date = timeFormatter.formatGraph(key, interval);
-            xLabels.add(date);
+            if ("10d".equals(interval)) {
+                float lastClose = dp.getActualClose();
+                float topVal = lastClose * (1 + dp.getIntervalTop() / 100f);
+                float bottomVal = lastClose * (1 + dp.getIntervalBottom() / 100f);
+
+                predictionEntriesTop.add(new Entry(index, topVal));
+                predictionEntriesBottom.add(new Entry(index, bottomVal));
+            } else {
+                predictionEntriesSingle.add(new Entry(index, dp.getClosePrediction()));
+            }
+
+            xLabels.add(timeFormatter.formatGraph(key, interval));
             index++;
         }
 
@@ -83,15 +95,32 @@ public class AccuracyChartBuilder {
         actualSet.setLineWidth(2f);
         actualSet.setDrawCircles(false);
 
-        LineDataSet predictionSet = new LineDataSet(predictionEntries, "Prediction");
-        predictionSet.setColor(Color.RED);
-        predictionSet.enableDashedLine(10f, 5f, 0f);
-        predictionSet.setLineWidth(2f);
-        predictionSet.setDrawCircles(false);
+        LineData lineData;
 
-        LineData lineData = new LineData(actualSet, predictionSet);
+        if ("10d".equals(interval)) {
+            LineDataSet topSet = new LineDataSet(predictionEntriesTop, "Prediction Top");
+            topSet.setLineWidth(2f);
+            topSet.setDrawCircles(false);
+            topSet.enableDashedLine(10f, 5f, 0f);
+            topSet.setColor(Color.RED);
+
+            LineDataSet bottomSet = new LineDataSet(predictionEntriesBottom, "Prediction Bottom");
+            bottomSet.setLineWidth(2f);
+            bottomSet.setDrawCircles(false);
+            bottomSet.enableDashedLine(10f, 5f, 0f);
+            bottomSet.setColor(Color.RED);
+
+            lineData = new LineData(actualSet, topSet, bottomSet);
+        } else {
+            LineDataSet predictionSet = new LineDataSet(predictionEntriesSingle, "Prediction");
+            predictionSet.setLineWidth(2f);
+            predictionSet.setDrawCircles(false);
+            predictionSet.enableDashedLine(10f, 5f, 0f);
+            predictionSet.setColor(Color.RED);
+            lineData = new LineData(actualSet, predictionSet);
+        }
+
         shell.setData(lineData);
-
         shell.getDescription().setText("Prediction vs Actual");
 
         XAxis xAxis = shell.getXAxis();
@@ -113,6 +142,7 @@ public class AccuracyChartBuilder {
         shell.setScaleEnabled(true);
         shell.invalidate();
     }
+
 
 }
 

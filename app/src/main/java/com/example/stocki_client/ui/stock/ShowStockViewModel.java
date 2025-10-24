@@ -10,50 +10,42 @@ import com.example.stocki_client.remote.ApiClient;
 import com.example.stocki_client.remote.DataCallback;
 import com.example.stocki_client.data.models.ModelInfo;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ShowStockViewModel extends ViewModel {
 
-    private final MutableLiveData<List<StockDataPoint>> historicalHours = new MutableLiveData<>();
-    private final MutableLiveData<List<StockDataPoint>> historicalDays = new MutableLiveData<>();
-    private final MutableLiveData<List<PredictionDataPoint>> predictionHours = new MutableLiveData<>();
-    private final MutableLiveData<List<PredictionDataPoint>> predictionDays = new MutableLiveData<>();
-    private final MutableLiveData<ModelInfo> modelInfoHours = new MutableLiveData<>();
-    private final MutableLiveData<ModelInfo> modelInfoDays = new MutableLiveData<>();
-
     private static final int PERIOD_HISTORICAL = 14;
 
+    private final Map<String, MutableLiveData<List<StockDataPoint>>> historicalMap = new HashMap<>();
+    private final Map<String, MutableLiveData<List<PredictionDataPoint>>> predictionMap = new HashMap<>();
+    private final Map<String, MutableLiveData<ModelInfo>> modelInfoMap = new HashMap<>();
+
+    public ShowStockViewModel() {
+        for (String interval : Arrays.asList("1h", "1d", "10d")) {
+            historicalMap.put(interval, new MutableLiveData<>());
+            predictionMap.put(interval, new MutableLiveData<>());
+            modelInfoMap.put(interval, new MutableLiveData<>());
+        }
+    }
 
     public void loadData(String stockName) {
-        loadHistorical(stockName,historicalHours, historicalDays);
-        loadPrediction(stockName,predictionHours, predictionDays);
-        loadModelInfo(stockName, modelInfoHours, modelInfoDays);
+        loadHistorical(stockName);
+        loadPrediction(stockName);
+        loadModelInfo(stockName);
     }
 
-    private void loadHistorical(String stockName, MutableLiveData<List<StockDataPoint>> targetLiveDataHour,
-                                MutableLiveData<List<StockDataPoint>> targetLiveDataDay) {
-        ApiClient.getInstance().getHistorical(stockName, PERIOD_HISTORICAL, new DataCallback<Map<String,List<StockDataPoint>>>() {
-            @Override
-            public void onSuccess(Map<String,List<StockDataPoint>> data) {
-                targetLiveDataHour.postValue(data.get("1h"));
-                targetLiveDataDay.postValue(data.get("1d"));
-            }
 
+    private void loadHistorical(String stockName) {
+        ApiClient.getInstance().getHistorical(stockName, PERIOD_HISTORICAL, new DataCallback<Map<String, List<StockDataPoint>>>() {
             @Override
-            public void onError(Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void loadPrediction(String stockName, MutableLiveData<List<PredictionDataPoint>> targetLiveDataHour,
-                                MutableLiveData<List<PredictionDataPoint>> targetLiveDataDay) {
-        ApiClient.getInstance().getPrediction(stockName, new DataCallback<Map<String,List<PredictionDataPoint>>>() {
-            @Override
-            public void onSuccess(Map<String,List<PredictionDataPoint>> data) {
-                targetLiveDataHour.postValue(data.get("1h"));
-                targetLiveDataDay.postValue(data.get("1d"));
+            public void onSuccess(Map<String, List<StockDataPoint>> data) {
+                data.forEach((interval, list) -> {
+                    MutableLiveData<List<StockDataPoint>> liveData = historicalMap.get(interval);
+                    if (liveData != null) liveData.postValue(list);
+                });
             }
 
             @Override
@@ -64,13 +56,14 @@ public class ShowStockViewModel extends ViewModel {
     }
 
 
-    private void loadModelInfo(String stockName, MutableLiveData<ModelInfo> targetLiveDataHour,
-                               MutableLiveData<ModelInfo> targetLiveDataDay) {
-        ApiClient.getInstance().getModelInfo(stockName, new DataCallback<Map<String,ModelInfo>>() {
+    private void loadPrediction(String stockName) {
+        ApiClient.getInstance().getPrediction(stockName, new DataCallback<Map<String, List<PredictionDataPoint>>>() {
             @Override
-            public void onSuccess(Map<String,ModelInfo> data) {
-                targetLiveDataHour.postValue(data.get("1h"));
-                targetLiveDataDay.postValue(data.get("1d"));
+            public void onSuccess(Map<String, List<PredictionDataPoint>> data) {
+                data.forEach((interval, list) -> {
+                    MutableLiveData<List<PredictionDataPoint>> liveData = predictionMap.get(interval);
+                    if (liveData != null) liveData.postValue(list);
+                });
             }
 
             @Override
@@ -78,22 +71,36 @@ public class ShowStockViewModel extends ViewModel {
                 e.printStackTrace();
             }
         });
-
-
     }
+
+    private void loadModelInfo(String stockName) {
+        ApiClient.getInstance().getModelInfo(stockName, new DataCallback<Map<String, ModelInfo>>() {
+            @Override
+            public void onSuccess(Map<String, ModelInfo> data) {
+                data.forEach((interval, info) -> {
+                    MutableLiveData<ModelInfo> liveData = modelInfoMap.get(interval);
+                    if (liveData != null) liveData.postValue(info);
+                });
+            }
+
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 
     public LiveData<List<StockDataPoint>> getHistorical(String interval) {
-        if ("1h".equals(interval)) return historicalHours;
-        else return historicalDays;
+        return historicalMap.getOrDefault(interval, new MutableLiveData<>());
     }
 
     public LiveData<List<PredictionDataPoint>> getPrediction(String interval) {
-        if ("1h".equals(interval)) return predictionHours;
-        else return predictionDays;
+        return predictionMap.getOrDefault(interval, new MutableLiveData<>());
     }
 
     public LiveData<ModelInfo> getModelInfo(String interval) {
-        if ("1h".equals(interval)) return modelInfoHours;
-        else return modelInfoDays;
+        return modelInfoMap.getOrDefault(interval, new MutableLiveData<>());
     }
 }
+

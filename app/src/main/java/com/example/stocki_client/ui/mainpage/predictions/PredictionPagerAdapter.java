@@ -7,9 +7,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class PredictionPagerAdapter extends FragmentStateAdapter {
 
-    public static final int POSITION_DAILY = 0;
-    public static final int POSITION_HOURLY = 1;
-
+    public static final int POSITION_HOURLY = 0;
+    public static final int POSITION_DAILY = 1;
+    public static final int POSITION_TWO_WEEK = 2;
 
     public PredictionPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -18,10 +18,12 @@ public class PredictionPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == POSITION_DAILY) {
-            return PredictionFragment.newInstance("1d");
-        } else if(position == POSITION_HOURLY) {
+        if (position == POSITION_HOURLY) {
             return PredictionFragment.newInstance("1h");
+        } else if(position == POSITION_DAILY) {
+            return PredictionFragment.newInstance("1d");
+        } else if (position == POSITION_TWO_WEEK) {
+            return PredictionFragment.newInstance("10d");
         } else {
             return null;
         }
@@ -29,6 +31,6 @@ public class PredictionPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }
 }

@@ -74,14 +74,14 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/lblMAE"
+                        android:id="@+id/lblMetricsFirst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_MAE"
+                        android:text="@string/value_placeholder"
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/txtMAE"
+                        android:id="@+id/txtmetricsFirst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/value_placeholder"
@@ -90,7 +90,7 @@
                 </LinearLayout>
 
                 <FrameLayout
-                    android:id="@+id/containerInfoMae"
+                    android:id="@+id/containerInfoFirst"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginStart="8dp"
@@ -103,7 +103,7 @@
                         android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
-                        android:contentDescription="@string/desc_icon_MAE"/>
+                        android:contentDescription="TODO"/>
                 </FrameLayout>
             </LinearLayout>
 
@@ -122,14 +122,14 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/lblHitRate"
+                        android:id="@+id/lblMetricsSecond"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_hit_rate"
+                        android:text="@string/value_placeholder"
                         android:textSize="15sp"/>
 
                     <TextView
-                        android:id="@+id/txtHitRate"
+                        android:id="@+id/txtMetricsSecond"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/value_placeholder"
@@ -138,7 +138,7 @@
                 </LinearLayout>
 
                 <FrameLayout
-                    android:id="@+id/containerInfoHitRate"
+                    android:id="@+id/containerInfoSecond"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginStart="8dp"
@@ -151,7 +151,7 @@
                         android:layout_height="22dp"
                         android:layout_gravity="center"
                         android:src="@android:drawable/ic_menu_info_details"
-                        android:contentDescription="@string/desc_icon_Hits"/>
+                        android:contentDescription="TODO"/>
                 </FrameLayout>
             </LinearLayout>
 

@@ -4,6 +4,7 @@
     <string name="movers_title">Projected Changes</string>
     <string name="button_hourly_text">hour</string>
     <string name="button_daily_text">day</string>
+    <string name="button_two_week_text">2 weeks</string>
     <string name="model_latest_update">Latest update</string>
     <string name="model_metrics">Metrics</string>
     <string name="model_confidence_score">Confidence Score</string>
@@ -141,6 +142,35 @@
         <![CDATA[
         <b>Example:</b><br><br>
         A Max Drawdown of –12 % means the stock price once dropped 12 % from its recent peak before recovering.
+        ]]>
+    </string>
+
+    <string name="explanation_CWR_title">Coverage Width Ratio (CWR)</string>
+    <string name="explanation_CWR_body">
+        <![CDATA[
+        Shows how <b>wide the model&apos;s confidence interval</b> is compared with a typical return size.<br/><br/>
+        A <b>smaller CWR</b> means the interval is narrow (more precise). A <b>larger CWR</b> means the interval is wide.
+        ]]>
+    </string>
+    <string name="explanation_CWR_example">
+        <![CDATA[
+        <b>Example:</b><br/><br/>
+        A CWR of <b>2.0</b> means the prediction interval is about <b>2×</b> as wide as a typical return.
+        A CWR of <b>6.9</b> indicates a very wide interval — high uncertainty.
+        ]]>
+    </string>
+
+    <string name="explanation_COVERAGE_title">Coverage</string>
+    <string name="explanation_COVERAGE_body">
+        <![CDATA[
+        The <b>share (in %)</b> of actual returns that fell inside the model&apos;s predicted confidence intervals.<br/><br/>
+        Higher coverage means the intervals correctly capture realized outcomes more often. Aim is to match the chosen confidence level (~95%).
+        ]]>
+    </string>
+    <string name="explanation_COVERAGE_example">
+        <![CDATA[
+        <b>Example:</b><br/><br/>
+        A Coverage of <b>97%</b> means that <b>97% of past returns</b> were inside the predicted intervals — the model&apos;s intervals are well calibrated.
         ]]>
     </string>
 

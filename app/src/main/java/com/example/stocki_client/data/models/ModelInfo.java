@@ -4,6 +4,7 @@ import java.util.Map;
 
 public class ModelInfo {
     private String latestUpdate;
+    private String predictionType;
     private Map<String, Double> metrics;
 
 
@@ -15,6 +16,10 @@ public class ModelInfo {
 
     public Map<String, Double> getMetrics() {
         return metrics;
+    }
+
+    public String getPredictionType() {
+        return predictionType;
     }
 }
 

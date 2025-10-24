@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp"
     app:strokeColor="@android:color/darker_gray"
-    app:strokeWidth="1dp"
-    android:clickable="true"
-    android:foreground="?attr/selectableItemBackground">
+    app:strokeWidth="1dp">
 
-    <!-- FrameLayout, um das Info-Icon oben rechts zu platzieren -->
+    <!-- FrameLayout für Info-Icon oben rechts -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Inhalt -->
+        <!-- Hauptinhalt -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,21 +29,22 @@
                 android:id="@+id/txtPredictionDateShowStock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/date_placeholder"
                 android:textSize="14sp"
                 android:textStyle="italic"
                 android:textColor="@android:color/darker_gray"
-                android:layout_marginBottom="8dp"/>
+                android:text="@string/date_placeholder"
+                android:layout_marginBottom="8dp" />
 
-            <!-- Return + Risiko -->
+            <!-- Return + Risiko in einer Zeile -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:weightSum="2">
+                android:weightSum="2"
+                android:baselineAligned="false">
 
-                <!-- Return -->
+                <!-- === RETURN CONTAINER === -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -51,6 +52,7 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical|start">
 
+                    <!-- Label -->
                     <TextView
                         android:id="@+id/txtReturnLabel"
                         android:layout_width="wrap_content"
@@ -58,33 +60,79 @@
                         android:text="@string/label_return"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:layout_marginEnd="4dp"/>
+                        android:layout_marginEnd="6dp" />
 
-                    <TextView
-                        android:id="@+id/txtReturnValue"
+                    <!-- === POINT-PREDICTION MODE === -->
+                    <LinearLayout
+                        android:id="@+id/layoutReturnPoint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/value_placeholder"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_marginEnd="4dp"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:visibility="visible">
 
+                        <TextView
+                            android:id="@+id/txtReturnValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="@string/value_placeholder"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="4dp" />
+                    </LinearLayout>
+
+                    <!-- === INTERVAL MODE === -->
+                    <LinearLayout
+                        android:id="@+id/layoutReturnInterval"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:visibility="gone"
+                        android:layout_marginStart="2dp">
+
+                        <TextView
+                            android:id="@+id/txtReturnIntervalBottom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/txtReturnIntervalDash"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="1dp"
+                            android:text="-"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/txtReturnIntervalTop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <!-- Gemeinsame Pfeil-Icon -->
                     <ImageView
                         android:id="@+id/imgReturnArrow"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginStart="8dp"
                         android:src="@drawable/arrow_trending_up_static"
-                        android:contentDescription="@string/desc_trend_icon"/>
+                        android:contentDescription="@string/desc_trend_icon" />
                 </LinearLayout>
 
-                <!-- Risiko -->
+                <!-- === RISIKO CONTAINER === -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginStart="8dp">
+                    android:gravity="center_vertical|end">
 
                     <TextView
                         android:id="@+id/txtPredictionConfShowStock"
@@ -93,18 +141,18 @@
                         android:text="@string/label_confidence"
                         android:textSize="16sp"
                         android:textColor="@android:color/darker_gray"
-                        android:layout_marginEnd="6dp"/>
+                        android:layout_marginEnd="6dp" />
 
                     <View
                         android:id="@+id/viewConfIndicatorShowStock"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:background="@drawable/circle_shape"/>
+                        android:background="@drawable/circle_shape" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Dezentes Info-Icon oben rechts -->
+        <!-- Info-Icon oben rechts -->
         <ImageView
             android:id="@+id/imgInfoCardHint"
             android:layout_width="28dp"
@@ -115,7 +163,7 @@
             android:alpha="0.6"
             android:contentDescription="@string/desc_pred_card_hint"
             app:tint="@color/black" />
-
     </FrameLayout>
 </com.google.android.material.card.MaterialCardView>
+
 

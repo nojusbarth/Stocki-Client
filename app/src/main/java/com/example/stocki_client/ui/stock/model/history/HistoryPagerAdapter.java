@@ -8,31 +8,21 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class HistoryPagerAdapter extends FragmentStateAdapter {
 
-    public static final int POSITION_STEP_1 = 0;
-    public static final int POSITION_STEP_2 = 1;
-    public static final int POSITION_STEP_3 = 2;
+    private final int numberOfSteps;
 
-
-    public HistoryPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public HistoryPagerAdapter(@NonNull FragmentActivity fragmentActivity, int numberOfSteps) {
         super(fragmentActivity);
+        this.numberOfSteps = numberOfSteps;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == POSITION_STEP_1) {
-            return ModelHistoryFragment.newInstance(1);
-        } else if(position == POSITION_STEP_2) {
-            return ModelHistoryFragment.newInstance(2);
-        } else if(position == POSITION_STEP_3){
-            return ModelHistoryFragment.newInstance(3);
-        } else {
-            return null;
-        }
+        return ModelHistoryFragment.newInstance(position + 1);
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return numberOfSteps;
     }
 }

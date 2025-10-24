@@ -45,7 +45,7 @@
                 app:tint="@color/light_gray" />
         </LinearLayout>
 
-        <!-- Predicted und Actual nebeneinander -->
+        <!-- Predicted (oder Interval) und Actual nebeneinander -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,12 +53,13 @@
             android:weightSum="2"
             android:layout_marginBottom="8dp">
 
-            <!-- Predicted -->
+            <!-- Predicted / Interval -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txtPredictedLabel"
@@ -68,6 +69,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
+                <!-- Point Prediction -->
                 <TextView
                     android:id="@+id/txtPredictedValue"
                     android:layout_width="wrap_content"
@@ -76,6 +78,40 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginStart="4dp"/>
+
+                <!-- Interval Prediction: Bottom-Top -->
+                <LinearLayout
+                    android:id="@+id/layoutIntervalPredictionHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:layout_marginStart="4dp">
+
+                    <TextView
+                        android:id="@+id/txtIntervalBottomHistory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/value_placeholder"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/txtIntervalDash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - "
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/txtIntervalTopHistory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/value_placeholder"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Actual -->
@@ -83,7 +119,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txtActualLabel"
@@ -104,14 +141,14 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Difference und Risk Score nebeneinander, Labels + Values -->
+        <!-- Difference / Status und Risk Score nebeneinander -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
 
-            <!-- Difference -->
+            <!-- Difference / Interval Status -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -126,6 +163,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"/>
 
+                <!-- Point Difference -->
                 <TextView
                     android:id="@+id/txtDifferenceValue"
                     android:layout_width="wrap_content"
@@ -135,6 +173,17 @@
                     android:textColor="@android:color/holo_red_dark"
                     android:textStyle="bold"
                     android:layout_marginStart="4dp"/>
+
+                <!-- Interval Status: inside/outside -->
+                <TextView
+                    android:id="@+id/txtIntervalStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/value_placeholder"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="4dp"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <!-- Risk Score -->
@@ -164,6 +213,7 @@
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
+
 
 
 

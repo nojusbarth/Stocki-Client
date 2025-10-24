@@ -6,7 +6,9 @@ public class AccuracyDataPoint {
     private float actualClose;
     private float pctReturnPrediction;
 
-
+    private String predType;
+    private float intervalBottom;
+    private float intervalTop;
 
 
     public float getActualClose() {
@@ -23,6 +25,17 @@ public class AccuracyDataPoint {
 
     public float getPctReturnPrediction() {
         return pctReturnPrediction;
+    }
+
+    public float getIntervalBottom() {
+        return intervalBottom;
+    }
+    public float getIntervalTop() {
+        return intervalTop;
+    }
+
+    public String getPredType() {
+        return predType;
     }
 
 }

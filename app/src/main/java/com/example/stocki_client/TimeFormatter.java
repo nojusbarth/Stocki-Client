@@ -9,7 +9,7 @@ public class TimeFormatter {
     public String formatCV(String isoDate, String interval) {
         ZonedDateTime utcTime = ZonedDateTime.parse(isoDate);
 
-        if ("1d".equals(interval)) {
+        if ("1d".equals(interval) ||"10d".equals(interval)) {
             // Tageswerte: keine Konvertierung, nur Datum
             return utcTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         } else if ("1h".equals(interval)) {
@@ -25,7 +25,7 @@ public class TimeFormatter {
     public String formatGraph(String isoDate, String interval) {
         ZonedDateTime utcTime = ZonedDateTime.parse(isoDate);
 
-        if ("1d".equals(interval)) {
+        if ("1d".equals(interval) || "10d".equals(interval)) {
             // Tageswerte: keine Konvertierung, nur Datum
             return utcTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM"));
         } else if ("1h".equals(interval)) {

@@ -29,9 +29,6 @@ public class MainFragment extends Fragment {
 
     private MainActivityViewModel viewModel;
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,8 +65,10 @@ public class MainFragment extends Fragment {
                 (tab, position) -> {
                     if (position == PredictionPagerAdapter.POSITION_DAILY) {
                         tab.setText(getResources().getString(R.string.button_daily_text));
-                    } else {
+                    } else if (position == PredictionPagerAdapter.POSITION_HOURLY){
                         tab.setText(getResources().getString(R.string.button_hourly_text));
+                    } else if(position == PredictionPagerAdapter.POSITION_TWO_WEEK) {
+                        tab.setText("2 Weeks");
                     }
                 }
         ).attach();

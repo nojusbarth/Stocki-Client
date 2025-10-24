@@ -9,7 +9,12 @@ public class PredictionDataPoint {
     private float intervalTop;
     private int confidence;
     private String predType;
+    private String ticker; // <---- Only in Client Version, not Server
 
+
+    public void setTicker(String tickerName) {
+        ticker = tickerName;
+    }
 
     public String getDate() {
         return dateEnd;
@@ -25,6 +30,22 @@ public class PredictionDataPoint {
 
     public int getConfidence() {
         return confidence;
+    }
+
+    public String getType() {
+        return predType;
+    }
+
+    public float getIntervalBottom() {
+        return intervalBottom;
+    }
+
+    public float getIntervalTop() {
+        return intervalTop;
+    }
+
+    public String getTicker() {
+        return ticker;
     }
 
 }

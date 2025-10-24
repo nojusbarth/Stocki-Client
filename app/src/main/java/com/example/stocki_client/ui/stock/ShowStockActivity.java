@@ -121,6 +121,7 @@ public class ShowStockActivity extends AppCompatActivity {
 
         Button dailyButton = findViewById(R.id.btnTimeChangeDaily);
         Button hourlyButton = findViewById(R.id.btnTimeChangeHourly);
+        Button weekButton = findViewById(R.id.btnTimeChangeTwoWeek);
 
         dailyButton.setOnClickListener(v -> {
 
@@ -134,6 +135,13 @@ public class ShowStockActivity extends AppCompatActivity {
         hourlyButton.setOnClickListener(v -> {
             if(!interval.equals("1h")) {
                 interval = "1h";
+                onIntervalChange();
+            }
+        });
+
+        weekButton.setOnClickListener(v -> {
+            if(!interval.equals("10d")) {
+                interval = "10d";
                 onIntervalChange();
             }
         });

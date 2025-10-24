@@ -46,30 +46,43 @@ public class ModelHistoryActivity extends AppCompatActivity {
         viewModel.initData(stockName, interval);
 
         createToolbar();
-        initPager(step);
+        initPager(step, interval);
     }
 
 
-    private void initPager(int step) {
+    private void initPager(int step, String interval) {
         TabLayout tabLayoutPredictions = findViewById(R.id.tabLayoutPredictionsHistory);
         ViewPager2 viewPagerPredictions = findViewById(R.id.viewPagerPredictionsHistory);
 
-        HistoryPagerAdapter pagerAdapter = new HistoryPagerAdapter(this);
+        int numberOfSteps;
+        if ("10d".equals(interval)) {
+            numberOfSteps = 1;
+        } else if ("1h".equals(interval) || "1d".equals(interval)) {
+            numberOfSteps = 3;
+        } else {
+            numberOfSteps = 0;
+        }
+
+        HistoryPagerAdapter pagerAdapter = new HistoryPagerAdapter(this, numberOfSteps);
         viewPagerPredictions.setAdapter(pagerAdapter);
 
         new TabLayoutMediator(tabLayoutPredictions, viewPagerPredictions,
                 (tab, position) -> {
-                    if (position == HistoryPagerAdapter.POSITION_STEP_1) {
-                        tab.setText(getResources().getString(R.string.label_one_ahead));
-                    } else if (position == HistoryPagerAdapter.POSITION_STEP_2){
-                        tab.setText(getResources().getString(R.string.label_two_ahead));
-                    } else {
-                        tab.setText(getResources().getString(R.string.label_three_ahead));
+                    switch (position) {
+                        case 0:
+                            tab.setText(getResources().getString(R.string.label_one_ahead));
+                            break;
+                        case 1:
+                            tab.setText(getResources().getString(R.string.label_two_ahead));
+                            break;
+                        case 2:
+                            tab.setText(getResources().getString(R.string.label_three_ahead));
+                            break;
                     }
                 }
         ).attach();
 
-        viewPagerPredictions.setCurrentItem(step, false);
+        viewPagerPredictions.setCurrentItem(Math.min(step, numberOfSteps - 1), false);
     }
 
 
